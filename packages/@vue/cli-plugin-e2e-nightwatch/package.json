@@ -1,0 +1,32 @@
+{
+  "name": "@vue/cli-plugin-e2e-nightwatch",
+  "version": "3.1.1",
+  "description": "e2e-nightwatch plugin for vue-cli",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vuejs/vue-cli.git"
+  },
+  "keywords": [
+    "vue",
+    "cli",
+    "e2e-nightwatch"
+  ],
+  "author": "Evan You",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vuejs/vue-cli/issues"
+  },
+  "homepage": "https://github.com/vuejs/vue-cli/tree/dev/packages/@vue/cli-plugin-e2e-nightwatch#readme",
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@vue/cli-shared-utils": "^3.1.1",
+    "chromedriver": "^2.43.1",
+    "deepmerge": "^2.2.1",
+    "execa": "^1.0.0",
+    "nightwatch": "^0.9.21",
+    "selenium-server": "^3.14.0"
+  }
+}
