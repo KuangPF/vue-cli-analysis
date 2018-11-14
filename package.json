@@ -1,0 +1,22 @@
+{
+  "name": "vue-cli-analysis",
+  "version": "1.0.0",
+  "description": "vue-cli 源码分析",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KuangPF/vue-cli-analysis.git"
+  },
+  "author": "KuangPF",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KuangPF/vue-cli-analysis/issues"
+  },
+  "homepage": "https://github.com/KuangPF/vue-cli-analysis#readme"
+}
