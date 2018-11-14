@@ -24,3 +24,7 @@
   * config
   * upgrade
 * 结束语
+
+## 进度
+
+![progress](http://progressed.io/bar/1?title=progress)
