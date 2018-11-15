@@ -10,7 +10,7 @@
 
 ## 目录
 
-* 前言
+* [前言](https://github.com/KuangPF/vue-cli-analysis/tree/master/docs/foreword/index.md)
 * 环境
 * vue
   * create
@@ -27,4 +27,4 @@
 
 ## 进度
 
-![progress](http://progressed.io/bar/1?title=progress)
+![progress](http://progressed.io/bar/2?title=progress)
