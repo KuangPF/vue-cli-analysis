@@ -2,7 +2,7 @@
 
 ### 发布
 
-[evan you](http://evanyou.me/) 8月10日 在 [medium](https://medium.com)发布了 [Vue CLI 3.0 is here!](https://medium.com/the-vue-point/vue-cli-3-0-is-here-c42bebe28fbb)，这标志着 `vue-cli` 进入了 3.0 时代。从这以后，`vue` 开发体验更加地优秀，开发逼格更加地高大。
+[Evan You](http://evanyou.me/) 8月10日 在 [Medium](https://medium.com)发布了 [Vue CLI 3.0 is here!](https://medium.com/the-vue-point/vue-cli-3-0-is-here-c42bebe28fbb)，这标志着 `vue-cli` 进入了 3.0 时代。从这以后，`vue` 开发体验更加地优秀，开发逼格更加地高大。
 
 其实，不是这样的，事实是：从这以后，你要明白，你又要继续学习了，尤大，你尽管更新，我们还学得动。
 
