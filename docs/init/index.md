@@ -36,3 +36,4 @@ vue init mpvue/mpvue-quickstart my-project
 <img width="1217" alt="init-img01" src="https://user-images.githubusercontent.com/20694238/48670284-3c841400-eb50-11e8-90fa-64006e37ea4b.png">
 
 接下来我们就开始分析`@vue/cli-init` 模块做了什么事情。
+[@vue/cli-init 分析](https://github.com/KuangPF/vue-cli-analysis/tree/master/docs/vue-cli-init-module/index.md)
