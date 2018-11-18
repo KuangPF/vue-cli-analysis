@@ -1,8 +1,11 @@
 # init 命令
 
 **源码目录：**  vue-cli-init/bin/vue-init 。
+
 **作用：** 下载远程模板并生成项目 。
+
 **相关说明：** `vue init` 命令主要是 2.X 版本使用，但在 3.0中还是将其保留，3.0 推荐使用 `vue create` 。
+
 
 `vue init` 命令的入口在 packages/@vue/cli/bin/vue.js 中:
 
@@ -17,7 +20,7 @@ program
   })
 ```
 
-vue init 命令需要输入模版的名称（template）以及 项目名称（app-name），而且都为必填。模版名称可以是官方的模板，[官方模版](https://github.com/vuejs-templates) 包含了 [webpack](https://github.com/vuejs-templates/webpack),[pwa](https://github.com/vuejs-templates/pwa),[webpack-simple](https://github.com/vuejs-templates/webpack-simple),[simple](https://github.com/vuejs-templates/simple),[browserify](https://github.com/vuejs-templates/browserify),[browserify-simple](https://github.com/vuejs-templates/browserify-simple)这6种模板，当然支持自定义 Github 模板，比如初始化 `mpvue-quickstart`的命令如下：
+vue init 命令需要输入模版的名称（template）以及 项目名称（app-name），而且都为必填。模版名称可以是官方的模板，[官方模版](https://github.com/vuejs-templates) 包含了 [webpack](https://github.com/vuejs-templates/webpack)，[pwa](https://github.com/vuejs-templates/pwa)，[webpack-simple](https://github.com/vuejs-templates/webpack-simple)，[simple](https://github.com/vuejs-templates/simple)，[browserify](https://github.com/vuejs-templates/browserify)，[browserify-simple](https://github.com/vuejs-templates/browserify-simple) 这 6 种模板。当然支持自定义 Github 模板，比如初始化 `mpvue-quickstart`的命令如下：
 
 ``` bash
 vue init mpvue/mpvue-quickstart my-project
@@ -36,4 +39,5 @@ vue init mpvue/mpvue-quickstart my-project
 <img width="1217" alt="init-img01" src="https://user-images.githubusercontent.com/20694238/48670284-3c841400-eb50-11e8-90fa-64006e37ea4b.png">
 
 接下来我们就开始分析`@vue/cli-init` 模块做了什么事情。
-[@vue/cli-init 分析](https://github.com/KuangPF/vue-cli-analysis/tree/master/docs/vue-cli-init-module/index.md)
+
+[@vue/cli-init 分析](https://github.com/KuangPF/vue-cli-analysis/tree/master/docs/init/vue-cli-init-module.md)
