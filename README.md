@@ -20,7 +20,7 @@
   * serve
   * build
   * ui
-  * init
+  * [init](https://github.com/KuangPF/vue-cli-analysis/tree/master/docs/init/index.md)
   * config
   * upgrade
 * 结束语
