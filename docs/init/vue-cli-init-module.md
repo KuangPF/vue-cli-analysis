@@ -19,4 +19,3 @@ execa(
 那么接下来就开始分析 vue-cli 2.x 中 init 命令的源码。
 
 [vue-cli-init-2.x 分析](https://github.com/KuangPF/vue-cli-analysis/tree/master/docs/init/vue-cli-init-2.x.md)
-
