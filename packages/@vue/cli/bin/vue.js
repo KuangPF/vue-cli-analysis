@@ -127,13 +127,14 @@ program
     require('../lib/ui')(cleanArgs(cmd))
   })
 
+// vue-init 命令入口
 program
   .command('init <template> <app-name>')
   .description('generate a project from a remote template (legacy API, requires @vue/cli-init)')
   .option('-c, --clone', 'Use git clone when fetching remote template')
   .option('--offline', 'Use cached template')
   .action(() => {
-    loadCommand('init', '@vue/cli-init')
+    loadCommand('init', '@vue/cli-init') // 加载 @vue/cli-init
   })
 
 program
