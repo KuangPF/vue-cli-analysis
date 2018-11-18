@@ -30,7 +30,7 @@ vue init mpvue/mpvue-quickstart my-project
 另外 option 包含了 -c  和 -offline，这两个参数的作用为：
 
 * -c：当利用 `download-git-repo` 获取模版的时候采用`git clone`下载而不是`http 下载`，默认采用 http 下载。
-* —offline：使用缓存的 template 模板，位于`~/.vue-templates`目录下面。
+* --offline：使用缓存的 template 模板，位于`~/.vue-templates`目录下面。
 
 
 
