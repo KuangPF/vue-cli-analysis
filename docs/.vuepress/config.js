@@ -5,7 +5,7 @@ module.exports = {
   head: [
     ['link', {
       rel: 'icon',
-      href: `/logo.ico`
+      href: `/logo.png`
     }]
   ],
   themeConfig: {
@@ -35,7 +35,7 @@ module.exports = {
         title: 'vue init',
         collapsable: false,
         children: [
-          'init/'
+          ['init/', '介绍'],
         ]
       }
     ]
