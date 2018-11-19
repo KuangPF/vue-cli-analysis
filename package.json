@@ -9,6 +9,7 @@
   "scripts": {
     "docs": "vuepress dev docs",
     "docs:build": "vuepress build docs",
+    "deploy": "sh deploy.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
