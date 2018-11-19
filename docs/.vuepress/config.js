@@ -35,7 +35,9 @@ module.exports = {
         title: 'vue init',
         collapsable: false,
         children: [
-          ['init/', '介绍'],
+          ['init/', '👉 step 1'],
+          ['init/vue-cli-init-module.md', '👉 step 2'],
+          ['init/vue-cli-init-2.x.md', '👉 step 3']
         ]
       }
     ]
