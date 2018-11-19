@@ -58,14 +58,16 @@ help()
  */
 
 let template = program.args[0]
-const hasSlash = template.indexOf('/') > -1
-const rawName = program.args[1]
+const hasSlash = template.indexOf('/') > -1 // 下载官方模板还是 Github 自定义模板
+const rawName = program.args[1] 
 const inPlace = !rawName || rawName === '.'
 const name = inPlace ? path.relative('../', process.cwd()) : rawName
-const to = path.resolve(rawName || '.')
+const to = path.resolve(rawName || '.') // 下载模版的目录。如果没有填写 project-name，则在当前目录生成
 const clone = program.clone || false
 
 const tmp = path.join(home, '.vue-templates', template.replace(/[\/:]/g, '-'))
+
+// 根据 --offline 参数判断是否需要从缓存中读取模版
 if (program.offline) {
   console.log(`> Use cached template at ${chalk.yellow(tildify(tmp))}`)
   template = tmp
@@ -114,7 +116,42 @@ function run () {
       logger.fatal('Local template "%s" not found.', template)
     }
   } else {
-    checkVersion(() => {
+    function run () {
+      // check if template is local
+      if (isLocalPath(template)) {
+        const templatePath = getTemplatePath(template)
+        if (exists(templatePath)) {
+          generate(name, templatePath, to, err => {
+            if (err) logger.fatal(err)
+            console.log()
+            logger.success('Generated "%s".', name)
+          })
+        } else {
+          logger.fatal('Local template "%s" not found.', template)
+        }
+      } else {
+        checkVersion(() => {
+          if (!hasSlash) {
+            // use official templates
+            const officialTemplate = 'vuejs-templates/' + template
+            if (template.indexOf('#') !== -1) {
+              downloadAndGenerate(officialTemplate)
+            } else {
+              if (template.indexOf('-2.0') !== -1) {
+                // 提示带“-2.0”的模板已经弃用了，官方模板默认用2.0了。不需要用“-2.0”来区分vue1.0和vue2.0了。
+                warnings.v2SuffixTemplatesDeprecated(template, inPlace ? '' : name)
+                return
+              }
+    
+              // warnings.v2BranchIsNowDefault(template, inPlace ? '' : name)
+              downloadAndGenerate(officialTemplate)
+            }
+          } else {
+            downloadAndGenerate(template)
+          }
+        })
+      }
+    }(() => {
       if (!hasSlash) {
         // use official templates
         const officialTemplate = 'vuejs-templates/' + template
