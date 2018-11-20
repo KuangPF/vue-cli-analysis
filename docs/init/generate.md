@@ -4,7 +4,7 @@
 
 ``` javascript
 module.exports = function generate (name, src, dest, done) {
-  const opts = getOptions(name, src)
+  const opts = getOptions(name, src) // 获取配置信息
   const metalsmith = Metalsmith(path.join(src, 'template'))
   const data = Object.assign(metalsmith.metadata(), {
     destDirName: name,
@@ -50,8 +50,8 @@ module.exports = function generate (name, src, dest, done) {
 ```
 我们将这段代码分为以下部分来讲：
 
-## getOptions
-根据这语以化就知道这是获取配置的，然后详细看下 getOptions 函数的代码：
+### getOptions
+根据这语以化的函数名就知道这是获取配置的，然后详细看下 `getOptions` 函数的代码：
 
 ``` javascript
 module.exports = function options (name, dir) {
@@ -70,7 +70,7 @@ module.exports = function options (name, dir) {
 }
 ```
 
-setValidateName 的作用就是利用 [validate-npm-package-name](https://github.com/atlassian/validate-npm-package) 检查你输入的 app-name 是否符合 npm 包名规范，而且也可以在 meta.js 中的 prompts 字段中的name 下面增加 validate 字段来进行校验，但和 validate-npm-package-name 的规则是 && 的关系。比如，当你输入的 app-name 包含了大写字段，就会有以下的提示：
+`setValidateName` 的作用就是利用 [validate-npm-package-name](https://github.com/atlassian/validate-npm-package) 检查你输入的 app-name 是否符合 npm 包名命名规范，当然你也可以在 `meta.js` 中的 `prompts` 字段中的 `name` 下面增加 `validate` 字段来进行校验，但和 `validate-npm-package-name` 的规则是 && 的关系。比如，当你输入的 app-name 包含了大写字母，就会有以下的提示：
 
 <img :src="$withBase('/assets/init-img02.png')">
 
