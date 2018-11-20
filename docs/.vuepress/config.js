@@ -37,7 +37,8 @@ module.exports = {
         children: [
           ['init/', '👉 step 1'],
           ['init/vue-cli-init-module.md', '👉 step 2'],
-          ['init/vue-cli-init-2.x.md', '👉 step 3']
+          ['init/vue-cli-init-2.x.md', '👉 step 3'],
+          ['init/generate.md', '👉 step 4']
         ]
       }
     ]

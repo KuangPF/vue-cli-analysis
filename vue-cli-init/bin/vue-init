@@ -82,6 +82,7 @@ process.on('exit', () => {
   console.log()
 })
 
+// 判断是否在当前目录生成，以及存在相同目录的情况
 if (inPlace || exists(to)) {
   inquirer.prompt([{
     type: 'confirm',

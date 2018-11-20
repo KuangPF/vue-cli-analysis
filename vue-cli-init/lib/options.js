@@ -12,7 +12,7 @@ const validateName = require('validate-npm-package-name')
  */
 
 module.exports = function options (name, dir) {
-  const opts = getMetadata(dir)
+  const opts = getMetadata(dir) // 获取 meta.js 里面的信息，比如：prompts，helpers，filters 等等
 
   setDefault(opts, 'name', name)
   setValidateName(opts)
