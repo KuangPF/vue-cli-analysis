@@ -10,19 +10,18 @@
 
 ## 目录
 
-* [前言](https://github.com/KuangPF/vue-cli-analysis/tree/master/docs/foreword/index.md)
-* [环境](https://github.com/KuangPF/vue-cli-analysis/tree/master/docs/env/index.md)
-* vue
-  * create
-  * add
-  * invoke
-  * inspect
-  * serve
-  * build
-  * ui
-  * [init](https://github.com/KuangPF/vue-cli-analysis/tree/master/docs/init/index.md)
-  * config
-  * upgrade
+* [前言](http://kuangpf.com/vue-cli-analysis/foreword/)
+* [环境](http://kuangpf.com/vue-cli-analysis/env/)
+* vue create
+* vue add
+* vue invoke
+* vue inspect
+* vue serve
+* vue build
+* vue ui
+* [vue init](http://kuangpf.com/vue-cli-analysis/init/)
+* vue config
+* vue upgrade
 * 结束语
 
 ## 进度
