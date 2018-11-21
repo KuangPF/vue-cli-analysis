@@ -5,8 +5,8 @@
 ``` javascript
 module.exports = function generate (name, src, dest, done) {
   const opts = getOptions(name, src) // 获取配置信息
-  const metalsmith = Metalsmith(path.join(src, 'template'))
-  const data = Object.assign(metalsmith.metadata(), {
+  const metalsmith = Metalsmith(path.join(src, 'template'))  // 定义 Metalsmith 工作目录  ~/.vue-templates`
+  const data = Object.assign(metalsmith.metadata(), { // 定义一些全局变量，这样可以在 layout-files 中使用
     destDirName: name,
     inPlace: dest === process.cwd(),
     noEscape: true
@@ -74,3 +74,11 @@ module.exports = function options (name, dir) {
 
 <img :src="$withBase('/assets/init-img02.png')">
 
+
+### Handlebars.registerHelper
+
+`Handlebars.registerHelper` 用于注册一些 `helper`（或者说成是一些逻辑方法），在模版中来处理一些数据，比如像源码中注册的 `if_eq`  `helper`，他的作用就是判断两个字符串是否相等。然后在 `webpack` 的模板中就有以下的用法：
+
+<img :src="$withBase('/assets/init-img03.png')">
+
+就是根据你在构建项目时选择的 `test runner （Jest，Karma and Mocha，none configure it yourself）` 来生成对应的 `npm script`。你也可以在 `meta.js` 中添加自定义的 `helper`，`vue-cli` 会帮你注册到 `Handlebars` 中。
