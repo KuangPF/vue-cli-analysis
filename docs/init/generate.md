@@ -82,3 +82,67 @@ module.exports = function options (name, dir) {
 <img :src="$withBase('/assets/init-img03.png')">
 
 就是根据你在构建项目时选择的 `test runner （Jest，Karma and Mocha，none configure it yourself）` 来生成对应的 `npm script`。你也可以在 `meta.js` 中添加自定义的 `helper`，`vue-cli` 会帮你注册到 `Handlebars` 中。
+
+### opts.metalsmith
+先看一段源码：
+
+``` javascript
+if (opts.metalsmith && typeof opts.metalsmith.before === 'function') {
+    opts.metalsmith.before(metalsmith, opts, helpers)
+  }
+
+  metalsmith.use(askQuestions(opts.prompts))
+    .use(filterFiles(opts.filters))
+    .use(renderTemplateFiles(opts.skipInterpolation))
+
+  if (typeof opts.metalsmith === 'function') {
+    opts.metalsmith(metalsmith, opts, helpers)
+  } else if (opts.metalsmith && typeof opts.metalsmith.after === 'function') {
+    opts.metalsmith.after(metalsmith, opts, helpers)
+  }
+```
+opts.metalsmith 的作用就是合并一些全局变量，怎么理解呢，我们从 webpack 模板入手。在 webpack 模板的meta.js 中添加了metalsmith.after
+
+``` javascript
+module.exports = {
+  metalsmith: {
+    // When running tests for the template, this adds answers for the selected scenario
+    before: addTestAnswers
+  }
+  ...
+}
+```
+然后一步一步的找到 addTestAnswers：
+
+``` javascript
+const scenarios = [
+  'full', 
+  'full-karma-airbnb', 
+  'minimal'
+]
+
+const index = scenarios.indexOf(process.env.VUE_TEMPL_TEST)
+
+const isTest = exports.isTest = index !== -1
+
+const scenario = isTest && require(`./${scenarios[index]}.json`)
+
+exports.addTestAnswers = (metalsmith, options, helpers) => {
+  Object.assign(
+    metalsmith.metadata(),
+    { isNotTest: !isTest },
+    isTest ? scenario : {}
+  )
+}
+```
+然后就是将 将metalsmith metadata 数据 和 isNotTest 合并，如果 isTest 为 ture，还会自动设置name，description等字段。那么它的作用是什么呢，作用就是为模版添加自动测试脚本。他会将 isNotTest 设置为 false，而通过 inquirer 来提问又会是在 isNotTest 为true 的情况下才会发生。因此当你设置VUE_TEMPL_TEST的时候 vue-cli 就不会出现 inquirer 的问题。而是根据VUE_TEMPL_TEST设置的值来判断你需要哪种scenarios，有以下三种可以设置：
+
+* minimal：这种不会设置 router eslint tests
+* full： 会带有router，eslint (standard) ，tests (jest & e2e)
+* full-airbnb-karma：带有 router eslint（airbnb） tests（karma）
+
+那么如何使用使用某一种呢，命名如下：
+
+``` bash
+VUE_TEMPL_TEST=full vue init webpack demo
+```
