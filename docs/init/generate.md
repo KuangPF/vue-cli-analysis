@@ -101,7 +101,7 @@ if (opts.metalsmith && typeof opts.metalsmith.before === 'function') {
     opts.metalsmith.after(metalsmith, opts, helpers)
   }
 ```
-opts.metalsmith 的作用就是合并一些全局变量，怎么理解呢，我们从 webpack 模板入手。在 webpack 模板的meta.js 中添加了metalsmith.after
+`opts.metalsmith` 的作用就是合并一些全局变量，怎么理解呢，我们从 `webpack` 模板入手。在 `webpack` 模板的 `meta.js` 中含有了`metalsmith.after`
 
 ``` javascript
 module.exports = {
@@ -112,7 +112,7 @@ module.exports = {
   ...
 }
 ```
-然后一步一步的找到 addTestAnswers：
+然后一步一步找到 `addTestAnswers`：
 
 ``` javascript
 const scenarios = [
@@ -135,14 +135,17 @@ exports.addTestAnswers = (metalsmith, options, helpers) => {
   )
 }
 ```
-然后就是将 将metalsmith metadata 数据 和 isNotTest 合并，如果 isTest 为 ture，还会自动设置name，description等字段。那么它的作用是什么呢，作用就是为模版添加自动测试脚本。他会将 isNotTest 设置为 false，而通过 inquirer 来提问又会是在 isNotTest 为true 的情况下才会发生。因此当你设置VUE_TEMPL_TEST的时候 vue-cli 就不会出现 inquirer 的问题。而是根据VUE_TEMPL_TEST设置的值来判断你需要哪种scenarios，有以下三种可以设置：
+`metalsmith.before` 结果就是将 `metalsmith metadata` 数据和 `isNotTest` 合并，如果 `isTest` 为 `ture`，还会自动设置 `name`，`description`等字段。那么它的作用是什么呢，作用就是为模版添加自动测试脚本，它会将 `isNotTest` 设置为 `false`，而通过 `inquirer` 来提问又会是在 `isNotTest` 为 `true` 的情况下才会发生，因此设置了`VUE_TEMPL_TEST`的值会省略 `inquirer` 提问过程，并且会根据你设置的值来生成对应的模板，有以下三种值可以设置：
 
-* minimal：这种不会设置 router eslint tests
-* full： 会带有router，eslint (standard) ，tests (jest & e2e)
-* full-airbnb-karma：带有 router eslint（airbnb） tests（karma）
+* **minimal**：这种不会设置 router，eslint 和 tests
+* **full**： 会带有 router，eslint (standard) 和 tests (jest & e2e)
+* **full-airbnb-karma**：带有 router eslint（airbnb） 和 tests（karma）
 
-那么如何使用使用某一种呢，命名如下：
+那么如何使用使用某一种呢，命令如下：
 
 ``` bash
 VUE_TEMPL_TEST=full vue init webpack demo
 ```
+在这种情况下，会自动跳过 `inquirer` 的问题，并生成你设置的 `VUE_TEMPL_TEST`。
+
+<img :src="$withBase('/assets/init-img04.png')">
