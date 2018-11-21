@@ -35,10 +35,10 @@ module.exports = {
         title: 'vue init',
         collapsable: false,
         children: [
-          ['init/', '👉 step 1'],
-          ['init/vue-cli-init-module.md', '👉 step 2'],
-          ['init/vue-cli-init-2.x.md', '👉 step 3'],
-          ['init/generate.md', '👉 step 4']
+          ['init/', 'init 入口'],
+          ['init/vue-cli-init-module.md', '@vue/cli-init 分析'],
+          ['init/vue-cli-init-2.x.md', 'cli 2.x  init 分析'],
+          ['init/generate.md', 'generate 函数分析']
         ]
       }
     ]
