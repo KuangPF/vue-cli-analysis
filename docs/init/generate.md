@@ -101,7 +101,7 @@ if (opts.metalsmith && typeof opts.metalsmith.before === 'function') {
     opts.metalsmith.after(metalsmith, opts, helpers)
   }
 ```
-`opts.metalsmith` 的作用就是合并一些全局变量，怎么理解呢，我们从 `webpack` 模板入手。在 `webpack` 模板的 `meta.js` 中含有了`metalsmith.after`
+`opts.metalsmith` 的作用就是合并一些全局变量，怎么理解呢，我们从 `webpack` 模板入手。在 `webpack` 模板的 `meta.js` 中含有`metalsmith.after`:
 
 ``` javascript
 module.exports = {
@@ -141,7 +141,7 @@ exports.addTestAnswers = (metalsmith, options, helpers) => {
 * **full**： 会带有 router，eslint (standard) 和 tests (jest & e2e)
 * **full-airbnb-karma**：带有 router eslint（airbnb） 和 tests（karma）
 
-那么如何使用使用某一种呢，命令如下：
+那么如何使用某一种呢，命令如下：
 
 ``` bash
 VUE_TEMPL_TEST=full vue init webpack demo
