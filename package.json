@@ -10,6 +10,7 @@
     "docs": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "deploy": "sh deploy.sh",
+    "metal": "node ./example/metalsmith/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,6 +24,8 @@
   },
   "homepage": "https://github.com/KuangPF/vue-cli-analysis#readme",
   "dependencies": {
+    "async": "^2.6.1",
+    "consolidate": "^0.15.1",
     "handlebars": "^4.0.12",
     "inquirer": "^6.2.0",
     "metalsmith": "^2.3.0"
