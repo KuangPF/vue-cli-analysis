@@ -21,5 +21,10 @@
   "bugs": {
     "url": "https://github.com/KuangPF/vue-cli-analysis/issues"
   },
-  "homepage": "https://github.com/KuangPF/vue-cli-analysis#readme"
+  "homepage": "https://github.com/KuangPF/vue-cli-analysis#readme",
+  "dependencies": {
+    "handlebars": "^4.0.12",
+    "inquirer": "^6.2.0",
+    "metalsmith": "^2.3.0"
+  }
 }
