@@ -26,7 +26,7 @@ module.exports = {
           ['foreword/', '介绍']
         ]
       },{
-        title: '环境',
+        title: '开始',
         collapsable: true,
         children: [
           ['env/', '介绍']
