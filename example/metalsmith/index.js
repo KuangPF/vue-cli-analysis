@@ -20,7 +20,7 @@ var prompts = {
     type: 'string',
     required: false,
     message: 'Project description',
-    default: 'A Vue.js project',
+    default: 'A metalsmith-demo project',
   },
 }
 Metalsmith(__dirname)

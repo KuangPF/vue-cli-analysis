@@ -1,6 +1,6 @@
 # vue-cli 2.x init 分析
 
-当开始执行 vue-cli-init/bin/vue-init 的代码时，会进入这个判断：
+当开始执行 `vue-cli-init/bin/vue-init` 的代码时，会进入这个判断：
 
 ``` javascript
 if (inPlace || exists(to)) {
@@ -91,4 +91,4 @@ function downloadAndGenerate (template) {
 
 到这里也许有些朋友会问：直接把模板下载下来放在 /app-name 目录下面不就可以了？如果是静态的模板的的确可以这么做，但是在 vue-cli 初始化一个项目的过程中会询问你 `Project name`， `Project description` 以及是否需要安装 `vue-router`等等，最后会根据你的回答来生成对应的文件，所以直接将静态的模板放在 /app-name 目录显然不行，因此调用`generate` 函数动态地生成模板。
 
-其实分析到这里就会发现 vue-cli 会将一个功能拆分为多个模块来写，这中模块化的思想还是非常值得学习的，好了，下一节开始分析 `generate` 函数的实现，这也是 init 命令中最核心的部分。
+其实分析到这里就会发现 vue-cli 会将一个功能拆分为多个模块来写，这中模块化的思想是非常值得学习的，好了，下一节开始分析 `generate` 函数的实现，这也是 init 命令中最核心的部分。

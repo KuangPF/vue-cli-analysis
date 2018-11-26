@@ -1,6 +1,6 @@
 # init 命令
 
-**源码目录：**  vue-cli-init/bin/vue-init 。
+**源码目录：**  packages/@vue/cli-init/index.js 。
 
 **作用：** 下载远程模板并生成项目 。
 

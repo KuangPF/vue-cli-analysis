@@ -21,15 +21,16 @@ module.exports = {
     ],
     sidebar: [{
         title: '前言',
-        collapsable: true,
+        collapsable: false,
         children: [
           ['foreword/', '介绍']
         ]
       },{
         title: '开始',
-        collapsable: true,
+        collapsable: false,
         children: [
-          ['env/', '介绍']
+          ['start/env', '环境介绍'],
+          ['start/npm', '常见 npm 包']
         ]
       }, {
         title: 'vue init',
