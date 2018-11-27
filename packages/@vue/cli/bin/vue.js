@@ -57,7 +57,7 @@ program
   .option('-b, --bare', 'Scaffold project without beginner instructions')
   .action((name, cmd) => {
     const options = cleanArgs(cmd)
-    // --no-git makes commander to default git to true
+    // --git makes commander to default git to true
     if (process.argv.includes('-g') || process.argv.includes('--git')) {
       options.forceGit = true
     }
@@ -127,14 +127,13 @@ program
     require('../lib/ui')(cleanArgs(cmd))
   })
 
-// vue-init 命令入口
 program
   .command('init <template> <app-name>')
   .description('generate a project from a remote template (legacy API, requires @vue/cli-init)')
   .option('-c, --clone', 'Use git clone when fetching remote template')
   .option('--offline', 'Use cached template')
   .action(() => {
-    loadCommand('init', '@vue/cli-init') // 加载 @vue/cli-init
+    loadCommand('init', '@vue/cli-init')
   })
 
 program
@@ -154,6 +153,27 @@ program
   .description('upgrade vue cli service / plugins (default semverLevel: minor)')
   .action((semverLevel, cmd) => {
     loadCommand('upgrade', '@vue/cli-upgrade')(semverLevel, cleanArgs(cmd))
+  })
+
+program
+  .command('info')
+  .description('print debugging information about your environment')
+  .action((cmd) => {
+    console.log(chalk.bold('\nEnvironment Info:'))
+    require('envinfo').run(
+      {
+        System: ['OS', 'CPU'],
+        Binaries: ['Node', 'Yarn', 'npm'],
+        Browsers: ['Chrome', 'Edge', 'Firefox', 'Safari'],
+        npmPackages: '/**/{*vue*,@vue/*/}',
+        npmGlobalPackages: ['@vue/cli']
+      },
+      {
+        showNotFound: true,
+        duplicates: true,
+        fullTree: true
+      }
+    ).then(console.log)
   })
 
 // output help information on unknown commands
