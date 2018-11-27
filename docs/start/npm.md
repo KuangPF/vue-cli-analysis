@@ -6,7 +6,7 @@ sidebarDepth: 0
 
 在进去 `vue-cli` 源码学习之前，这里先介绍下在 `vue-cli` 项目中用到的一些必备的 `npm` 包，这样在后面分析源码的时候会比较快的理解。
 * [commander](https://github.com/tj/commander.js)：node.js command-line interfaces made easy
-* [Inquirer](https://github.com/SBoudrias/Inquirer.js)
+* [Inquirer](https://github.com/SBoudrias/Inquirer.js)：A collection of common interactive command line user interfaces.
 * [handlebars](https://github.com/wycats/handlebars.js)
 * [metalsmith](https://github.com/segmentio/metalsmith)
 * [chalk](https://github.com/chalk/chalk)
@@ -17,30 +17,44 @@ sidebarDepth: 0
 
 ## commander
 
-`commander` 是一款重量轻，表现力和强大的命令行框架，提供了用户命令行输入和参数解析强大功能。以 `vue create` 为例：
+`commander` 是一款重量轻，表现力和强大的命令行框架，提供了用户命令行输入和参数解析强大功能。
 
 ``` javascript
-program
-  .command('create <app-name>')
-  .description('create a new project powered by vue-cli-service')
-  .option('-p, --preset <presetName>', 'Skip prompts and use saved or remote preset')
-  .option('-d, --default', 'Skip prompts and use default preset')
-  .option('-i, --inlinePreset <json>', 'Skip prompts and use inline JSON string as preset')
-  .option('-m, --packageManager <command>', 'Use specified npm client when installing dependencies')
-  .option('-r, --registry <url>', 'Use specified npm registry when installing dependencies (only for npm)')
-  .option('-g, --git [message]', 'Force git initialization with initial commit message')
-  .option('-n, --no-git', 'Skip git initialization')
-  .option('-f, --force', 'Overwrite target directory if it exists')
-  .option('-c, --clone', 'Use git clone when fetching remote preset')
-  .option('-x, --proxy', 'Use specified proxy when creating project')
-  .option('-b, --bare', 'Scaffold project without beginner instructions')
-  .action((name, cmd) => {
-    const options = cleanArgs(cmd)
-    // --no-git makes commander to default git to true
-    if (process.argv.includes('-g') || process.argv.includes('--git')) {
-      options.forceGit = true
-    }
-    require('../lib/create')(name, options)
-  })
-```
+#!/usr/bin/env node
 
+const program = require('commander')
+
+program
+  .version('0.0.1')
+  .command('rmdir <dir> [otherDirs...]')
+  .action(function(dir, otherDirs) {
+    console.log('rmdir %s', dir);
+    if (otherDirs) {
+      otherDirs.forEach(function(oDir) {
+        console.log('rmdir %s', oDir);
+      });
+    }
+  });
+
+program.parse(process.argv);
+```
+这段代码为 `commander.js` 官方的一个示例，它展示了 `commander.js` 可变参数的特性，可以在 `action` 的回调中获取对应的参数，当然也可以通过 `process.argv` 获取，[commander.js 中文文档](https://github.com/tj/commander.js/blob/master/Readme_zh-CN.md)。
+
+## Inquirer
+`Inquirer` 为交互式命令行工具，比如执行 `vue create` 命令会有以下的命令行交互：
+
+<img :src="$withBase('/assets/install-img01.png')">
+
+Inquirer 的基本使用如下：
+
+``` javascript
+var inquirer = require('inquirer');
+inquirer
+  .prompt([
+    /* Pass your questions in here */
+  ])
+  .then(answers => {
+    // Use user feedback for... whatever!!
+  });
+```
+[详细文档](https://github.com/SBoudrias/Inquirer.js)
