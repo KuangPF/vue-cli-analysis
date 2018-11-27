@@ -45,7 +45,7 @@ program.parse(process.argv);
 
 <img :src="$withBase('/assets/install-img01.png')">
 
-Inquirer 的基本使用如下：
+`Inquirer` 的基本使用如下：
 
 ``` javascript
 var inquirer = require('inquirer');
@@ -57,4 +57,5 @@ inquirer
     // Use user feedback for... whatever!!
   });
 ```
-[详细文档](https://github.com/SBoudrias/Inquirer.js)
+`inquirer.prompt` 接受一个 `questions` 数组， 一个 `question` 对象包含 `type`，`name`， `message`， `default` 等等字段，然后通过回调获取命令行交互的值，[详细文档](https://github.com/SBoudrias/Inquirer.js)。
+ 
