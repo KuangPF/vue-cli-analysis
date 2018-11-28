@@ -9,7 +9,7 @@ sidebarDepth: 0
 * [Inquirer](https://github.com/SBoudrias/Inquirer.js)：A collection of common interactive command line user interfaces。
 * [handlebars](https://github.com/wycats/handlebars.js)：一个 javascript 语以模版库。
 * [metalsmith](https://github.com/segmentio/metalsmith)；An extremely simple, pluggable static site generator。
-* [chalk](https://github.com/chalk/chalk)
+* [chalk](https://github.com/chalk/chalk)：Terminal string styling done right。
 * [download-git-repo](https://github.com/flipxfx/download-git-repo)
 * [consolidate](https://github.com/tj/consolidate.js)
 
@@ -126,3 +126,17 @@ function plugin(opts){
 }
 ```
 关于 `metalsmith` 的更多介绍以及语法可查看[详细文档](https://metalsmith.io/)。
+
+# chalk
+
+`chalk` 是用于修改控制台字符串的样式，包括字体样式（加粗），颜色以及背景颜色等。
+
+<img :src="$withBase('/assets/install-img02.png')">
+
+使用比较简单：
+
+``` javascript
+const chalk = require('chalk');
+console.log(chalk.blue('Hello world!'));
+```
+更多的用法以及 `API` 可查看[详细文档](https://github.com/chalk/chalk)
