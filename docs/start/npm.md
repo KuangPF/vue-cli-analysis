@@ -11,7 +11,7 @@ sidebarDepth: 0
 * [metalsmith](https://github.com/segmentio/metalsmith)；An extremely simple, pluggable static site generator。
 * [chalk](https://github.com/chalk/chalk)：Terminal string styling done right。
 * [download-git-repo](https://github.com/flipxfx/download-git-repo)：Download and extract a git repository (GitHub, GitLab, Bitbucket) from node。
-* [consolidate](https://github.com/tj/consolidate.js)
+* [consolidate](https://github.com/tj/consolidate.js)：Template engine consolidation library for node.js 。
 
 下面逐个介绍：
 
@@ -154,3 +154,14 @@ download(repository, destination, options, callback)
 * callback：下载完成地回调。
 
 更多例子可查看 [详细文档](https://github.com/flipxfx/download-git-repo)。
+
+# consolidate
+`consolidate` 是一个模版引擎整合库，它的作用是把一些著名的模板引擎适配成 `Express` 兼容的接口。在 `vue-cli` 的 `init` 命令中利用 `consolidate.handlebars.render` 是实现模版的渲染。在 `/example/metalsmith` 目录里有个 `demo`，就是通过 `metalsmith` 以及`consolidate.handlebars.render` 方法将一个 `package.json` 以 `handlebars` 的模板引擎来渲染，在项目里运行
+
+``` bash
+npm run metalsmith
+```
+<img :src="$withBase('/assets/install-img03.gif')">
+
+希望可以通过这个小 `demo` 比较好地理解 `metalsmith`， `handlebars` ，`consolidate` 以及`inquirer`。
+

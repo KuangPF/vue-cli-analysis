@@ -10,7 +10,7 @@
     "docs": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "deploy": "sh deploy.sh",
-    "metal": "node ./example/metalsmith/index.js",
+    "metalsmith": "node ./example/metalsmith/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
