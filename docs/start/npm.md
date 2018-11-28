@@ -10,7 +10,7 @@ sidebarDepth: 0
 * [handlebars](https://github.com/wycats/handlebars.js)：一个 javascript 语以模版库。
 * [metalsmith](https://github.com/segmentio/metalsmith)；An extremely simple, pluggable static site generator。
 * [chalk](https://github.com/chalk/chalk)：Terminal string styling done right。
-* [download-git-repo](https://github.com/flipxfx/download-git-repo)
+* [download-git-repo](https://github.com/flipxfx/download-git-repo)：Download and extract a git repository (GitHub, GitLab, Bitbucket) from node。
 * [consolidate](https://github.com/tj/consolidate.js)
 
 下面逐个介绍：
@@ -139,4 +139,18 @@ function plugin(opts){
 const chalk = require('chalk');
 console.log(chalk.blue('Hello world!'));
 ```
-更多的用法以及 `API` 可查看[详细文档](https://github.com/chalk/chalk)
+更多的用法以及 `API` 可查看[详细文档](https://github.com/chalk/chalk)。
+
+
+# download-git-repo
+`download-git-repo` 是用于 从 `GitHub`, `GitLab`, `Bitbucket` 下载一个 `git` 仓库，`API` 如下：
+``` javascript
+download(repository, destination, options, callback)
+```
+
+* repository：仓库地址。
+* destination：存放下载 git 仓库的路径。
+* options：选项，clone。是以 http download 的形式还是 git clone 的形式下载。其中 git clone 的形式支持下载 private 仓库。
+* callback：下载完成地回调。
+
+更多例子可查看 [详细文档](https://github.com/flipxfx/download-git-repo)。
