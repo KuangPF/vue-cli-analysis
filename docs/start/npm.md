@@ -5,10 +5,10 @@ sidebarDepth: 0
 # 常见 npm 包
 
 在进去 `vue-cli` 源码学习之前，这里先介绍下在 `vue-cli` 项目中用到的一些必备的 `npm` 包，这样在后面分析源码的时候会比较快的理解。
-* [commander](https://github.com/tj/commander.js)：node.js command-line interfaces made easy
-* [Inquirer](https://github.com/SBoudrias/Inquirer.js)：A collection of common interactive command line user interfaces.
-* [handlebars](https://github.com/wycats/handlebars.js)：一个 javascript 语以模版库
-* [metalsmith](https://github.com/segmentio/metalsmith)
+* [commander](https://github.com/tj/commander.js)：node.js command-line interfaces made easy。
+* [Inquirer](https://github.com/SBoudrias/Inquirer.js)：A collection of common interactive command line user interfaces。
+* [handlebars](https://github.com/wycats/handlebars.js)：一个 javascript 语以模版库。
+* [metalsmith](https://github.com/segmentio/metalsmith)；An extremely simple, pluggable static site generator。
 * [chalk](https://github.com/chalk/chalk)
 * [download-git-repo](https://github.com/flipxfx/download-git-repo)
 * [consolidate](https://github.com/tj/consolidate.js)
@@ -81,3 +81,48 @@ var result = template(data);
 // </ul>
 ```
 这是官方的一个 `demo`, 就是通过 `Handlebars` 的 `compile` 方法将模板编译成 `html` 。在 `vue-cli` 的 `init` 命令中，利用 `Handlebars.registerHelper` 方法注册了一些 `helper`，这样就可以在模板中方便的使用这些 `helper`，[详细文档](https://handlebarsjs.com/)。
+
+# metalsmith
+`metalsmith` 一个静态网站生成器，可以用在批量处理模板的场景，和 `hexo` 类似。它最大的特点就是所有的逻辑都是由插件处理，你只需要将这些插件用 `metalsmith` 连接起来使用即可，比如官方的一个 `demo`：
+
+``` javascript
+Metalsmith(__dirname)
+  .use(markdown())
+  .use(layouts('handlebars'))
+  .build(function(err) {
+    if (err) throw err;
+    console.log('Build finished!');
+  });
+```
+这段代码就是通过使用 [metalsmith-markdown](https://github.com/segmentio/metalsmith-markdown) 和 [metalsmith-layouts](https://github.com/metalsmith/metalsmith-layouts) 插件 将 `markdown` 文件以 `handlebars` 的模板形式来生成`html` 文件，在 `vue-cli` 的 `init` 命令中使用了三个插件：`askQuestions` `filterFiles` `renderTemplateFiles` 从这名字就知道这个插件的作用了。编写 metalsmith 其实不是很难，官方对插件的编写介绍地比较详细，示例代码：
+
+**metalsmith-myplugin**:
+
+``` javascript
+// we would like you to use debug
+var debug = require('debug')('metalsmith-myplugin');
+var multimatch = require('multimatch');
+
+// Expose `plugin`.
+module.exports = plugin;
+
+function plugin(opts){
+  opts.pattern = opts.pattern || [];
+
+  return function (files, metalsmith, done){
+
+    setImmediate(done);
+    Object.keys(files).forEach(function(file){
+      if(multimatch(file, opts.pattern).length) {
+        debug('myplugin working on: %s', file);
+
+        //
+        // here would be your code
+        //
+
+      }
+    });
+  };
+}
+```
+关于 `metalsmith` 的更多介绍以及语法可查看[详细文档](https://metalsmith.io/)。
