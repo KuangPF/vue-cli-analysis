@@ -163,5 +163,8 @@ npm run metalsmith
 ```
 <img :src="$withBase('/assets/install-img03.gif')">
 
-希望可以通过这个小 `demo` 比较好地理解 `metalsmith`， `handlebars` ，`consolidate` 以及`inquirer`。
+希望可以通过这个小 `demo` 可以比较好地理解 `metalsmith`， `handlebars` ，`consolidate` 以及`inquirer`，关于 `consolidate` 的更多语法请查看[详细文档](https://github.com/tj/consolidate.js)。
 
+
+# 总结
+这部分主要介绍了在利用 `node` 搭建脚手架工具时一些常见的 `npm` 包，对这些 `npm` 包进行一定的了解后，在后面看源码的时候会比较容易些，下面开始进行源码分析。
