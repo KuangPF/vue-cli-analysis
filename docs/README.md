@@ -10,8 +10,10 @@
 
 ## 目录
 
-* [前言](http://kuangpf.com/vue-cli-analysis/foreword/)
-* [环境](http://kuangpf.com/vue-cli-analysis/env/)
+* [前言](https://kuangpf.com/vue-cli-analysis/foreword/)
+* **开始**
+  * [环境介绍](https://kuangpf.com/vue-cli-analysis/start/env.html/)
+  * [常见 npm 包](https://kuangpf.com/vue-cli-analysis/start/npm.html/)
 * vue create
 * vue add
 * vue invoke
@@ -19,7 +21,11 @@
 * vue serve
 * vue build
 * vue ui
-* [vue init](http://kuangpf.com/vue-cli-analysis/init/)
+* **vue init**
+  * [init 入口](https://kuangpf.com/vue-cli-analysis/init/)
+  * [@vue/cli-init 分析](https://kuangpf.com/vue-cli-analysis/init/vue-cli-init-module.html)
+  * [vue-cli 2.x init 分析](https://kuangpf.com/vue-cli-analysis/init/vue-cli-init-2.x.html)
+  * [generate 函数分析](https://kuangpf.com/vue-cli-analysis/init/generate.html)
 * vue config
 * vue upgrade
 * 结束语
