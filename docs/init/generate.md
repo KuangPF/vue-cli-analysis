@@ -149,3 +149,6 @@ VUE_TEMPL_TEST=full vue init webpack demo
 在这种情况下，会自动跳过 `inquirer` 的问题，并生成你设置的 `VUE_TEMPL_TEST`。
 
 <img :src="$withBase('/assets/init-img04.png')">
+
+### metalsmith.use
+metalsmith.use 是 metalsmith 使用插件的写法，前面说过metalsmith最大的特点就是所有的逻辑都是由插件处理，在 generate 函数中一共有使用了三个 metalsmith 插件，分别为：askQuestions filterFiles renderTemplateFiles 。
