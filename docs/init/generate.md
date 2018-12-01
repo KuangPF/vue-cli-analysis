@@ -151,4 +151,61 @@ VUE_TEMPL_TEST=full vue init webpack demo
 <img :src="$withBase('/assets/init-img04.png')">
 
 ### metalsmith.use
-metalsmith.use 是 metalsmith 使用插件的写法，前面说过metalsmith最大的特点就是所有的逻辑都是由插件处理，在 generate 函数中一共有使用了三个 metalsmith 插件，分别为：askQuestions filterFiles renderTemplateFiles 。
+`metalsmith.use` 是 `metalsmith` 使用插件的写法，前面说过 `metalsmith` 最大的特点就是所有的逻辑都是由插件处理，在 `generate` 函数中一共有使用了三个 `metalsmith` 插件，分别为：`askQuestions` `filterFiles` `renderTemplateFiles` 。
+
+* askQuestions
+
+``` js
+function askQuestions (prompts) {
+  return (files, metalsmith, done) => {
+    ask(prompts, metalsmith.metadata(), done)
+  }
+}
+```
+
+ask 函数又是独立出来的一个模块，源码（主要代码）为：
+
+
+``` js
+//  ...
+module.exports = function ask (prompts, data, done) {
+  async.eachSeries(Object.keys(prompts), (key, next) => {
+    prompt(data, key, prompts[key], next)
+  }, done)
+}
+function prompt (data, key, prompt, done) {
+  // skip prompts whose when condition is not met
+  if (prompt.when && !evaluate(prompt.when, data)) {
+    return done()
+  }
+
+  let promptDefault = prompt.default
+  if (typeof prompt.default === 'function') {
+    promptDefault = function () {
+      return prompt.default.bind(this)(data)
+    }
+  }
+
+  inquirer.prompt([{
+    type: promptMapping[prompt.type] || prompt.type,
+    name: key,
+    message: prompt.message || prompt.label || key,
+    default: promptDefault,
+    choices: prompt.choices || [],
+    validate: prompt.validate || (() => true)
+  }]).then(answers => {
+    if (Array.isArray(answers[key])) {
+      data[key] = {}
+      answers[key].forEach(multiChoiceAnswer => {
+        data[key][multiChoiceAnswer] = true
+      })
+    } else if (typeof answers[key] === 'string') {
+      data[key] = answers[key].replace(/"/g, '\\"')
+    } else {
+      data[key] = answers[key]
+    }
+    done()
+  }).catch(done)
+}
+```
+根据这个语以话的命令以及看一些 `ask` 函数的实现，就明白这个 `askQuestions` 就是通过 `inquirer.prompt` 来实现命令行交互，并将交互的值通过 `metalsmith.metadata()` 存到全局，然后在渲染模板的时候直接获取这些值。
