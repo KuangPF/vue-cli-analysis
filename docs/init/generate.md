@@ -209,3 +209,54 @@ function prompt (data, key, prompt, done) {
 }
 ```
 根据这个语以话的命令以及看一些 `ask` 函数的实现，就明白这个 `askQuestions` 就是通过 `inquirer.prompt` 来实现命令行交互，并将交互的值通过 `metalsmith.metadata()` 存到全局，然后在渲染模板的时候直接获取这些值。
+
+* filterFiles
+
+``` js
+function filterFiles (filters) {
+  return (files, metalsmith, done) => {
+    filter(files, filters, metalsmith.metadata(), done)
+  }
+}
+```
+filter 函数也是独立出来的一个模块，源码（主要代码）如下：
+
+``` js
+module.exports = (files, filters, data, done) => {
+  if (!filters) {
+    return done()
+  }
+  const fileNames = Object.keys(files)
+  Object.keys(filters).forEach(glob => {
+    fileNames.forEach(file => {
+      if (match(file, glob, { dot: true })) { // ~/.vue-templates 下面如果有文件名和 filters下的某一个字段匹配上
+        const condition = filters[glob]
+        if (!evaluate(condition, data)) { // 如果 metalsmith.metadata()下 condition 表达式不成立，删除该文件
+          delete files[file]
+        }
+      }
+    })
+  })
+  done()
+}
+
+```
+大致描述以下这个过程： `meta.js` 中 `filter` 字段如下：
+
+``` js
+filters: {
+    '.eslintrc.js': 'lint',
+    '.eslintignore': 'lint',
+    'config/test.env.js': 'unit || e2e',
+    'build/webpack.test.conf.js': "unit && runner === 'karma'",
+    'test/unit/**/*': 'unit',
+    'test/unit/index.js': "unit && runner === 'karma'",
+    'test/unit/jest.conf.js': "unit && runner === 'jest'",
+    'test/unit/karma.conf.js': "unit && runner === 'karma'",
+    'test/unit/specs/index.js': "unit && runner === 'karma'",
+    'test/unit/setup.js': "unit && runner === 'jest'",
+    'test/e2e/**/*': 'e2e',
+    'src/router/**/*': 'router',
+  },
+```
+一看应该就大致知道是什么意思。以 `.eslintrc.js` 为例，在模板中默认是有 `.eslintrc.js` 文件的。利用 `vue-cli` 初始化一个项目的时候，会询问你 `Use ESLint to lint your code?` ，然后 `inquirer.prompt` 通过回调将你回答的值存在 `metalsmith.metadata()` 的 `lint` 字段中，在调用 `filter` 方法的时候就会通过 `evaluate` 函数来判断在 `metalsmith.metadata()` 下 `lint` 的值是否为 `true`，如果为 `false` 的就会删除 `.eslintrc.js`。
