@@ -82,7 +82,8 @@ var result = template(data);
 ```
 这是官方的一个 `demo`, 就是通过 `Handlebars` 的 `compile` 方法将模板编译成 `html` 。在 `vue-cli` 的 `init` 命令中，利用 `Handlebars.registerHelper` 方法注册了一些 `helper`，这样就可以在模板中方便的使用这些 `helper`，[详细文档](https://handlebarsjs.com/)。
 
-# metalsmith
+## metalsmith
+
 `metalsmith` 一个静态网站生成器，可以用在批量处理模板的场景，和 `hexo` 类似。它最大的特点就是所有的逻辑都是由插件处理，你只需要将这些插件用 `metalsmith` 连接起来使用即可，比如官方的一个 `demo`：
 
 ``` javascript
@@ -127,7 +128,7 @@ function plugin(opts){
 ```
 关于 `metalsmith` 的更多介绍以及语法可查看[详细文档](https://metalsmith.io/)。
 
-# chalk
+## chalk
 
 `chalk` 是用于修改控制台字符串的样式，包括字体样式（加粗），颜色以及背景颜色等。
 
@@ -142,7 +143,7 @@ console.log(chalk.blue('Hello world!'));
 更多的用法以及 `API` 可查看[详细文档](https://github.com/chalk/chalk)。
 
 
-# download-git-repo
+## download-git-repo
 `download-git-repo` 是用于 从 `GitHub`, `GitLab`, `Bitbucket` 下载一个 `git` 仓库，`API` 如下：
 ``` javascript
 download(repository, destination, options, callback)
@@ -155,7 +156,7 @@ download(repository, destination, options, callback)
 
 更多例子可查看 [详细文档](https://github.com/flipxfx/download-git-repo)。
 
-# consolidate
+## consolidate
 `consolidate` 是一个模版引擎整合库，它的作用是把一些著名的模板引擎适配成 `Express` 兼容的接口。在 `vue-cli` 的 `init` 命令中利用 `consolidate.handlebars.render` 是实现模版的渲染。在 `/example/metalsmith` 目录里有个 `demo`，就是通过 `metalsmith` 以及`consolidate.handlebars.render` 方法将一个 `package.json` 以 `handlebars` 的模板引擎来渲染，在项目里运行
 
 ``` bash
@@ -166,5 +167,5 @@ npm run metalsmith
 希望可以通过这个小 `demo` 可以比较好地理解 `metalsmith`， `handlebars` ，`consolidate` 以及`inquirer`，关于 `consolidate` 的更多语法请查看[详细文档](https://github.com/tj/consolidate.js)。
 
 
-# 总结
+## 总结
 这部分主要介绍了在利用 `node` 搭建脚手架工具时一些常见的 `npm` 包，对这些 `npm` 包进行一定的了解后，在后面看源码的时候会比较容易些，下面开始进行源码分析。

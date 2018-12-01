@@ -15,7 +15,7 @@
 
 ### 从一张图开始源码的分析
 
-![env-img01](https://user-images.githubusercontent.com/20694238/48563233-d4a2b300-e92e-11e8-830e-cf964a8e25cb.png)
+<img :src="$withBase('/assets/install-env-img01.png')">
 
 ##### 安装 `vue-cli`
 

@@ -1,3 +1,7 @@
+---
+sidebarDepth: 0
+---
+
 # generate 函数分析
 
 首先直接看代码：
@@ -50,7 +54,7 @@ module.exports = function generate (name, src, dest, done) {
 ```
 我们将这段代码分为以下部分来讲：
 
-### getOptions
+## getOptions
 根据这语以化的函数名就知道这是获取配置的，然后详细看下 `getOptions` 函数的代码：
 
 ``` javascript
@@ -75,7 +79,7 @@ module.exports = function options (name, dir) {
 <img :src="$withBase('/assets/init-img02.png')">
 
 
-### Handlebars.registerHelper
+## Handlebars.registerHelper
 
 `Handlebars.registerHelper` 用于注册一些 `helper`（或者说成是一些逻辑方法），在模版中来处理一些数据，比如像源码中注册的 `if_eq`  `helper`，他的作用就是判断两个字符串是否相等。然后在 `webpack` 的模板中就有以下的用法：
 
@@ -83,7 +87,7 @@ module.exports = function options (name, dir) {
 
 就是根据你在构建项目时选择的 `test runner （Jest，Karma and Mocha，none configure it yourself）` 来生成对应的 `npm script`。你也可以在 `meta.js` 中添加自定义的 `helper`，`vue-cli` 会帮你注册到 `Handlebars` 中。
 
-### opts.metalsmith
+## opts.metalsmith
 先看一段源码：
 
 ``` javascript
@@ -150,7 +154,7 @@ VUE_TEMPL_TEST=full vue init webpack demo
 
 <img :src="$withBase('/assets/init-img04.png')">
 
-### metalsmith.use
+## metalsmith.use
 `metalsmith.use` 是 `metalsmith` 使用插件的写法，前面说过 `metalsmith` 最大的特点就是所有的逻辑都是由插件处理，在 `generate` 函数中一共有使用了三个 `metalsmith` 插件，分别为：`askQuestions` `filterFiles` `renderTemplateFiles` 。
 
 * askQuestions
@@ -300,7 +304,7 @@ function renderTemplateFiles (skipInterpolation) {
 `renderTemplateFiles` 的主要功能就是利用 `consolidate.handlebars.render` 将 `~/.vue-templates`下面的 `handlebars` 模板文件渲染成正式的文件。
 
 
-### metalsmith.build
+## metalsmith.build
 
 `metalsmith.build` 就是使用刚才分析的 `askQuestions` 、`filterFiles` 和 `renderTemplateFiles` 三个插件将项目的初始化文件生成出来并输出到目标目录，完成后输出相关的信息。
 
