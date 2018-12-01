@@ -263,7 +263,7 @@ filters: {
 
 * renderTemplateFiles
 
-renderTemplateFiles 源码如下
+`renderTemplateFiles` 源码如下
 ``` js
 
 function renderTemplateFiles (skipInterpolation) {
@@ -300,3 +300,8 @@ function renderTemplateFiles (skipInterpolation) {
 `renderTemplateFiles` 的主要功能就是利用 `consolidate.handlebars.render` 将 `~/.vue-templates`下面的 `handlebars` 模板文件渲染成正式的文件。
 
 
+### metalsmith.build
+
+`metalsmith.build` 就是使用刚才分析的 `askQuestions` 、`filterFiles` 和 `renderTemplateFiles` 三个插件将项目的初始化文件生成出来并输出到目标目录，完成后输出相关的信息。
+
+`generate` 函数分析就到此为止，在下一节会通过一张流程图来总结整个 `vue init` 命令的过程。
