@@ -260,3 +260,43 @@ filters: {
   },
 ```
 一看应该就大致知道是什么意思。以 `.eslintrc.js` 为例，在模板中默认是有 `.eslintrc.js` 文件的。利用 `vue-cli` 初始化一个项目的时候，会询问你 `Use ESLint to lint your code?` ，然后 `inquirer.prompt` 通过回调将你回答的值存在 `metalsmith.metadata()` 的 `lint` 字段中，在调用 `filter` 方法的时候就会通过 `evaluate` 函数来判断在 `metalsmith.metadata()` 下 `lint` 的值是否为 `true`，如果为 `false` 的就会删除 `.eslintrc.js`。
+
+* renderTemplateFiles
+
+renderTemplateFiles 源码如下
+``` js
+
+function renderTemplateFiles (skipInterpolation) {
+  // 在 meta.js 的 skipInterpolation 下面添加跳过插值的文件，这样在渲染的时候就不会使用 consolidate.handlebars.render 去渲染页面
+  skipInterpolation = typeof skipInterpolation === 'string'
+    ? [skipInterpolation]
+    : skipInterpolation
+  return (files, metalsmith, done) => {
+    const keys = Object.keys(files)
+    const metalsmithMetadata = metalsmith.metadata()
+    async.each(keys, (file, next) => {
+      // skipping files with skipInterpolation option
+      if (skipInterpolation && multimatch([file], skipInterpolation, { dot: true }).length) {
+        return next()
+      }
+      const str = files[file].contents.toString()
+      // do not attempt to render files that do not have mustaches
+      // 如果在该文件中没有遇到 {{}} (小胡子)就跳过该文件
+      if (!/{{([^{}]+)}}/g.test(str)) {
+        return next()
+      }
+      render(str, metalsmithMetadata, (err, res) => {
+        if (err) {
+          err.message = `[${file}] ${err.message}`
+          return next(err)
+        }
+        files[file].contents = new Buffer(res)
+        next()
+      })
+    }, done)
+  }
+}
+```
+`renderTemplateFiles` 的主要功能就是利用 `consolidate.handlebars.render` 将 `~/.vue-templates`下面的 `handlebars` 模板文件渲染成正式的文件。
+
+
