@@ -217,6 +217,7 @@ if (!process.argv.slice(2).length) {
   program.outputHelp()
 }
 
+// 将包名转化为驼峰命令方式  package-name => packageName
 function camelize (str) {
   return str.replace(/-(\w)/g, (_, c) => c ? c.toUpperCase() : '')
 }

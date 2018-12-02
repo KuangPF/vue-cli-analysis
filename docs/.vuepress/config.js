@@ -15,34 +15,38 @@ module.exports = {
     editLinkText: '在 GitHub 上编辑此页',
     lastUpdated: '上次更新',
     nav: [{
-        text: '首页',
-        link: '/'
-      }
-    ],
+      text: '首页',
+      link: '/'
+    }],
     sidebar: [{
-        title: '前言',
-        collapsable: false,
-        children: [
-          ['foreword/', '介绍']
-        ]
-      },{
-        title: '开始',
-        collapsable: false,
-        children: [
-          ['start/env', '环境介绍'],
-          ['start/npm', '常见 npm 包']
-        ]
-      }, {
-        title: 'vue init',
-        collapsable: false,
-        children: [
-          ['init/', 'init 入口'],
-          ['init/vue-cli-init-module.md', '@vue/cli-init 分析'],
-          ['init/vue-cli-init-2.x.md', 'vue-cli 2.x  init 分析'],
-          ['init/generate.md', 'generate 函数分析'],
-          ['init/summary.md', '总结']
-        ]
-      }
-    ]
+      title: '前言',
+      collapsable: false,
+      children: [
+        ['foreword/', '介绍']
+      ]
+    }, {
+      title: '开始',
+      collapsable: false,
+      children: [
+        ['start/env', '环境介绍'],
+        ['start/npm', '常见 npm 包']
+      ]
+    }, {
+      title: 'vue create',
+      collapsable: false,
+      children: [
+        ['create/', 'create 入口']
+      ]
+    }, {
+      title: 'vue init',
+      collapsable: false,
+      children: [
+        ['init/', 'init 入口'],
+        ['init/vue-cli-init-module.md', '@vue/cli-init 分析'],
+        ['init/vue-cli-init-2.x.md', 'vue-cli 2.x  init 分析'],
+        ['init/generate.md', 'generate 函数分析'],
+        ['init/summary.md', '总结']
+      ]
+    }]
   }
 };
