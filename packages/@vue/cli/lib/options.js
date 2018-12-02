@@ -7,6 +7,8 @@ const { createSchema, validate } = require('@vue/cli-shared-utils/lib/validate')
 
 const rcPath = exports.rcPath = getRcPath('.vuerc')
 
+// joi 用作数据校验
+// require('joi')
 const presetSchema = createSchema(joi => joi.object().keys({
   bare: joi.boolean(),
   useConfigFiles: joi.boolean(),
@@ -56,7 +58,7 @@ exports.loadOptions = () => {
   if (cachedOptions) {
     return cachedOptions
   }
-  if (fs.existsSync(rcPath)) {
+  if (fs.existsSync(rcPath)) { // ~/.vuerc
     try {
       cachedOptions = JSON.parse(fs.readFileSync(rcPath, 'utf-8'))
     } catch (e) {
@@ -68,7 +70,15 @@ exports.loadOptions = () => {
       )
       exit(1)
     }
-    validate(cachedOptions, schema, () => {
+
+    // validate 部分代码
+    /* if (process.env.VUE_CLI_TEST) {
+      throw err
+    } else {
+      exit(1)
+    } */
+
+    validate(cachedOptions, schema, () => { // 验证 .vuerc 的数据格式是否正确
       error(
         `~/.vuerc may be outdated. ` +
         `Please delete it and re-run vue-cli in manual mode.`

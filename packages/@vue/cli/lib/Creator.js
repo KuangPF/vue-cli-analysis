@@ -40,9 +40,11 @@ const {
 
 const isManualMode = answers => answers.preset === '__manual__'
 
+// 入口
 module.exports = class Creator extends EventEmitter {
+  // const creator = new Creator(name, targetDir, getPromptModules())
   constructor (name, context, promptModules) {
-    super()
+    super() // 调用 EventEmitter()
 
     this.name = name
     this.context = process.env.VUE_CLI_CONTEXT = context
@@ -329,7 +331,7 @@ module.exports = class Creator extends EventEmitter {
   }
 
   getPresets () {
-    const savedOptions = loadOptions()
+    const savedOptions = loadOptions() // 加载 ～/.vuerc，获取相关配置
     return Object.assign({}, savedOptions.presets, defaults.presets)
   }
 
