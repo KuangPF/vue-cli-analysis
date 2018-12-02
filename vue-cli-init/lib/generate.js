@@ -33,7 +33,7 @@ Handlebars.registerHelper('unless_eq', function (a, b, opts) {
  */
 
 module.exports = function generate (name, src, dest, done) {
-  const opts = getOptions(name, src)
+  const opts = getOptions(name, src) // 获取配置信息
   const metalsmith = Metalsmith(path.join(src, 'template')) // 定义 Metalsmith 工作目录  ~/.vue-templates/template`
   const data = Object.assign(metalsmith.metadata(), { // 定义一些全局变量，这样可以在 layout-files 中使用
     destDirName: name,

@@ -26,10 +26,11 @@
   * [@vue/cli-init 分析](https://kuangpf.com/vue-cli-analysis/init/vue-cli-init-module.html)
   * [vue-cli 2.x init 分析](https://kuangpf.com/vue-cli-analysis/init/vue-cli-init-2.x.html)
   * [generate 函数分析](https://kuangpf.com/vue-cli-analysis/init/generate.html)
+  * [总结](https://kuangpf.com/vue-cli-analysis/init/summary.html)
 * vue config
 * vue upgrade
 * 结束语
 
 ## 进度
 
-![progress](http://progressed.io/bar/7?title=progress)
+![progress](http://progressed.io/bar/10?title=progress)
