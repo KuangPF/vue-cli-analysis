@@ -336,13 +336,14 @@ module.exports = class Creator extends EventEmitter {
   }
 
   resolveIntroPrompts () {
-    const presets = this.getPresets()
+    const presets = this.getPresets() // 将 defaults.presets 与 ～/.vuerc 合并
     const presetChoices = Object.keys(presets).map(name => {
       return {
         name: `${name} (${formatFeatures(presets[name])})`,
         value: name
       }
     })
+    console.log(presetChoices)
     const presetPrompt = {
       name: 'preset',
       type: 'list',
