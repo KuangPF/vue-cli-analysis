@@ -48,7 +48,7 @@ module.exports = class Creator extends EventEmitter {
 
     this.name = name
     this.context = process.env.VUE_CLI_CONTEXT = context
-    const { presetPrompt, featurePrompt } = this.resolveIntroPrompts()
+    const { presetPrompt, featurePrompt } = this.resolveIntroPrompts() // 获取了 presetPrompt list，在初始化项目的时候提供选择
     this.presetPrompt = presetPrompt
     this.featurePrompt = featurePrompt
     this.outroPrompts = this.resolveOutroPrompts()
@@ -343,7 +343,8 @@ module.exports = class Creator extends EventEmitter {
         value: name
       }
     })
-    console.log(presetChoices)
+    // 将保存的 preset 列出来，提供选择
+    // presetPrompt =》 presetList 
     const presetPrompt = {
       name: 'preset',
       type: 'list',
@@ -356,6 +357,7 @@ module.exports = class Creator extends EventEmitter {
         }
       ]
     }
+    // featurePrompt： 项目需要安装什么， 比如 Babel TypeScript Progressive Web App (PWA) Support
     const featurePrompt = {
       name: 'features',
       when: isManualMode,
