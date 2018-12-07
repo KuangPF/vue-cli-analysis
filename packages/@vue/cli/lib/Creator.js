@@ -45,13 +45,12 @@ module.exports = class Creator extends EventEmitter {
   // const creator = new Creator(name, targetDir, getPromptModules())
   constructor (name, context, promptModules) {
     super() // 调用 EventEmitter()
-
     this.name = name
     this.context = process.env.VUE_CLI_CONTEXT = context
     const { presetPrompt, featurePrompt } = this.resolveIntroPrompts() // 获取了 presetPrompt list，在初始化项目的时候提供选择
     this.presetPrompt = presetPrompt
     this.featurePrompt = featurePrompt
-    this.outroPrompts = this.resolveOutroPrompts()
+    this.outroPrompts = this.resolveOutroPrompts() //  存放项目配置的文件（package.json || congfig.js） 以及是否将 presetPrompts 存放起来
     this.injectedPrompts = []
     this.promptCompleteCbs = []
     this.createCompleteCbs = []
@@ -64,6 +63,7 @@ module.exports = class Creator extends EventEmitter {
 
   async create (cliOptions = {}, preset = null) {
     const isTestOrDebug = process.env.VUE_CLI_TEST || process.env.VUE_CLI_DEBUG
+
     const { run, name, context, createCompleteCbs } = this
 
     if (!preset) {
