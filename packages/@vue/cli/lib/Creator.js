@@ -63,7 +63,9 @@ module.exports = class Creator extends EventEmitter {
 
   async create (cliOptions = {}, preset = null) {
     const isTestOrDebug = process.env.VUE_CLI_TEST || process.env.VUE_CLI_DEBUG
-
+    console.log(cliOptions)
+    // name: demo
+    // context: targetDir
     const { run, name, context, createCompleteCbs } = this
 
     if (!preset) {
@@ -344,7 +346,7 @@ module.exports = class Creator extends EventEmitter {
       }
     })
     // 将保存的 preset 列出来，提供选择
-    // presetPrompt =》 presetList 
+    // presetPrompt =》 presetList
     const presetPrompt = {
       name: 'preset',
       type: 'list',
