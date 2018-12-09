@@ -63,7 +63,6 @@ module.exports = class Creator extends EventEmitter {
 
   async create (cliOptions = {}, preset = null) {
     const isTestOrDebug = process.env.VUE_CLI_TEST || process.env.VUE_CLI_DEBUG
-    console.log(cliOptions)
     // name: demo
     // context: targetDir
     const { run, name, context, createCompleteCbs } = this
@@ -271,12 +270,11 @@ module.exports = class Creator extends EventEmitter {
     return preset
   }
 
-  async resolvePreset (name, clone) {
+  async resolvePreset (name, clone) { // preset name: cli-demo
     let preset
-    const savedPresets = loadOptions().presets || {}
-
-    if (name in savedPresets) {
-      preset = savedPresets[name]
+    const savedPresets = loadOptions().presets || {} // 获取 .vuerc 中保存的 preset
+    if (name in savedPresets) { // 如果 -p 的 preset 在 .vuerc 中存在  eg： cli-demo
+      preset = savedPresets[name] // 获取项目初始化配置
     } else if (name.endsWith('.json') || /^\./.test(name) || path.isAbsolute(name)) {
       preset = await loadLocalPreset(path.resolve(name))
     } else if (name.includes('/')) {
@@ -293,22 +291,30 @@ module.exports = class Creator extends EventEmitter {
     }
 
     // use default preset if user has not overwritten it
-    if (name === 'default' && !preset) {
+    if (name === 'default' && !preset) {  // defaultPreset eg: vue create demo -p default
       preset = defaults.presets.default
     }
     if (!preset) {
       error(`preset "${name}" not found.`)
       const presets = Object.keys(savedPresets)
-      if (presets.length) {
+      if (presets.length) { // 列出已保存的 preset
         log()
         log(`available presets:\n${presets.join(`\n`)}`)
-      } else {
+      } else { // no preset
         log(`you don't seem to have any saved preset.`)
         log(`run vue-cli in manual mode to create a preset.`)
       }
       exit(1)
     }
-    return preset
+    // preset
+    /* {
+      useConfigFiles: true,
+      plugins: {
+        '@vue/cli-plugin-babel': {},
+        '@vue/cli-plugin-eslint': [Object]
+      }
+    } */
+    return preset 
   }
 
   // { id: options } => [{ id, apply, options }]
