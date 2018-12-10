@@ -73,8 +73,8 @@ module.exports = class Creator extends EventEmitter {
         preset = await this.resolvePreset(cliOptions.preset, cliOptions.clone)
       } else if (cliOptions.default) {
         // vue create foo --default
-        preset = defaults.presets.default
-      } else if (cliOptions.inlinePreset) {
+        preset = defaults.presets.default // 使用默认预设选项
+      } else if (cliOptions.inlinePreset) { // 使用内联的 JSON 字符串预设选项
         // vue create foo --inlinePreset {...}
         try {
           preset = JSON.parse(cliOptions.inlinePreset)

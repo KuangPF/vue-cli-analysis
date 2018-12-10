@@ -23,7 +23,7 @@ module.exports = async function shouldUseTaobao (command = 'npm') {
   checked = true
 
   // previously saved preference
-  const saved = loadOptions().useTaobaoRegistry
+  const saved = loadOptions().useTaobaoRegistry // ～/.vuerc 中 useTaobaoRegistry 字段
   if (typeof saved === 'boolean') {
     return (result = saved)
   }
@@ -34,7 +34,7 @@ module.exports = async function shouldUseTaobao (command = 'npm') {
     return val
   }
 
-  const userCurrent = (await execa(command, ['config', 'get', 'registry'])).stdout
+  const userCurrent = (await execa(command, ['config', 'get', 'registry'])).stdout // npm config get registry 获取用户是否设置了
   const defaultRegistry = registries[command]
 
   if (removeSlash(userCurrent) !== removeSlash(defaultRegistry)) {
@@ -44,6 +44,7 @@ module.exports = async function shouldUseTaobao (command = 'npm') {
 
   let faster
   try {
+    // Promise.race 哪个结果获取的快就返回哪个
     faster = await Promise.race([
       ping(defaultRegistry),
       ping(registries.taobao)

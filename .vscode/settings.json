@@ -1,3 +1,7 @@
 {
-  "search.followSymlinks": false
+  "search.followSymlinks": false,
+  "files.exclude": {
+    "**/bower_components": true,
+    "**/node_modules": true
+  }
 }
