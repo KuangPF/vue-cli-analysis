@@ -12,6 +12,9 @@ function deleteRemovedFiles (directory, newFiles, previousFiles) {
   }))
 }
 
+/* await writeFileTree(context, {
+  'package.json': JSON.stringify(pkg, null, 2)
+}) */
 module.exports = async function writeFileTree (dir, files, previousFiles) {
   if (process.env.VUE_CLI_SKIP_WRITE) {
     return
@@ -19,9 +22,10 @@ module.exports = async function writeFileTree (dir, files, previousFiles) {
   if (previousFiles) {
     await deleteRemovedFiles(dir, files, previousFiles)
   }
+
   Object.keys(files).forEach((name) => {
     const filePath = path.join(dir, name)
-    fs.ensureDirSync(path.dirname(filePath))
-    fs.writeFileSync(filePath, files[name])
+    fs.ensureDirSync(path.dirname(filePath)) // path
+    fs.writeFileSync(filePath, files[name]) // write file
   })
 }
