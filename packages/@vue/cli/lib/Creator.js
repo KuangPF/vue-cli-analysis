@@ -83,6 +83,7 @@ module.exports = class Creator extends EventEmitter {
           exit(1)
         }
       } else {
+        // eg: vue create demo
         preset = await this.promptAndResolvePreset()
       }
     }
@@ -245,7 +246,7 @@ module.exports = class Creator extends EventEmitter {
     }
 
     let preset
-    if (answers.preset && answers.preset !== '__manual__') {
+    if (answers.preset && answers.preset !== '__manual__') { // 如果是选择使用本地保存的 preset (~/.vuerc)
       preset = await this.resolvePreset(answers.preset)
     } else {
       // manual
