@@ -91,7 +91,7 @@ module.exports = class Creator extends EventEmitter {
     // clone before mutating
     preset = cloneDeep(preset)
     // inject core service
-    preset.plugins['@vue/cli-service'] = Object.assign({
+    preset.plugins['@vue/cli-service'] = Object.assign({ // 注入核心 @vue/cli-service
       projectName: name
     }, preset, {
       bare: cliOptions.bare
@@ -147,7 +147,7 @@ module.exports = class Creator extends EventEmitter {
     this.emit('creation', { event: 'plugins-install' })
     if (isTestOrDebug) {
       // in development, avoid installation process
-      await require('./util/setupDevProject')(context)
+      await require('./util/setupDevProject')(context) // @vue/cli-service/bin/vue-cli-service
     } else {
       await installDeps(context, packageManager, cliOptions.registry)
     }
@@ -156,6 +156,7 @@ module.exports = class Creator extends EventEmitter {
     log(`🚀  Invoking generators...`)
     this.emit('creation', { event: 'invoking-generators' })
     const plugins = await this.resolvePlugins(preset.plugins)
+    return
     const generator = new Generator(context, {
       pkg,
       plugins,
@@ -322,8 +323,22 @@ module.exports = class Creator extends EventEmitter {
   async resolvePlugins (rawPlugins) {
     // ensure cli-service is invoked first
     rawPlugins = sortObject(rawPlugins, ['@vue/cli-service'], true)
+    /* let rawPlugins = {
+        '@vue/cli-service': {
+          'projectName': 'demo',
+          useConfigFiles: true,
+          plugins: {
+            '@vue/cli-plugin-babel': {},
+            '@vue/cli-plugin-eslint': [Object]
+          },
+          bare: undefined
+        },
+        '@vue/cli-plugin-babel': {},
+        '@vue/cli-plugin-eslint': { config: 'standard', _isPreset: true, lintOn: ['save'] }
+      } */
     const plugins = []
     for (const id of Object.keys(rawPlugins)) {
+      // loadModule('@vue/cli-service/generator', '/Users/../vue-cli/demo')
       const apply = loadModule(`${id}/generator`, this.context) || (() => {})
       let options = rawPlugins[id] || {}
       if (options.prompts) {

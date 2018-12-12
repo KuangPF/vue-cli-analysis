@@ -61,6 +61,7 @@ function renderProgressBar (curr, total) {
 }
 
 async function addRegistryToArgs (command, args, cliRegistry) {
+  // 通过改变 registry 来达到加速安装依赖的目的
   const altRegistry = (
     cliRegistry || (
       (await shouldUseTaobao(command))
@@ -175,7 +176,7 @@ exports.installDeps = async function installDeps (targetDir, command, cliRegistr
 
   await addRegistryToArgs(command, args, cliRegistry)
 
-  debug(`command: `, command)
+  debug(`command: `, command) // DEBUG=vue-cli:install vue create demo
   debug(`args: `, args)
 
   await executeCommand(command, args, targetDir)

@@ -42,6 +42,7 @@ exports.resolveModule = function (request, context) {
   return resolvedPath
 }
 
+// loadModule('@vue/cli-service/generator', '/Users/../vue-cli/demo')
 exports.loadModule = function (request, context, force = false) {
   const resolvedPath = exports.resolveModule(request, context)
   if (resolvedPath) {
