@@ -6,7 +6,7 @@ exports.isPlugin = id => pluginRE.test(id)
 
 exports.isOfficialPlugin = id => exports.isPlugin(id) && officialRE.test(id)
 
-exports.toShortPluginId = id => id.replace(pluginRE, '')
+exports.toShortPluginId = id => id.replace(pluginRE, '') // @vue/cli-plugin-babel => babel
 
 exports.resolvePluginId = id => {
   // already full id
