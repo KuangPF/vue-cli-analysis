@@ -21,6 +21,14 @@ class GeneratorAPI {
    * @param {object} options - generator options passed to this plugin
    * @param {object} rootOptions - root options (the entire preset)
    */
+
+   /* eg.
+   rootOption = {
+      projectName: 'demo',
+      useConfigFiles: true,
+      plugins: [Object],
+      bare: undefined
+    } */
   constructor (id, generator, options, rootOptions) {
     this.id = id
     this.generator = generator
@@ -30,10 +38,10 @@ class GeneratorAPI {
     this.pluginsData = generator.plugins
       .filter(({ id }) => id !== `@vue/cli-service`)
       .map(({ id }) => ({
-        name: toShortPluginId(id),
-        link: getPluginLink(id)
+        name: toShortPluginId(id), // name: babel
+        link: getPluginLink(id) // link: https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel
       }))
-
+      
     this._entryFile = undefined
   }
 
