@@ -35,7 +35,8 @@ module.exports = {
       title: 'vue create',
       collapsable: false,
       children: [
-        ['create/', 'create 入口']
+        ['create/', 'create 入口'],
+        ['create/overall-analysis.md', '整体分析']
       ]
     }, {
       title: 'vue init',
