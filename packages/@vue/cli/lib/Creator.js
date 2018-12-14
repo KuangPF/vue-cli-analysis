@@ -464,6 +464,7 @@ module.exports = class Creator extends EventEmitter {
 
   resolveFinalPrompts () {
     // patch generator-injected prompts to only show in manual mode
+    // 将所有的 Prompt 合并，包含 preset，feature，injected，outro，只有当选择了手动模式的时候才会显示 injectedPrompts
     this.injectedPrompts.forEach(prompt => {
       const originalWhen = prompt.when || (() => true)
       prompt.when = answers => {
