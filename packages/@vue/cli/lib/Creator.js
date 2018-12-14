@@ -58,6 +58,13 @@ module.exports = class Creator extends EventEmitter {
     this.run = this.run.bind(this)
 
     const promptAPI = new PromptModuleAPI(this)
+
+    /** 
+     * 1. 将 babel, e2e, pwa 等 push 到 featurePrompt.choices 中，在选择项目需要配置哪些时显示出来 （checkbox）；
+     * 2. 将 babel, e2e, pwa 等 push 到 injectedPrompts 中，当设置了 feature 会对应通过 Prompts 来进一步选择哪种模式，比如当选择了 E2E Testing ，然后会再次让你
+     *    选择哪种 E2E Testing，即， Cypress (Chrome only) ||  Nightwatch (Selenium-based)；
+     * 3. 将每中 feature 的 onPromptComplete push 到 promptCompleteCbs，在后面会根据选择的配置来安装对应的 plugin。
+     */
     promptModules.forEach(m => m(promptAPI))
   }
 
