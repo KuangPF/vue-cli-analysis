@@ -48,18 +48,18 @@ module.exports = class Creator extends EventEmitter {
     this.name = name
     this.context = process.env.VUE_CLI_CONTEXT = context
     const { presetPrompt, featurePrompt } = this.resolveIntroPrompts() // 获取了 presetPrompt list，在初始化项目的时候提供选择
-    this.presetPrompt = presetPrompt
-    this.featurePrompt = featurePrompt
+    this.presetPrompt = presetPrompt // presetPrompt list
+    this.featurePrompt = featurePrompt // babal, pwa, e2e etc.
     this.outroPrompts = this.resolveOutroPrompts() //  存放项目配置的文件（package.json || congfig.js） 以及是否将 presetPrompts 存放起来
-    this.injectedPrompts = []
-    this.promptCompleteCbs = []
+    this.injectedPrompts = [] // 对应 feature 的 Prompts
+    this.promptCompleteCbs = [] // injectedPrompts 的回调
     this.createCompleteCbs = []
 
     this.run = this.run.bind(this)
 
     const promptAPI = new PromptModuleAPI(this)
 
-    /** 
+    /**
      * 1. 将 babel, e2e, pwa 等 push 到 featurePrompt.choices 中，在选择项目需要配置哪些时显示出来 （checkbox）；
      * 2. 将 babel, e2e, pwa 等 push 到 injectedPrompts 中，当设置了 feature 会对应通过 Prompts 来进一步选择哪种模式，比如当选择了 E2E Testing ，然后会再次让你
      *    选择哪种 E2E Testing，即， Cypress (Chrome only) ||  Nightwatch (Selenium-based)；
@@ -163,7 +163,6 @@ module.exports = class Creator extends EventEmitter {
     log(`🚀  Invoking generators...`)
     this.emit('creation', { event: 'invoking-generators' })
     const plugins = await this.resolvePlugins(preset.plugins)
-    return
     const generator = new Generator(context, {
       pkg,
       plugins,
@@ -323,7 +322,7 @@ module.exports = class Creator extends EventEmitter {
         '@vue/cli-plugin-eslint': [Object]
       }
     } */
-    return preset 
+    return preset
   }
 
   // { id: options } => [{ id, apply, options }]
@@ -403,7 +402,9 @@ module.exports = class Creator extends EventEmitter {
     }
   }
 
+  // 其他 prompts
   resolveOutroPrompts () {
+    // 将配置文件存放在 config 中， 还是存放在 package.json 中
     const outroPrompts = [
       {
         name: 'useConfigFiles',
