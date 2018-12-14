@@ -14,7 +14,9 @@
 * **开始**
   * [环境介绍](https://kuangpf.com/vue-cli-analysis/start/env.html/)
   * [常见 npm 包](https://kuangpf.com/vue-cli-analysis/start/npm.html/)
-* vue create
+* **vue create**
+  * [create 入口](https://kuangpf.com/vue-cli-analysis/create/)
+  * [整体分析](https://kuangpf.com/vue-cli-analysis/create/overall-analysis.html)
 * vue add
 * vue invoke
 * vue inspect
@@ -33,4 +35,4 @@
 
 ## 进度
 
-![progress](http://progressed.io/bar/10?title=progress)
+![progress](http://progressed.io/bar/15?title=progress)
