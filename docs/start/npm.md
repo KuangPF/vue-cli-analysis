@@ -7,6 +7,7 @@ sidebarDepth: 0
 在进去 `vue-cli` 源码学习之前，这里先介绍下在 `vue-cli` 项目中用到的一些必备的 `npm` 包，这样在后面分析源码的时候会比较快的理解。
 * [commander](https://github.com/tj/commander.js)：node.js command-line interfaces made easy。
 * [Inquirer](https://github.com/SBoudrias/Inquirer.js)：A collection of common interactive command line user interfaces。
+* [execa](https://github.com/sindresorhus/execa)：A better [child_process](https://nodejs.org/api/child_process.html)。
 * [handlebars](https://github.com/wycats/handlebars.js)：一个 javascript 语以模版库。
 * [metalsmith](https://github.com/segmentio/metalsmith)；An extremely simple, pluggable static site generator。
 * [chalk](https://github.com/chalk/chalk)：Terminal string styling done right。
@@ -59,6 +60,21 @@ inquirer
 ```
 `inquirer.prompt` 接受一个 `questions` 数组， 一个 `question` 对象包含 `type`，`name`， `message`， `default` 等等字段，然后通过回调获取命令行交互的值，[详细文档](https://github.com/SBoudrias/Inquirer.js)。
 
+
+## execa
+
+`execa` 是可以调用 shell 和本地外部程序的 javascript 封装。会启动子进程执行，支持多操作系统，包括 windows，如果父进程退出，则生成的全部子进程都被杀死。它是在 Node.js 内置的 `child_process.exec` 基础上进行了提升，比如更好地支持 windows 平台，以及提供 `Promise` 的接口等等。可以看一个很简单的例子：
+
+``` js
+const execa = require('execa');
+
+(async () => {
+	const {stdout} = await execa('echo', ['unicorns']);
+	console.log(stdout);
+	//=> 'unicorns'
+})();
+```
+上面例子就是执行  `echo unicorns` 命令输出 unicorns。关于 `execa` 更多的用法可查看 [详细文档](https://github.com/sindresorhus/execa#API)。
 
 ## handlebars
 `handlebars` 是一个 `javascript` 语义模版库，而且与 `Mustache` 模板 是兼容的，通过一个 `demo` 来感受下：
