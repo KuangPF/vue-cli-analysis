@@ -59,3 +59,4 @@ if (fs.existsSync(targetDir)) {
 ::: tip
 当带有 `-f || --force` 的时候会跳过这些交互，即 `options.force = true`。
 :::
+基础验证这快大致就这些，下一个开始分析获取预设选项(preset)。
