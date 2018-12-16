@@ -13,10 +13,10 @@ async function create (projectName, options) {
     process.env.HTTP_PROXY = options.proxy
   }
 
-  const cwd = options.cwd || process.cwd()
-  const inCurrent = projectName === '.'
-  const name = inCurrent ? path.relative('../', cwd) : projectName
-  const targetDir = path.resolve(cwd, projectName || '.')
+  const cwd = options.cwd || process.cwd() // 当前目录
+  const inCurrent = projectName === '.' // 是否在当前目录
+  const name = inCurrent ? path.relative('../', cwd) : projectName // 项目名称
+  const targetDir = path.resolve(cwd, projectName || '.') // 生成项目的目录
 
   const result = validateProjectName(name)
   if (!result.validForNewPackages) {
