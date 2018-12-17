@@ -253,7 +253,7 @@ module.exports = class Creator extends EventEmitter {
     }
 
     let preset
-    if (answers.preset && answers.preset !== '__manual__') { // 如果是选择使用本地保存的 preset (~/.vuerc)
+    if (answers.preset && answers.preset !== '__manual__') { // 如果是选择使用本地保存的 preset (~/.vuerc) 或者 default
       preset = await this.resolvePreset(answers.preset)
     } else {
       // manual
