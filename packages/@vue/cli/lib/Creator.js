@@ -299,7 +299,7 @@ module.exports = class Creator extends EventEmitter {
     }
 
     // use default preset if user has not overwritten it
-    if (name === 'default' && !preset) {  // defaultPreset eg: vue create demo -p default
+    if (name === 'default' && !preset) {  // eg: vue create demo ,选择 preset 时，选择了 default 模式
       preset = defaults.presets.default
     }
     if (!preset) {
