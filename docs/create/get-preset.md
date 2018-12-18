@@ -293,4 +293,4 @@ cli.onPromptComplete((answers, options) => {
 在获取到 preset 之后，还会向 preset 的插件里面注入核心插件 @vue/cli-service， 它是调用 `vue-cli-service <command> [...args]` 时创建的类。
 负责管理内部的 webpack 配置、暴露服务和构建项目的命令等。
 
-到这里获取预设选项（preset）大致分析完了，在下节将会介绍依赖的安装。
+到这里获取预设选项（preset）大致分析完了，在下节将会分析依赖的安装。
