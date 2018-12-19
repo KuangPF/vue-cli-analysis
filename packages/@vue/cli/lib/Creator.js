@@ -110,7 +110,7 @@ module.exports = class Creator extends EventEmitter {
       (hasYarn() ? 'yarn' : 'npm')
     )
 
-    await clearConsole()
+    await clearConsole() // 清空控制台
     logWithSpinner(`✨`, `Creating project in ${chalk.yellow(context)}.`)
     this.emit('creation', { event: 'creating' })
 
