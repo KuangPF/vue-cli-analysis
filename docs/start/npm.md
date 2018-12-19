@@ -4,7 +4,8 @@ sidebarDepth: 0
 
 # 常见 npm 包
 
-在进去 `vue-cli` 源码学习之前，这里先介绍下在 `vue-cli` 项目中用到的一些必备的 `npm` 包，这样在后面分析源码的时候会比较快的理解。
+在进去 `vue-cli` 源码学习之前，这里先介绍下在 `vue-cli` 项目中用到的一些必备的 `npm` 包，这样在后面分析源码的时候会比较快的理解（`handlebars`，`metalsmith`，`consolidate` 主要用于
+ `vue init` 命令）。
 * [commander](https://github.com/tj/commander.js)：node.js command-line interfaces made easy。
 * [Inquirer](https://github.com/SBoudrias/Inquirer.js)：A collection of common interactive command line user interfaces。
 * [execa](https://github.com/sindresorhus/execa)：A better [child_process](https://nodejs.org/api/child_process.html)。
