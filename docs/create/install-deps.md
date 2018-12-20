@@ -86,11 +86,15 @@ module.exports = async function getVersions () {
 * local：本地 CLI 以及插件的版本
 * latest：远程 CLI 以及插件的版本
 
-在后期会根据这两个变量中的 `@vue/cli` 版本大小来判断是否需要更新 `@vue/cli`。还有点需要注意的是，获取 CLI 的版本并不是直接获取，而是通过 `vue-cli-version-marker` npm 包获取的
+local 和 latest 包含了 CLI 以及相关插件的版本，它们可以用于判断 @vue/cli 是否需要更新以及初始化项目中相关插件的版本。还有点需要注意的是，获取 CLI 的版本并不是直接获取，
+而是通过 [vue-cli-version-marker](https://github.com/vuejs/vue-cli/blob/dev/packages/vue-cli-version-marker/package.json) npm 包获取的
  CLI 版本，为什么会这样做，主要原因有两点：
 
-* 1. `vue-cli` 从 3.0（`@vue/cli`） 开始就放在了 `@vue` 下面，即是一个 scoped package, 而通过 `npm registry` 又不支持获取 scoped package `latest` 版本的
- api
-* 2. 获取 scoped packages 的数据比获取 unscoped package 通常要慢 300ms
+* 1. vue-cli 从 3.0（@vue/cli） 开始就放在了 @vue 下面，即是一个 scoped package, 而 scoped package 又不支持通过 `npm registry` 来获取 
+latest 版本信息。比如 [vue-cli-version-marker/latest](https://registry.npmjs.org/vue-cli-version-marker/latest)可以正常访问，而 
+[@vue/cli/latest](https://registry.npmjs.org/@vue/cli/latest)
+则不可以。
+* 2. 获取 scoped packages 的数据比获取 unscoped package 通常要慢 300ms。
 
-正是由于上述两个原因，因此通过 unscoped package `vue-cli-version-marker` 来获取 CLI 版本，`vue-cli-version-marker` 的内容很简单，即使 vue-cli 以及一些插件的版本号。
+正是由于上述两个原因，因此通过 unscoped package `vue-cli-version-marker` 来获取 CLI 版本，`vue-cli-version-marker` 的内容比较简单，就是一个 package
+.json，通过获取里面 devDependencies 的版本信息，从而获取 @vue/cli 以及一些插件的版本号。
