@@ -151,5 +151,8 @@ exports.installDeps = async function installDeps (targetDir, command, cliRegistr
   await executeCommand(command, args, targetDir)
 }
 ```
-源码很简洁，里面又先调用了 `addRegistryToArgs` 函数，它的作用就是安装依赖是指定安装源，如果 `vue create` 还有 -r 选项则采用设置的安装源，否则调用 `shouldUseTaobao` 函数来判断是否需要使用淘宝 NPM 镜像源。实现原理就是发送两个 Promise 使用默认安装源和淘宝镜像源去请求同一个 npm 包，然后利用 `Promise.race` 看在哪种源下返回结果更快就将此
-设置为安装源，另外如果 ~/.vuerc 中设置了`useTaobaoRegistry`，则使用设置的安装源。
+源码很简洁，里面又先调用了 `addRegistryToArgs` 函数，它的作用就是安装依赖是指定安装源，如果 `vue create` 还有 -r 选项则采用设置的安装源，否则调用 `shouldUseTaobao` 
+函数来判断是否需要使用淘宝 NPM 镜像源。实现原理就是发送两个 Promise 使用默认安装源和淘宝镜像源去请求同一个 npm 包，然后利用 `Promise.race` 看在哪种源下返回结果更快就将此
+设置为安装源，另外如果 ~/.vuerc 中设置了`useTaobaoRegistry`，则使用设置的安装源。设置了安装源之后则调用 `executeCommand` 函数利用 execa 执行 npm 或者 yarn 安装命令。
+
+到这里安装依赖就大致介绍完了，在下面一节将介绍 `vue create` 核心部分 `Generator`。
