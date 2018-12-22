@@ -96,5 +96,37 @@ latest 版本信息。比如 [vue-cli-version-marker/latest](https://registry.np
 则不可以。
 * 2. 获取 scoped packages 的数据比获取 unscoped package 通常要慢 300ms。
 
-正是由于上述两个原因，因此通过 unscoped package `vue-cli-version-marker` 来获取 CLI 版本，`vue-cli-version-marker` 的内容比较简单，就是一个 package
-.json，通过获取里面 devDependencies 的版本信息，从而获取 @vue/cli 以及一些插件的版本号。
+正是由于上述两个原因，因此通过 unscoped package `vue-cli-version-marker` 来获取 CLI 版本，`vue-cli-version-marker` 的内容比较简单，就是一个 
+package.json，通过获取里面 devDependencies 的版本信息，从而获取 @vue/cli 以及一些插件的版本号。获取了插件版本之后遍历 preset 中所有 plugin 为其初始化版本号，并调用 
+`writeFileTree` 生成 package.json 。
+
+## installDeps
+
+在生成 package.json 之后，我们再继续看下面的代码：
+```js
+// intilaize git repository before installing deps
+// so that vue-cli-service can setup git hooks.
+const shouldInitGit = await this.shouldInitGit(cliOptions)
+if (shouldInitGit) {
+  logWithSpinner(`🗃`, `Initializing git repository...`)
+  this.emit('creation', { event: 'git-init' })
+  await run('git init')
+}
+
+// install plugins
+stopSpinner()
+log(`⚙  Installing CLI plugins. This might take a while...`)
+log()
+this.emit('creation', { event: 'plugins-install' })
+if (isTestOrDebug) {
+  // in development, avoid installation process
+  await require('./util/setupDevProject')(context) // @vue/cli-service/bin/vue-cli-service
+} else {
+  await installDeps(context, packageManager, cliOptions.registry)
+}
+```
+这段代码会先调用 shouldInitGit 来判断是否需要 git 初始化，判断的情形有以下几种：
+* 没有安装 git (`!hasGit()`)：false；
+* vue create 含有 --git 或者 -g 选项：true；
+* vue create 含有 --no-git 或者 -n 选项：false；
+* 生成项目的目录是否已经含有 git （`!hasProjectGit(this.context)`）：如果有，则返回 false，否则返回 true。

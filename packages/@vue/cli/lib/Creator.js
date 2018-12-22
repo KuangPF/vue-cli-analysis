@@ -135,7 +135,7 @@ module.exports = class Creator extends EventEmitter {
     })
     // write package.json
     await writeFileTree(context, {
-      'package.json': JSON.stringify(pkg, null, 2)
+      'package.json': JSON.stringify(pkg, null, 2) // 返回值文本在每个级别添加2个空格
     })
 
     // intilaize git repository before installing deps
