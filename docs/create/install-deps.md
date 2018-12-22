@@ -130,3 +130,26 @@ if (isTestOrDebug) {
 * vue create 含有 --git 或者 -g 选项：true；
 * vue create 含有 --no-git 或者 -n 选项：false；
 * 生成项目的目录是否已经含有 git （`!hasProjectGit(this.context)`）：如果有，则返回 false，否则返回 true。
+
+在判断完是否需要 git 初始化项目后，接下来就会调用 installDeps 安装依赖，还是看下 installDeps 的源码：
+```js
+exports.installDeps = async function installDeps (targetDir, command, cliRegistry) {
+  const args = []
+  if (command === 'npm') {
+    args.push('install', '--loglevel', 'error')
+  } else if (command === 'yarn') {
+    // do nothing
+  } else {
+    throw new Error(`Unknown package manager: ${command}`)
+  }
+
+  await addRegistryToArgs(command, args, cliRegistry)
+
+  debug(`command: `, command) // DEBUG=vue-cli:install vue create demo
+  debug(`args: `, args)
+
+  await executeCommand(command, args, targetDir)
+}
+```
+源码很简洁，里面又先调用了 `addRegistryToArgs` 函数，它的作用就是安装依赖是指定安装源，如果 `vue create` 还有 -r 选项则采用设置的安装源，否则调用 `shouldUseTaobao` 函数来判断是否需要使用淘宝 NPM 镜像源。实现原理就是发送两个 Promise 使用默认安装源和淘宝镜像源去请求同一个 npm 包，然后利用 `Promise.race` 看在哪种源下返回结果更快就将此
+设置为安装源，另外如果 ~/.vuerc 中设置了`useTaobaoRegistry`，则使用设置的安装源。
