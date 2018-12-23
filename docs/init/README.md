@@ -36,6 +36,6 @@ vue init mpvue/mpvue-quickstart my-project
 
 当执行 `vue-init` 命令的时候 `loadCommand` 函数会加载 `@vue/cli-init` 模块，这也是为什么当你安装了 `@vue/cli`，但没有安装 `@vue/cli-init` 的时候执行 `vue init <template> <app-name>` 会有以下的提示：
 
-<img width="1217" alt="init-img01" src="https://user-images.githubusercontent.com/20694238/48670284-3c841400-eb50-11e8-90fa-64006e37ea4b.png">
+<img :src="$withBase('/assets/init-img01.png')">
 
 接下来我们就开始分析`@vue/cli-init` 模块做了什么事情。
