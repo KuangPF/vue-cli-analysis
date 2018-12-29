@@ -17,6 +17,9 @@
 * **vue create**
   * [create 入口](https://kuangpf.com/vue-cli-analysis/create/)
   * [整体分析](https://kuangpf.com/vue-cli-analysis/create/overall-analysis.html)
+  * [基础验证](https://kuangpf.com/vue-cli-analysis/create/basic-verification.html)
+  * [获取预设选项（preset）](https://kuangpf.com/vue-cli-analysis/create/get-preset.html)
+  * [依赖安装（installDeps）](https://kuangpf.com/vue-cli-analysis/create/install-deps.html)
 * vue add
 * vue invoke
 * vue inspect
