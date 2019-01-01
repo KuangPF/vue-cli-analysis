@@ -39,7 +39,8 @@ module.exports = {
         ['create/overall-analysis.md', '整体分析'],
         ['create/basic-verification.md', '基础验证'],
         ['create/get-preset.md', '获取预设选项（preset）'],
-        ['create/install-deps.md', '依赖安装（installDeps）']
+        ['create/install-deps.md', '依赖安装（installDeps）'],
+        ['create/generator.md', 'generator']
       ]
     }, {
       title: 'vue init',
