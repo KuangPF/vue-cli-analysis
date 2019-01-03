@@ -21,6 +21,14 @@ class GeneratorAPI {
    * @param {object} options - generator options passed to this plugin
    * @param {object} rootOptions - root options (the entire preset)
    */
+
+  /* eg.
+  rootOption = {
+     projectName: 'demo',
+     useConfigFiles: true,
+     plugins: [Object],
+     bare: undefined
+   } */
   constructor (id, generator, options, rootOptions) {
     this.id = id
     this.generator = generator
@@ -122,6 +130,8 @@ class GeneratorAPI {
    * files are written to disk.
    *
    * @param {object | () => object} fields - Fields to merge.
+   *
+   * 扩展 package.json
    */
   extendPackage (fields) {
     const pkg = this.generator.pkg
@@ -148,6 +158,8 @@ class GeneratorAPI {
       }
     }
   }
+
+
 
   /**
    * Render template files into the virtual files tree object.
@@ -179,6 +191,7 @@ class GeneratorAPI {
           const targetPath = rawPath.split('/').map(filename => {
             // dotfiles are ignored when published to npm, therefore in templates
             // we need to use underscore instead (e.g. "_gitignore")
+            // 将 _fileName 类型的文件还原成 .fileName 类型的文件
             if (filename.charAt(0) === '_' && filename.charAt(1) !== '_') {
               return `.${filename.slice(1)}`
             }
@@ -304,8 +317,16 @@ function extractCallDir () {
 
 const replaceBlockRE = /<%# REPLACE %>([^]*?)<%# END_REPLACE %>/g
 
+
+/**
+ * @name   path/node_modules/@vue/cli-service/generator/template/_gitignore
+ * @data   options rootOptions plugins additionalData
+ * @ejsOptions   ejsOptions = {}
+ *
+ * 渲染文件
+ */
 function renderFile (name, data, ejsOptions) {
-  if (isBinary.sync(name)) {
+  if (isBinary.sync(name)) { // 检测是否为二进制文件
     return fs.readFileSync(name) // return buffer
   }
   const template = fs.readFileSync(name, 'utf-8')

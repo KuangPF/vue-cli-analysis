@@ -34,7 +34,7 @@ module.exports = class Generator {
     this.depSources = {}
     // virtual file tree
     this.files = files
-    this.fileMiddlewares = []
+    this.fileMiddlewares = [] // receives the virtual files tree object, and an ejs render function
     this.postProcessFilesCbs = []
     // exit messages
     this.exitLogs = []
