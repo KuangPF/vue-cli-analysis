@@ -21,14 +21,6 @@ class GeneratorAPI {
    * @param {object} options - generator options passed to this plugin
    * @param {object} rootOptions - root options (the entire preset)
    */
-
-   /* eg.
-   rootOption = {
-      projectName: 'demo',
-      useConfigFiles: true,
-      plugins: [Object],
-      bare: undefined
-    } */
   constructor (id, generator, options, rootOptions) {
     this.id = id
     this.generator = generator
@@ -41,7 +33,7 @@ class GeneratorAPI {
         name: toShortPluginId(id), // name: babel
         link: getPluginLink(id) // link: https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel
       }))
-      
+
     this._entryFile = undefined
   }
 
@@ -167,15 +159,22 @@ class GeneratorAPI {
    *   - a custom file middleware function.
    * @param {object} [additionalData] - additional data available to templates.
    * @param {object} [ejsOptions] - options for ejs.
+   *
+   * 渲染 ejs 模板
    */
   render (source, additionalData = {}, ejsOptions = {}) {
-    const baseDir = extractCallDir()
-    if (isString(source)) {
+    const baseDir = extractCallDir() // path/node_modules/@vue/cli-service/generator
+    if (isString(source)) { // source: './template'
       source = path.resolve(baseDir, source)
       this._injectFileMiddleware(async (files) => {
         const data = this._resolveData(additionalData)
         const globby = require('globby')
-        const _files = await globby(['**/*'], { cwd: source })
+        const _files = await globby(['**/*'], { cwd: source }) // 匹配 ./template 目录下面的文件
+        /**
+         * _file:
+         * ['_gitignore','public/favicon.ico','public/index.html','src/App.vue','src/main.js', 'src/assets/logo.png','src/components/HelloWorld.vue']
+         *
+         */
         for (const rawPath of _files) {
           const targetPath = rawPath.split('/').map(filename => {
             // dotfiles are ignored when published to npm, therefore in templates
@@ -253,9 +252,9 @@ class GeneratorAPI {
    */
   injectImports (file, imports) {
     const _imports = (
-      this.generator.imports[file] ||
-      (this.generator.imports[file] = new Set())
-    )
+        this.generator.imports[file] ||
+        (this.generator.imports[file] = new Set())
+      )
     ;(Array.isArray(imports) ? imports : [imports]).forEach(imp => {
       _imports.add(imp)
     })
@@ -266,9 +265,9 @@ class GeneratorAPI {
    */
   injectRootOptions (file, options) {
     const _options = (
-      this.generator.rootOptions[file] ||
-      (this.generator.rootOptions[file] = new Set())
-    )
+        this.generator.rootOptions[file] ||
+        (this.generator.rootOptions[file] = new Set())
+      )
     ;(Array.isArray(options) ? options : [options]).forEach(opt => {
       _options.add(opt)
     })
@@ -347,7 +346,7 @@ function renderFile (name, data, ejsOptions) {
     if (parsed.when) {
       finalTemplate = (
         `<%_ if (${parsed.when}) { _%>` +
-          finalTemplate +
+        finalTemplate +
         `<%_ } _%>`
       )
     }

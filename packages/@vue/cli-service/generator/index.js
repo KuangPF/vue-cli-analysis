@@ -1,4 +1,5 @@
 module.exports = (api, options) => {
+  /* 渲染 ejs 模板 */
   api.render('./template', {
     doesCompile: api.hasPlugin('babel') || api.hasPlugin('typescript')
   })
