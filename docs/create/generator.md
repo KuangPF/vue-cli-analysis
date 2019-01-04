@@ -1,6 +1,7 @@
 # generator
 
-在安装完依赖以后，就会调用 generators ，首先后实例化一个 Generator ，看代码：
+在安装完依赖以后，就会调用 resolvePlugins，作用就是加载每个插件的 generator ，并且如果插件需要进行命令行交互的话会执行 inquirer.prompt 获取 option。
+在此之后会实例化一个 Generator ，看代码：
 ```js
 const generator = new Generator(context, {
   pkg,
@@ -10,6 +11,7 @@ const generator = new Generator(context, {
 ```
 在实例化一个 Generator 的时候会初始化一些成员变量，最重要的就是调用插件的 generators，不同于 1.x/2.x 基于模板的脚手架，Vue-cli3.0 采用了一套
 基于插件的架构，到这里就会交给各个插件去执行了，看一下 Generator 实例化的代码：
+
 ```js
 module.exports = class Generator {
   constructor (context, {
