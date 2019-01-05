@@ -88,12 +88,19 @@ module.exports = class Generator {
     this.depSources = {}
     // virtual file tree
     this.files = files
-    this.fileMiddlewares = []
+    this.fileMiddlewares = [] // receives the virtual files tree object, and an ejs render function
     this.postProcessFilesCbs = []
     // exit messages
     this.exitLogs = []
 
     const cliService = plugins.find(p => p.id === '@vue/cli-service')
+
+    /* rootOption = {
+      projectName: 'demo',
+      useConfigFiles: true,
+      plugins: [Object],
+      bare: undefined
+    } */
     const rootOptions = cliService
       ? cliService.options
       : inferRootOptions(pkg)
@@ -113,7 +120,7 @@ module.exports = class Generator {
     // extract configs from package.json into dedicated files.
     this.extractConfigFiles(extractConfigFiles, checkExisting)
     // wait for file resolve
-    await this.resolveFiles()
+    await this.resolveFiles()  // 模版渲染
     // set package.json
     this.sortPkg()
     this.files['package.json'] = JSON.stringify(this.pkg, null, 2) + '\n'
@@ -201,7 +208,6 @@ module.exports = class Generator {
     for (const middleware of this.fileMiddlewares) {
       await middleware(files, ejs.render)
     }
-
     // normalize file paths on windows
     // all paths are converted to use / instead of \
     normalizeFilePaths(files)

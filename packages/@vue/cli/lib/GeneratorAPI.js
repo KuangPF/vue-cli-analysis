@@ -22,13 +22,13 @@ class GeneratorAPI {
    * @param {object} rootOptions - root options (the entire preset)
    */
 
-  /* eg.
-  rootOption = {
-     projectName: 'demo',
-     useConfigFiles: true,
-     plugins: [Object],
-     bare: undefined
-   } */
+   /* eg.
+   rootOption = {
+      projectName: 'demo',
+      useConfigFiles: true,
+      plugins: [Object],
+      bare: undefined
+    } */
   constructor (id, generator, options, rootOptions) {
     this.id = id
     this.generator = generator
@@ -265,9 +265,9 @@ class GeneratorAPI {
    */
   injectImports (file, imports) {
     const _imports = (
-        this.generator.imports[file] ||
-        (this.generator.imports[file] = new Set())
-      )
+      this.generator.imports[file] ||
+      (this.generator.imports[file] = new Set())
+    )
     ;(Array.isArray(imports) ? imports : [imports]).forEach(imp => {
       _imports.add(imp)
     })
@@ -278,9 +278,9 @@ class GeneratorAPI {
    */
   injectRootOptions (file, options) {
     const _options = (
-        this.generator.rootOptions[file] ||
-        (this.generator.rootOptions[file] = new Set())
-      )
+      this.generator.rootOptions[file] ||
+      (this.generator.rootOptions[file] = new Set())
+    )
     ;(Array.isArray(options) ? options : [options]).forEach(opt => {
       _options.add(opt)
     })
@@ -367,7 +367,7 @@ function renderFile (name, data, ejsOptions) {
     if (parsed.when) {
       finalTemplate = (
         `<%_ if (${parsed.when}) { _%>` +
-        finalTemplate +
+          finalTemplate +
         `<%_ } _%>`
       )
     }
