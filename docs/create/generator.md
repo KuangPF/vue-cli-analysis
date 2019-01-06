@@ -59,3 +59,19 @@ module.exports = class Generator {
 接下来看一下 GeneratorAPI。
 
 ## GeneratorAPI
+
+GeneratorAPI 是一个比较重要的部分了，前面说过 vue-cli 3.0 是基于一套插件架构的，那么如果插件需要自定义项目模板、修改模板中的一些文件或者添加一些依赖
+的话怎么处理呢。方法是@vue/cli 插件所提供的 generator 向外暴露一个函数，接收的第一个参数 api，然后通过该 api 提供的方法去完成应用的拓展工作，这里所说
+的 api 就是 GeneratorAPI，下面看一下 GeneratorAPI 提供了哪些方法。
+
+* hasPlugin：判断项目中是否有某个插件 
+* extendPackage：拓展 package.json 配置方
+* render：利用 ejs 渲染模板文件
+* onCreateComplete：内存中保存的文件字符串全部被写入文件后的回调函数
+* exitLog：当 generator 退出的时候输出的信息
+* genJSConfig：将 json 文件生成为 js 配置文件
+* injectImports：向文件当中注入import语法的方法
+* injectRootOptions：向 Vue 根实例中添加选项
+* ...
+
+下面就以 @vue/cli-service 为例，来简单熟悉下 GeneratorAPI。
