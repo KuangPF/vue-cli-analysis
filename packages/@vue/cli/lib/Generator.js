@@ -6,7 +6,7 @@ const writeFileTree = require('./util/writeFileTree')
 const inferRootOptions = require('./util/inferRootOptions')
 const normalizeFilePaths = require('./util/normalizeFilePaths')
 const injectImportsAndOptions = require('./util/injectImportsAndOptions')
-const { toShortPluginId, matchesPluginId } = require('@vue/cli-shared-utils')
+const {toShortPluginId, matchesPluginId} = require('@vue/cli-shared-utils')
 const ConfigTransform = require('./ConfigTransform')
 
 const logger = require('@vue/cli-shared-utils/lib/logger')
@@ -18,6 +18,8 @@ const logTypes = {
   error: logger.error
 }
 
+
+// 默认的配置文件，包含 babel，postcss，eslint，jest
 const defaultConfigTransforms = {
   babel: new ConfigTransform({
     file: {
@@ -50,6 +52,7 @@ const defaultConfigTransforms = {
   })
 }
 
+// vue 保留的 config
 const reservedConfigTransforms = {
   vue: new ConfigTransform({
     file: {
@@ -66,7 +69,7 @@ const ensureEOL = str => {
 }
 
 module.exports = class Generator {
-  constructor (context, {
+  constructor(context, {
     pkg = {},
     plugins = [],
     completeCbs = [],
@@ -80,9 +83,9 @@ module.exports = class Generator {
     this.imports = {}
     this.rootOptions = {}
     this.completeCbs = completeCbs
-    this.configTransforms = {}
-    this.defaultConfigTransforms = defaultConfigTransforms
-    this.reservedConfigTransforms = reservedConfigTransforms
+    this.configTransforms = {} // 插件通过 GeneratorAPI 暴露的 addConfigTransform 方法添加如何提取配置文件
+    this.defaultConfigTransforms = defaultConfigTransforms // 默认的配置文件
+    this.reservedConfigTransforms = reservedConfigTransforms // 保留的配置文件 vue.config.js
     this.invoking = invoking
     // for conflict resolution
     this.depSources = {}
@@ -105,19 +108,20 @@ module.exports = class Generator {
       ? cliService.options
       : inferRootOptions(pkg)
     // apply generators from plugins
-    plugins.forEach(({ id, apply, options }) => {
+    plugins.forEach(({id, apply, options}) => {
       const api = new GeneratorAPI(id, this, options, rootOptions)
       apply(api, options, rootOptions, invoking)
     })
   }
 
-  async generate ({
+  async generate({
     extractConfigFiles = false,
     checkExisting = false
   } = {}) {
     // save the file system before applying plugin for comparison
     const initialFiles = Object.assign({}, this.files)
     // extract configs from package.json into dedicated files.
+    // 将一些配置文件从 package.json 中提取到对应的配置文件中，比如 postcss.config.js，babel.config.js 等等。
     this.extractConfigFiles(extractConfigFiles, checkExisting)
     // wait for file resolve
     await this.resolveFiles()  // 模版渲染
@@ -128,7 +132,7 @@ module.exports = class Generator {
     await writeFileTree(this.context, this.files, initialFiles)
   }
 
-  extractConfigFiles (extractAll, checkExisting) {
+  extractConfigFiles(extractAll, checkExisting) {
     const configTransforms = Object.assign({},
       defaultConfigTransforms,
       this.configTransforms,
@@ -149,7 +153,7 @@ module.exports = class Generator {
           this.files,
           this.context
         )
-        const { content, filename } = res
+        const {content, filename} = res
         this.files[filename] = ensureEOL(content)
         delete this.pkg[key]
       }
@@ -170,7 +174,7 @@ module.exports = class Generator {
     }
   }
 
-  sortPkg () {
+  sortPkg() {
     // ensure package.json keys has readable order
     this.pkg.dependencies = sortObject(this.pkg.dependencies)
     this.pkg.devDependencies = sortObject(this.pkg.devDependencies)
@@ -203,7 +207,7 @@ module.exports = class Generator {
     debug('vue:cli-pkg')(this.pkg)
   }
 
-  async resolveFiles () {
+  async resolveFiles() {
     const files = this.files
     for (const middleware of this.fileMiddlewares) {
       await middleware(files, ejs.render)
@@ -227,7 +231,7 @@ module.exports = class Generator {
     debug('vue:cli-files')(this.files)
   }
 
-  hasPlugin (_id) {
+  hasPlugin(_id) {
     if (_id === 'router') _id = 'vue-router'
     if (['vue-router', 'vuex'].includes(_id)) {
       const pkg = this.pkg
@@ -240,9 +244,9 @@ module.exports = class Generator {
     ].some(id => matchesPluginId(_id, id))
   }
 
-  printExitLogs () {
+  printExitLogs() {
     if (this.exitLogs.length) {
-      this.exitLogs.forEach(({ id, msg, type }) => {
+      this.exitLogs.forEach(({id, msg, type}) => {
         const shortId = toShortPluginId(id)
         const logFn = logTypes[type]
         if (!logFn) {

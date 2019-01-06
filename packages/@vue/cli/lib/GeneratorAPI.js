@@ -22,13 +22,13 @@ class GeneratorAPI {
    * @param {object} rootOptions - root options (the entire preset)
    */
 
-   /* eg.
-   rootOption = {
-      projectName: 'demo',
-      useConfigFiles: true,
-      plugins: [Object],
-      bare: undefined
-    } */
+  /* eg.
+  rootOption = {
+     projectName: 'demo',
+     useConfigFiles: true,
+     plugins: [Object],
+     bare: undefined
+   } */
   constructor (id, generator, options, rootOptions) {
     this.id = id
     this.generator = generator
@@ -84,6 +84,8 @@ class GeneratorAPI {
    *
    * @param {string} id - Plugin id, can omit the (@vue/|vue-|@scope/vue)-cli-plugin- prefix
    * @return {boolean}
+   *
+   * 可以略去 (@vue/|vue-|@scope/vue)-cli-plugin- 前缀
    */
   hasPlugin (id) {
     return this.generator.hasPlugin(id)
@@ -229,12 +231,14 @@ class GeneratorAPI {
    * middelwares have been applied.
    *
    * @param {FileMiddleware} cb
-   */
-  postProcessFiles (cb) {
+   *
+   * 当一些普通文件的 middelwares 执行完之后执行，比如执行了 render 后，项目初始化时有需要 vue-router，那么就会对 src/App.vue 文件进行
+   * 替换，此时就需要将回调 push 到 postProcessFilesCbs 中。
+   postProcessFiles (cb) {
     this.generator.postProcessFilesCbs.push(cb)
   }
 
-  /**
+   /**
    * Push a callback to be called when the files have been written to disk.
    *
    * @param {function} cb
@@ -262,12 +266,14 @@ class GeneratorAPI {
 
   /**
    * Add import statements to a file.
+   *
+   * 注入 import
    */
   injectImports (file, imports) {
     const _imports = (
-      this.generator.imports[file] ||
-      (this.generator.imports[file] = new Set())
-    )
+        this.generator.imports[file] ||
+        (this.generator.imports[file] = new Set())
+      )
     ;(Array.isArray(imports) ? imports : [imports]).forEach(imp => {
       _imports.add(imp)
     })
@@ -275,12 +281,14 @@ class GeneratorAPI {
 
   /**
    * Add options to the root Vue instance (detected by `new Vue`).
+   *
+   * 在 实例话 Vue 的时候注入选项， eg. router
    */
   injectRootOptions (file, options) {
     const _options = (
-      this.generator.rootOptions[file] ||
-      (this.generator.rootOptions[file] = new Set())
-    )
+        this.generator.rootOptions[file] ||
+        (this.generator.rootOptions[file] = new Set())
+      )
     ;(Array.isArray(options) ? options : [options]).forEach(opt => {
       _options.add(opt)
     })
@@ -367,7 +375,7 @@ function renderFile (name, data, ejsOptions) {
     if (parsed.when) {
       finalTemplate = (
         `<%_ if (${parsed.when}) { _%>` +
-          finalTemplate +
+        finalTemplate +
         `<%_ } _%>`
       )
     }

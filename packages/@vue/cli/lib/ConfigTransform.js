@@ -1,11 +1,30 @@
 const transforms = require('./util/configTransforms')
 
+/**
+ * eg:
+ * new ConfigTransform({
+    file: {
+      lines: ['.browserslistrc']
+    }
+  })
+ *
+ *
+ * */
+
 class ConfigTransform {
-  constructor (options) {
+  constructor(options) {
     this.fileDescriptor = options.file
   }
 
-  transform (value, checkExisting, files, context) {
+  /**
+   * eg: browserslist
+   * @value: [ '> 1%', 'last 2 versions', 'not ie <= 8' ]
+   * @checkExisting: false
+   * @files: { 'postcss.config.js': 'module.exports = {\n  plugins: {\n    autoprefixer: {}\n  }\n}\n' }
+   * @content: path/demo
+   *
+   * */
+  transform(value, checkExisting, files, context) {
     let file
     if (checkExisting) {
       file = this.findFile(files)
@@ -13,7 +32,7 @@ class ConfigTransform {
     if (!file) {
       file = this.getDefaultFile()
     }
-    const { type, filename } = file
+    const {type, filename} = file
 
     const transform = transforms[type]
 
@@ -44,21 +63,22 @@ class ConfigTransform {
     }
   }
 
-  findFile (files) {
-    for (const type of Object.keys(this.fileDescriptor)) {
+  findFile(files) {
+    for (const type of Object.keys(this.fileDescriptor)) {  // json: ['.eslintrc', '.eslintrc.json'],
       const descriptors = this.fileDescriptor[type]
-      for (const filename of descriptors) {
+      for (const filename of descriptors) { // ['.eslintrc', '.eslintrc.json']
         if (files[filename]) {
-          return { type, filename }
+          return {type, filename}
         }
       }
     }
   }
 
-  getDefaultFile () {
-    const [type] = Object.keys(this.fileDescriptor)
+  getDefaultFile() {
+    // 默认取第一种类型
+    const [type] = Object.keys(this.fileDescriptor) // ['js', 'json', 'yaml', 'lines']
     const [filename] = this.fileDescriptor[type]
-    return { type, filename }
+    return {type, filename}
   }
 }
 

@@ -70,6 +70,7 @@ module.exports = class Creator extends EventEmitter {
 
   async create (cliOptions = {}, preset = null) {
     const isTestOrDebug = process.env.VUE_CLI_TEST || process.env.VUE_CLI_DEBUG
+    console.log('before creating......')
     // name: demo
     // context: targetDir
     const { run, name, context, createCompleteCbs } = this
@@ -104,13 +105,14 @@ module.exports = class Creator extends EventEmitter {
       bare: cliOptions.bare
     })
 
+    // 获取包管理器
     const packageManager = (
       cliOptions.packageManager ||
       loadOptions().packageManager ||
       (hasYarn() ? 'yarn' : 'npm')
     )
 
-    await clearConsole() // 清空控制台
+    await clearConsole()
     logWithSpinner(`✨`, `Creating project in ${chalk.yellow(context)}.`)
     this.emit('creation', { event: 'creating' })
 
@@ -125,7 +127,7 @@ module.exports = class Creator extends EventEmitter {
     }
     const deps = Object.keys(preset.plugins)
     deps.forEach(dep => {
-      if (preset.plugins[dep]._isPreset) {
+      if (preset.plugins[dep]._isPreset) { // 本地调试 preset 或者从远处获取 preset，因此不用加入 devDependencies 中
         return
       }
       pkg.devDependencies[dep] = (
@@ -135,7 +137,7 @@ module.exports = class Creator extends EventEmitter {
     })
     // write package.json
     await writeFileTree(context, {
-      'package.json': JSON.stringify(pkg, null, 2) // 返回值文本在每个级别添加2个空格
+      'package.json': JSON.stringify(pkg, null, 2)
     })
 
     // intilaize git repository before installing deps
@@ -163,15 +165,19 @@ module.exports = class Creator extends EventEmitter {
     log(`🚀  Invoking generators...`)
     this.emit('creation', { event: 'invoking-generators' })
     const plugins = await this.resolvePlugins(preset.plugins)
+
     const generator = new Generator(context, {
       pkg,
       plugins,
       completeCbs: createCompleteCbs
     })
+
     await generator.generate({
-      extractConfigFiles: preset.useConfigFiles
+      extractConfigFiles: preset.useConfigFiles // 如果选择将配置配件注入到 package.json 中的话，extractConfigFiles = false
     })
 
+    return;
+    //TODO
     // install additional deps (injected by generators)
     log(`📦  Installing additional dependencies...`)
     this.emit('creation', { event: 'deps-install' })
@@ -299,7 +305,7 @@ module.exports = class Creator extends EventEmitter {
     }
 
     // use default preset if user has not overwritten it
-    if (name === 'default' && !preset) {  // eg: vue create demo ,选择 preset 时，选择了 default 模式
+    if (name === 'default' && !preset) {  // defaultPreset eg: vue create demo -p default
       preset = defaults.presets.default
     }
     if (!preset) {
@@ -349,7 +355,7 @@ module.exports = class Creator extends EventEmitter {
       let options = rawPlugins[id] || {}
       if (options.prompts) {
         const prompts = loadModule(`${id}/prompts`, this.context)
-        if (prompts) {
+        if (prompts) { //
           log()
           log(`${chalk.cyan(options._isPreset ? `Preset options:` : id)}`)
           options = await inquirer.prompt(prompts)
