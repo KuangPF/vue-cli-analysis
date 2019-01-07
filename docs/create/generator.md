@@ -150,22 +150,154 @@ module.exports = (api, options) => {
 、`@vue/cli-plugin-pwa` 等等，以及其他第三方插件，他们的 `generator` 作用都是一样都可以向项目的 `package.json` 中注入额外的依赖或字段，并向项目中添加文件。
 
 
+在实例化 Generator 之后，就会调用实例的 generate 放在，此时就差不多进入到了生成项目文件的阶段了。大致可以分为三部分，extractConfigFiles（提取配置文件），
+resolveFiles（模板渲染）和 writeFileTree（在磁盘上生成文件）。
+
 ## extractConfigFiles
 
+提取配置文件指的是将一些插件（比如 eslint，babel）的配置从 `package.json` 的字段中提取到专属的配置文件中。下面以 eslint 为例进行分析：
+在初始化项目的时候，如果选择了 eslint 插件，在调用 `@vue/cli-plugin-eslint` 的 generator 的时候，就会向 `package.json` 注入 eslintConfig 字段：
 
+```js
+module.exports = (api, { config, lintOn = [] }, _, invoking) => {
+  if (typeof lintOn === 'string') {
+    lintOn = lintOn.split(',')
+  }
 
+  const eslintConfig = require('../eslintOptions').config(api)
 
+  const pkg = {
+    scripts: {
+      lint: 'vue-cli-service lint'
+    },
+    eslintConfig,
+    // TODO:
+    // Move these dependencies to package.json in v4.
+    // Now in v3 we have to add redundant eslint related dependencies
+    // in order to keep compatibility with v3.0.x users who defaults to ESlint v4.
+    devDependencies: {
+      'babel-eslint': '^10.0.1',
+      'eslint': '^5.8.0',
+      'esliint-plugin-vue': '^5.0.0-0'
+    }
+  }
 
+  const injectEditorConfig = (config) => {
+    const filePath = api.resolve('.editorconfig')
+    if (fs.existsSync(filePath)) {
+      // Append to existing .editorconfig
+      api.render(files => {
+        const configPath = path.resolve(__dirname, `./template/${config}/_editorconfig`)
+        const editorconfig = fs.readFileSync(configPath, 'utf-8')
 
+        files['.editorconfig'] += `\n${editorconfig}`
+      })
+    } else {
+      api.render(`./template/${config}`)
+    }
+  }
 
+  if (config === 'airbnb') {
+    eslintConfig.extends.push('@vue/airbnb')
+    Object.assign(pkg.devDependencies, {
+      '@vue/eslint-config-airbnb': '^4.0.0'
+    })
+    injectEditorConfig('airbnb')
+  } else if (config === 'standard') {
+    eslintConfig.extends.push('@vue/standard')
+    Object.assign(pkg.devDependencies, {
+      '@vue/eslint-config-standard': '^4.0.0'
+    })
+    injectEditorConfig('standard')
+  } else if (config === 'prettier') {
+    eslintConfig.extends.push('@vue/prettier')
+    Object.assign(pkg.devDependencies, {
+      '@vue/eslint-config-prettier': '^4.0.0'
+    })
+    // prettier & default config do not have any style rules
+    // so no need to generate an editorconfig file
+  } else {
+    // default
+    eslintConfig.extends.push('eslint:recommended')
+  }
 
+  api.extendPackage(pkg)
 
+}
+```
+这是 `@vue/cli-plugin-eslint/generator/index.js` 中的一部分代码，从代码中可以看出，利用  `GeneratorAPI` 的 `extendPackage` 方法向 `package.josn`
+里面注入了 scripts，eslintConfig 以及 devDependencies 字段，另外也会根据选择的 eslint 模式添加对应的依赖和修改对应的配置文件，例如选择了 airbnb 
+模式，就会向 `eslintConfig.extends` 添加 `@vue/airbnb` 配置，并且添加 `@vue/eslint-config-airbnb` 依赖和修改 `.editorconfig` 配置文件。此时 
+项目 `package.json` 中 `eslintConfig` 字段内容如下：
 
+```json
+{
+"eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "@vue/airbnb"
+    ],
+    "rules": {},
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  }
+}
+```
+如果 preset 的 `useConfigFiles` 为 true ，或者以 Manually 模式初始化 preset 的时候选择 In dedicated config files 存放配置文件:
 
+<img :src="$withBase('/assets/create-img03.png')">
 
+那么 `extractConfigFiles` 方法就会将 `package.json` 中 eslintConfig 字段内容提取到 `.eslintrc.js` 文件中，内存中 `.eslintrc.js` 内容如下：
 
+```js
+module.exports = {
+  root: true,
+  env: {
+    node: true,
+  },
+  extends: [
+    'plugin:vue/essential',
+    '@vue/airbnb',
+  ],
+  rules: {
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+  },
+  parserOptions: {
+    parser: 'babel-eslint',
+  },
+};
 
+```
+`extractConfigFiles` 方法的具体实现主要是调用 `ConfigTransform` 实例的 `transform` 方法，代码实现的比较清晰，各位同学可以自己看下。这里就不做详细
+分析了，在配置文件提取完了以后接下来就是执行 `resolveFiles` 函数了。
 
+## resolveFiles
+
+resolveFiles 主要分为以下三个部分执行：
+
+* **fileMiddlewares**
+* **injectImportsAndOptions**
+* **postProcessFilesCbs**
+
+`fileMiddlewares` 里面包含了 `ejs render` 函数，所有插件调用 `api.render` 时候只是把对应的渲染函数 push 到了 `fileMiddlewares` 中，等所有的
+插件执行完以后才会遍历执行 `fileMiddlewares` 里面的所有函数，即在内存中生成模板文件字符串。
+
+`injectImportsAndOptions` 就是将 generator 注入的 import 和 rootOption 解析到对应的文件中，比如选择了 vuex, 会在 `src/main.js` 中添加 `import store 
+from './store'`，以及在 vue 根实例中添加 router 选项。
+
+`postProcessFilesCbs` 是在所有普通文件在内存中渲染成字符串完成之后要执行的遍历回调。例如将 `@vue/cli-service/generator/index.js` 中的 render 是放在了 `fileMiddlewares` 里面，而将
+`@vue/cli-service/generator/router/index.js` 中将替换 `src/App.vue` 文件的方法放在了 `postProcessFiles` 里面，原因是对 `src/App.vue` 
+文件的一些替换一定是发生在 render 函数之后，如果在之前，修改后的 src/App.vue 在之后 render 函数执行时又会被覆盖，这样显然不合理。
+
+## writeFileTree
+
+在提取了配置文件和模板渲染这些之后调用了 sortPkg 对 package.json 
 
 
 
