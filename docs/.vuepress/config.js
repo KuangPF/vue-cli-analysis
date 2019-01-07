@@ -41,7 +41,8 @@ module.exports = {
         ['create/get-preset.md', '获取预设选项（preset）'],
         ['create/install-deps.md', '依赖安装（installDeps）'],
         ['create/generator.md', 'Generator'],
-        ['create/end-part.md', '结尾分析']
+        ['create/end-part.md', '结尾分析'],
+        ['create/summary.md', '总结']
       ]
     }, {
       title: 'vue init',
