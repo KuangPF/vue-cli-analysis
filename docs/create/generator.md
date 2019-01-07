@@ -1,4 +1,4 @@
-# generator
+# Generator
 
 在安装完依赖以后，就会调用 `resolvePlugins`，作用就是加载每个插件的 `generator` ，并且如果插件需要进行命令行交互的话会执行 `inquirer.prompt` 获取 option。
 在此之后会实例化一个 `Generator` ，看代码：
@@ -65,7 +65,7 @@ module.exports = class Generator {
 的 api 就是 `GeneratorAPI`，下面看一下 `GeneratorAPI` 提供了哪些方法。
 
 * **hasPlugin**：判断项目中是否有某个插件 
-* **extendPackage**：拓展 package.json 配置方
+* **extendPackage**：拓展 package.json 配置
 * **render**：利用 ejs 渲染模板文件
 * **onCreateComplete**：内存中保存的文件字符串全部被写入文件后的回调函数
 * **exitLog**：当 generator 退出的时候输出的信息

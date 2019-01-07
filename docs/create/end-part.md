@@ -68,7 +68,7 @@ generator.printExitLogs()
 * **安装额外依赖**
 * **执行 createCompleteCbs**
 * **生成 README.md**
-* **git 初始化**
+* **git 初始化提交**
 * **日志输出**
 
 
@@ -95,12 +95,12 @@ if (config && config !== 'base') {
 生成 README.md，这里需要注意的一点就是，调用的 `generateReadme` 函数会根据 `package.json` 的 script 的字段生成生成对应的 `README.md。`
 
 
-## git 初始化
+## git 初始化提交
 
-git 初始化主要就是调用 `shouldInitGit` 来判断是否需要 git 初始化项目，在以下这两种情况会 git 初始化项目：
+git 初始化提交主要就是调用 `shouldInitGit` 来判断是否需要 git 初始化提交，如果需要初始化提交就会执行 `git add` 和 `git commmit` 命令，
+只有在以下这种情况会 git 初始化提交：
 
 * --git: vue create 含有 -g 或者 --git 选项
-* 项目初始化目录没有进行 git 初始化
 
 
 ## 日志输出
