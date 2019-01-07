@@ -297,7 +297,9 @@ from './store'`，以及在 vue 根实例中添加 router 选项。
 
 ## writeFileTree
 
-在提取了配置文件和模板渲染这些之后调用了 sortPkg 对 package.json 
+在提取了配置文件和模板渲染之后调用了 `sortPkg` 对 `package.json` 的字段进行了排序并将 `package.json` 转化为 json 字符串添加到项目的 files 中。
+此时整个项目的文件已经在内存中生成好了（在源码中就是对应的 this.files），接下来就调用 `writeFileTree` 方法将内存中的字符串模板文件生成在磁盘中。到这里
+`vue create` 核心部分 generator 基本上就分析完了，在下一节就分析 `vue create` 命令剩下的部分。
 
 
 
