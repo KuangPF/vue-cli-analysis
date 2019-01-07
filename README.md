@@ -20,6 +20,8 @@
   * [基础验证](https://kuangpf.com/vue-cli-analysis/create/basic-verification.html)
   * [获取预设选项（preset）](https://kuangpf.com/vue-cli-analysis/create/get-preset.html)
   * [依赖安装（installDeps）](https://kuangpf.com/vue-cli-analysis/create/install-deps.html)
+  * [Generator](https://kuangpf.com/vue-cli-analysis/create/create/generator.html#)
+  * [结尾分析](https://kuangpf.com/vue-cli-analysis/create/end-part.html)
 * vue add
 * vue invoke
 * vue inspect
@@ -38,4 +40,4 @@
 
 ## 进度
 
-![progress](http://progressed.io/bar/20?title=progress)
+![progress](http://progressed.io/bar/25?title=progress)
