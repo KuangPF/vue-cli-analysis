@@ -22,6 +22,7 @@
   * [依赖安装（installDeps）](https://kuangpf.com/vue-cli-analysis/create/install-deps.html)
   * [Generator](https://kuangpf.com/vue-cli-analysis/create/create/generator.html#)
   * [结尾分析](https://kuangpf.com/vue-cli-analysis/create/end-part.html)
+  * [总结](https://kuangpf.com/vue-cli-analysis/create/summary.html)
 * vue add
 * vue invoke
 * vue inspect
