@@ -234,11 +234,13 @@ class GeneratorAPI {
    *
    * 当一些普通文件的 middelwares 执行完之后执行，比如执行了 render 后，项目初始化时有需要 vue-router，那么就会对 src/App.vue 文件进行
    * 替换，此时就需要将回调 push 到 postProcessFilesCbs 中。
-   postProcessFiles (cb) {
+   */
+
+  postProcessFiles (cb) {
     this.generator.postProcessFilesCbs.push(cb)
   }
 
-   /**
+  /**
    * Push a callback to be called when the files have been written to disk.
    *
    * @param {function} cb

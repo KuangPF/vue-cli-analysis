@@ -1,3 +1,10 @@
+/**
+ * 处理 generator 注入的 import 和 rootOptions
+ * @source: file
+ * @import: eg: Set { 'import store from \'./store\'' }
+ * @rootOptions: eg: Set { 'store' }
+ */
+
 module.exports = function injectImportsAndOptions (source, imports, injections) {
   imports = imports instanceof Set ? Array.from(imports) : imports
   injections = injections instanceof Set ? Array.from(injections) : injections
