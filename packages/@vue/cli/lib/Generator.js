@@ -6,7 +6,7 @@ const writeFileTree = require('./util/writeFileTree')
 const inferRootOptions = require('./util/inferRootOptions')
 const normalizeFilePaths = require('./util/normalizeFilePaths')
 const injectImportsAndOptions = require('./util/injectImportsAndOptions')
-const {toShortPluginId, matchesPluginId} = require('@vue/cli-shared-utils')
+const { toShortPluginId, matchesPluginId } = require('@vue/cli-shared-utils')
 const ConfigTransform = require('./ConfigTransform')
 
 const logger = require('@vue/cli-shared-utils/lib/logger')
@@ -69,7 +69,7 @@ const ensureEOL = str => {
 }
 
 module.exports = class Generator {
-  constructor(context, {
+  constructor (context, {
     pkg = {},
     plugins = [],
     completeCbs = [],
@@ -108,31 +108,35 @@ module.exports = class Generator {
       ? cliService.options
       : inferRootOptions(pkg)
     // apply generators from plugins
-    plugins.forEach(({id, apply, options}) => {
+    plugins.forEach(({ id, apply, options }) => {
       const api = new GeneratorAPI(id, this, options, rootOptions)
       apply(api, options, rootOptions, invoking)
     })
   }
 
-  async generate({
-    extractConfigFiles = false,
-    checkExisting = false
-  } = {}) {
+  async generate ({
+                    extractConfigFiles = false,
+                    checkExisting = false
+                  } = {}) {
     // save the file system before applying plugin for comparison
     const initialFiles = Object.assign({}, this.files)
+
     // extract configs from package.json into dedicated files.
     // 将一些配置文件从 package.json 中提取到对应的配置文件中，比如 postcss.config.js，babel.config.js 等等。
     this.extractConfigFiles(extractConfigFiles, checkExisting)
+
     // wait for file resolve
     await this.resolveFiles()  // 模版渲染
     // set package.json
     this.sortPkg()
     this.files['package.json'] = JSON.stringify(this.pkg, null, 2) + '\n'
+
     // write/update file tree to disk
+    // 将内存中的保存的文件字符写入文件
     await writeFileTree(this.context, this.files, initialFiles)
   }
 
-  extractConfigFiles(extractAll, checkExisting) {
+  extractConfigFiles (extractAll, checkExisting) {
     const configTransforms = Object.assign({},
       defaultConfigTransforms,
       this.configTransforms,
@@ -153,7 +157,7 @@ module.exports = class Generator {
           this.files,
           this.context
         )
-        const {content, filename} = res
+        const { content, filename } = res
         this.files[filename] = ensureEOL(content)
         delete this.pkg[key]
       }
@@ -174,8 +178,9 @@ module.exports = class Generator {
     }
   }
 
-  sortPkg() {
+  sortPkg () {
     // ensure package.json keys has readable order
+    // 对 package.json 中的字段进行排序
     this.pkg.dependencies = sortObject(this.pkg.dependencies)
     this.pkg.devDependencies = sortObject(this.pkg.devDependencies)
     this.pkg.scripts = sortObject(this.pkg.scripts, [
@@ -207,7 +212,7 @@ module.exports = class Generator {
     debug('vue:cli-pkg')(this.pkg)
   }
 
-  async resolveFiles() {
+  async resolveFiles () {
     const files = this.files
     for (const middleware of this.fileMiddlewares) {
       await middleware(files, ejs.render)
@@ -215,8 +220,8 @@ module.exports = class Generator {
     // normalize file paths on windows
     // all paths are converted to use / instead of \
     normalizeFilePaths(files)
-
     // handle imports and root option injections
+    // 将 generator 注入的 import 和 rootOption 解析到对应的文件中
     Object.keys(files).forEach(file => {
       files[file] = injectImportsAndOptions(
         files[file],
@@ -225,13 +230,19 @@ module.exports = class Generator {
       )
     })
 
+    // 所有 fileMiddlewares 的回调执行完成之后会执行 postProcessFilesCbs 里面的回调
+    // eg: 将 @vue/cli-service/generator/index.js 中的 render 是放在了 fileMiddlewares 里面，而将
+    // @vue/cli-service/generator/router/index.js 中将替换 src/App.vue 文件的方法放在了 postProcessFiles 里面，原因是对
+    // src/App.vue 文件的一些替换一定是发生在 render 函数之后，如果在之前，那么修改后的 src/App.vue 在之后render 函数执行时又会被覆盖，这样
+    // 显然不合理
+
     for (const postProcess of this.postProcessFilesCbs) {
       await postProcess(files)
     }
     debug('vue:cli-files')(this.files)
   }
 
-  hasPlugin(_id) {
+  hasPlugin (_id) {
     if (_id === 'router') _id = 'vue-router'
     if (['vue-router', 'vuex'].includes(_id)) {
       const pkg = this.pkg
@@ -244,9 +255,9 @@ module.exports = class Generator {
     ].some(id => matchesPluginId(_id, id))
   }
 
-  printExitLogs() {
+  printExitLogs () {
     if (this.exitLogs.length) {
-      this.exitLogs.forEach(({id, msg, type}) => {
+      this.exitLogs.forEach(({ id, msg, type }) => {
         const shortId = toShortPluginId(id)
         const logFn = logTypes[type]
         if (!logFn) {
