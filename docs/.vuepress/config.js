@@ -45,6 +45,12 @@ module.exports = {
         ['create/summary.md', '总结']
       ]
     }, {
+      title: 'vue add',
+      collapsable: false,
+      children: [
+        ['add/', 'add 入口']
+      ]
+    }, {
       title: 'vue init',
       collapsable: false,
       children: [
