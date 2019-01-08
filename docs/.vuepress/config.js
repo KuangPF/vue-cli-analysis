@@ -54,6 +54,12 @@ module.exports = {
         ['add/summary.md', '总结']
       ]
     }, {
+      title: 'vue invoke',
+      collapsable: false,
+      children: [
+        ['invoke/', 'invoke 命令']
+      ]
+    },{
       title: 'vue init',
       collapsable: false,
       children: [

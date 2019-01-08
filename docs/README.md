@@ -23,12 +23,13 @@
   * [Generator](https://kuangpf.com/vue-cli-analysis/create/create/generator.html#)
   * [结尾分析](https://kuangpf.com/vue-cli-analysis/create/end-part.html)
   * [总结](https://kuangpf.com/vue-cli-analysis/create/summary.html)
-* vue add
+* **vue add**
   * [add 入口](https://kuangpf.com/vue-cli-analysis/add/)
   * [安装插件](https://kuangpf.com/vue-cli-analysis/add/plugin-install.html)
   * [调用插件](https://kuangpf.com/vue-cli-analysis/add/plugin-invoke.html)
   * [总结](https://kuangpf.com/vue-cli-analysis/add/summary.html)
-* vue invoke
+* **vue invoke**
+  * [invoke 命令](https://kuangpf.com/vue-cli-analysis/invoke/)
 * vue inspect
 * vue serve
 * vue build
@@ -45,4 +46,4 @@
 
 ## 进度
 
-![progress](http://progressed.io/bar/30?title=progress)
+![progress](http://progressed.io/bar/40?title=progress)
