@@ -64,7 +64,7 @@ async function invoke (pluginName, options = {}, context = process.cwd()) {
 }
 
 ```
-该方法先调用 `findPlugin` 判断插件是否安装成功，接着判断是否有 `generator（pluginGenerator）`，然后就是判断插件是否含有 `prompt`。如果有则调用
+该方法先调用 `findPlugin` 判断插件是否安装，接着判断是否有 `generator（pluginGenerator）`，然后就是判断插件是否含有 `prompt`。如果有则调用
 `inquirer.prompt` 获取插件的 `option`，并传给其 `generator`，在完成这些以后，就是 `runGenerator`。
 
 而对于 `vue-cli` 内部一些特殊的"插件"，比如 `router，vuex`就直接调用 `runGenerator`。

@@ -50,7 +50,8 @@ module.exports = {
       children: [
         ['add/', 'add 入口'],
         ['add/plugin-install.md', '安装插件'],
-        ['add/plugin-invoke.md', '调用插件']
+        ['add/plugin-invoke.md', '调用插件'],
+        ['add/summary.md', '总结']
       ]
     }, {
       title: 'vue init',
