@@ -24,6 +24,10 @@
   * [结尾分析](https://kuangpf.com/vue-cli-analysis/create/end-part.html)
   * [总结](https://kuangpf.com/vue-cli-analysis/create/summary.html)
 * vue add
+  * [add 入口](https://kuangpf.com/vue-cli-analysis/add/)
+  * [安装插件](https://kuangpf.com/vue-cli-analysis/add/plugin-install.html)
+  * [调用插件](https://kuangpf.com/vue-cli-analysis/add/plugin-invoke.html)
+  * [总结](https://kuangpf.com/vue-cli-analysis/add/summary.html)
 * vue invoke
 * vue inspect
 * vue serve
