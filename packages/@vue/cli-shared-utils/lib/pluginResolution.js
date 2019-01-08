@@ -16,6 +16,8 @@ exports.resolvePluginId = id => {
   }
   // scoped short
   // e.g. @vue/foo, @bar/foo
+  // @vue/foo => @vue/cli-plugin-foo
+  // @bar/foo => @bar/vue-cli-plugin-foo
   if (id.charAt(0) === '@') {
     const scopeMatch = id.match(scopeRE)
     if (scopeMatch) {

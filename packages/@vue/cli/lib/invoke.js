@@ -50,9 +50,10 @@ function getPkg (context) {
   return pkg
 }
 
+// 调用插件
 async function invoke (pluginName, options = {}, context = process.cwd()) {
   delete options._
-  const pkg = getPkg(context)
+  const pkg = getPkg(context) // 解析 package.json
 
   // attempt to locate the plugin in package.json
   const findPlugin = deps => {
@@ -63,6 +64,10 @@ async function invoke (pluginName, options = {}, context = process.cwd()) {
       return name
     }
     // full id, scoped short, or default short
+    // @bar/foo => @bar/vue-cli-plugin-foo
+    // @vue/foo => @vue/cli-plugin-foo
+    // foo => vue-cli-plugin-foo
+
     if (deps[(name = resolvePluginId(pluginName))]) {
       return name
     }
@@ -72,7 +77,7 @@ async function invoke (pluginName, options = {}, context = process.cwd()) {
   if (!id) {
     throw new Error(
       `Cannot resolve plugin ${chalk.yellow(pluginName)} from package.json. ` +
-        `Did you forget to install it?`
+      `Did you forget to install it?`
     )
   }
 
@@ -152,6 +157,7 @@ async function runGenerator (context, plugin, pkg = getPkg(context)) {
   }
 
   log(`${chalk.green('✔')}  Successfully invoked generator for plugin: ${chalk.cyan(plugin.id)}`)
+  // 列出哪些文件发生了改变
   if (!process.env.VUE_CLI_TEST && hasProjectGit(context)) {
     const { stdout } = await execa('git', [
       'ls-files',

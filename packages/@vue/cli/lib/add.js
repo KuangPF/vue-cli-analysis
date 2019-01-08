@@ -13,13 +13,19 @@ const {
 
 async function add (pluginName, options = {}, context = process.cwd()) {
   // special internal "plugins"
-  if (/^(@vue\/)?router$/.test(pluginName)) {
+  // 内部 plugin
+  if (/^(@vue\/)?router$/.test(pluginName)) { // 匹配 @vue/router，router。 ? 表示匹配前面的子表达式零次或一次
     return addRouter(context)
   }
-  if (/^(@vue\/)?vuex$/.test(pluginName)) {
+  if (/^(@vue\/)?vuex$/.test(pluginName)) { // 匹配 @vue/vuex，vuex
     return addVuex(context)
   }
 
+  // 解析插件名称
+  // full id, scoped short, or default short
+  // @bar/foo => @bar/vue-cli-plugin-foo
+  // @vue/foo => @vue/cli-plugin-foo
+  // foo => vue-cli-plugin-foo
   const packageName = resolvePluginId(pluginName)
 
   log()
@@ -27,7 +33,7 @@ async function add (pluginName, options = {}, context = process.cwd()) {
   log()
 
   const packageManager = loadOptions().packageManager || (hasProjectYarn(context) ? 'yarn' : 'npm')
-  await installPackage(context, packageManager, options.registry, packageName)
+  // await installPackage(context, packageManager, options.registry, packageName)
 
   log(`${chalk.green('✔')}  Successfully installed plugin: ${chalk.cyan(packageName)}`)
   log()
