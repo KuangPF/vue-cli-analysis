@@ -23,6 +23,7 @@ module.exports = class Service {
     this.devServerConfigFns = []
     this.commands = {}
     // Folder containing the target package.json for plugins
+    // 项目中 package.json 目录
     this.pkgContext = context
     // package.json containing the plugins
     this.pkg = this.resolvePkg(pkg)
@@ -34,6 +35,14 @@ module.exports = class Service {
     // resolve the default mode to use for each command
     // this is provided by plugins as module.exports.defaultModes
     // so we can get the information without actually applying the plugin.
+    // 为命令指定模式
+    // 注册的插件可以通过 module.exports.defaultModes 指定特定的模式
+    /*{
+      serve: 'development',
+      build: 'production',
+      inspect: 'development',
+      'test:unit': 'test'
+    }*/
     this.modes = this.plugins.reduce((modes, { apply: { defaultModes }}) => {
       return Object.assign(modes, defaultModes)
     }, {})
@@ -88,12 +97,17 @@ module.exports = class Service {
     }
   }
 
+  // 加载本地的环境文件，环境文件的作用就是设置某个模式下特有的环境变量
+  // 加载环境变量其实要注意的就是优先级的问题，下面的代码已经体现的非常明显了，先加载 .env.mode.local，然后加载 .env.mode 最后再加载 .env
+  // 由于环境变量不会被覆盖，因此 .env.mode.local 的优先级最高，.env.mode.local 与 .env.mode 的区别就是前者会被 git 忽略掉。另外一点要
+  // 注意的就是环境文件不会覆盖Vue CLI 启动时已经存在的环境变量。
   loadEnv (mode) {
     const logger = debug('vue:env')
+    // path/.env.production || path/.env.development || ...
     const basePath = path.resolve(this.context, `.env${mode ? `.${mode}` : ``}`)
-    const localPath = `${basePath}.local`
-
+    const localPath = `${basePath}.local` // path/.env.local.production
     const load = path => {
+      console.log(path)
       try {
         const res = loadEnv(path)
         logger(path, res)
@@ -107,7 +121,7 @@ module.exports = class Service {
 
     load(localPath)
     load(basePath)
-
+    console.log(process.env)
     // by default, NODE_ENV and BABEL_ENV are set to "development" unless mode
     // is production or test. However the value in .env files will take higher
     // priority.
@@ -138,6 +152,7 @@ module.exports = class Service {
 
     let plugins
 
+    // 内置插件
     const builtInPlugins = [
       './commands/serve',
       './commands/build',
@@ -151,11 +166,15 @@ module.exports = class Service {
       './config/app'
     ].map(idToPlugin)
 
+    // builtInPlugins
+    //  [{ id: 'built-in:commands/serve', apply:{ [Function] defaultModes: [Object] } },...]
     if (inlinePlugins) {
       plugins = useBuiltIn !== false
         ? builtInPlugins.concat(inlinePlugins)
         : inlinePlugins
     } else {
+      //const pluginRE = /^(@vue\/|vue-|@[\w-]+\/vue-)cli-plugin-/
+      // exports.isPlugin = id => pluginRE.test(id)
       const projectPlugins = Object.keys(this.pkg.devDependencies || {})
         .concat(Object.keys(this.pkg.dependencies || {}))
         .filter(isPlugin)
@@ -176,7 +195,8 @@ module.exports = class Service {
             return idToPlugin(id)
           }
         })
-      plugins = builtInPlugins.concat(projectPlugins)
+
+      plugins = builtInPlugins.concat(projectPlugins) // 内置插件和项目中的插件
     }
 
     // Local plugins
@@ -195,6 +215,7 @@ module.exports = class Service {
   }
 
   async run (name, args = {}, rawArgv = []) {
+    // 命令指定模式
     // resolve mode
     // prioritize inline --mode
     // fallback to resolved default modes from plugins or development if --watch is defined
@@ -202,7 +223,6 @@ module.exports = class Service {
 
     // load env variables, load user config, apply plugins
     this.init(mode)
-
     args._ = args._ || []
     let command = this.commands[name]
     if (!command && name) {

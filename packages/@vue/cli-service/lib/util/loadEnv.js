@@ -3,6 +3,7 @@ const fs = require('fs')
 module.exports = function loadEnv (path = '.env') {
   const config = parse(fs.readFileSync(path, 'utf-8'))
   Object.keys(config).forEach(key => {
+    // Vue CLI 启动时已经存在的环境变量拥有最高优先级，并不会被 .env 文件覆写
     if (typeof process.env[key] === 'undefined') {
       process.env[key] = config[key]
     }
