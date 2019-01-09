@@ -14,10 +14,18 @@ module.exports = {
     docsDir: 'docs',
     editLinkText: '在 GitHub 上编辑此页',
     lastUpdated: '上次更新',
-    nav: [{
-      text: '首页',
-      link: '/'
-    }],
+    nav: [
+      {text: '首页', link: '/'},
+      {
+        text: 'cli-service',
+        items: [
+          {text: '整体介绍', link: '/cli-service/'},
+          {text: 'serve', link: '/cli-service/serve'},
+          {text: 'build', link: '/cli-service/build'},
+          {text: 'inspect', link: '/cli-service/inspect'}
+        ]
+      }
+    ],
     sidebar: [{
       title: '前言',
       collapsable: false,
@@ -59,7 +67,7 @@ module.exports = {
       children: [
         ['invoke/', 'invoke 命令']
       ]
-    },{
+    }, {
       title: 'vue init',
       collapsable: false,
       children: [
