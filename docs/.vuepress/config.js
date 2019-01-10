@@ -19,8 +19,12 @@ module.exports = {
       {
         text: 'cli-service',
         items: [
-          {text: '整体介绍', link: '/cli-service/'},
-          {
+          {text: '整体介绍', items: [
+              {text: '入口', link: '/cli-service/entrance' },
+              {text: 'new Service()', link: '/cli-service/new-service' },
+              {text: 'service.run()', link: '/cli-service/service-run' }
+            ]},
+          /*{
             text: '内置插件', items: [
               {text: 'serve', link: '/cli-service/serve'},
               {text: 'build', link: '/cli-service/build'},
@@ -32,7 +36,7 @@ module.exports = {
               {text: 'prod', link: '/cli-service/prod'},
               {text: 'app', link: '/cli-service/app'}
             ]
-          }
+          }*/
         ]
       }
     ],
