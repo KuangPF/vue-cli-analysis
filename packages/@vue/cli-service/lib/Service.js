@@ -31,6 +31,7 @@ module.exports = class Service {
     // found in package.json.
     // When useBuiltIn === false, built-in plugins are disabled. This is mostly
     // for testing.
+    // 如果有 inline plugins 的话，就不会去加载 package.json 里 devDependencies 和 dependencies 的插件
     this.plugins = this.resolvePlugins(plugins, useBuiltIn)
     // resolve the default mode to use for each command
     // this is provided by plugins as module.exports.defaultModes
@@ -71,20 +72,27 @@ module.exports = class Service {
     this.mode = mode
 
     // load mode .env
+    // 加载指定的模式环境文件
     if (mode) {
       this.loadEnv(mode)
     }
     // load base .env
+    // 加载普通环境文件
     this.loadEnv()
 
     // load user config
+    // 加载 vue.config.js || package.vue
     const userOptions = this.loadUserOptions()
-    this.projectOptions = defaultsDeep(userOptions, defaults())
 
+    // lodash.defaultsdeep
+    // 分配来源对象的可枚举属性到目标对象所有解析为 undefined 的属性上。 来源对象从左到右应用。 一旦设置了相同属性的值，后续的将被忽略掉，该方法会改变原对象。
+    this.projectOptions = defaultsDeep(userOptions, defaults())
     debug('vue:project-config')(this.projectOptions)
 
     // apply plugins.
+
     this.plugins.forEach(({ id, apply }) => {
+      // service 插件接受两个参数，一个 PluginAPI 实例，一个包含 vue.config.js 内指定的项目本地选项的对象，或者在 package.json 内的 vue 字段。
       apply(new PluginAPI(id, this), this.projectOptions)
     })
 
@@ -107,7 +115,6 @@ module.exports = class Service {
     const basePath = path.resolve(this.context, `.env${mode ? `.${mode}` : ``}`)
     const localPath = `${basePath}.local` // path/.env.local.production
     const load = path => {
-      console.log(path)
       try {
         const res = loadEnv(path)
         logger(path, res)
@@ -121,7 +128,6 @@ module.exports = class Service {
 
     load(localPath)
     load(basePath)
-    console.log(process.env)
     // by default, NODE_ENV and BABEL_ENV are set to "development" unless mode
     // is production or test. However the value in .env files will take higher
     // priority.
@@ -222,14 +228,15 @@ module.exports = class Service {
     const mode = args.mode || (name === 'build' && args.watch ? 'development' : this.modes[name])
 
     // load env variables, load user config, apply plugins
+    // 记载本地环境变量，vue.config.js || package.vue， 执行所有被加载的插件
     this.init(mode)
     args._ = args._ || []
-    let command = this.commands[name]
-    if (!command && name) {
+    let command = this.commands[name] // 加载插件时注册了 command，api.registerCommand
+    if (!command && name) { // 非法命令
       error(`command "${name}" does not exist.`)
       process.exit(1)
     }
-    if (!command || args.help) {
+    if (!command || args.help) { // vue-cli-service || vue-cli-service -h
       command = this.commands.help
     } else {
       args._.shift() // remove command itself
@@ -298,6 +305,7 @@ module.exports = class Service {
       process.env.VUE_CLI_SERVICE_CONFIG_PATH ||
       path.resolve(this.context, 'vue.config.js')
     )
+    // 加载 vue.config.js
     if (fs.existsSync(configPath)) {
       try {
         fileConfig = require(configPath)
@@ -314,6 +322,7 @@ module.exports = class Service {
     }
 
     // package.vue
+    // package.json 里面的 vue config
     pkgConfig = this.pkg.vue
     if (pkgConfig && typeof pkgConfig !== 'object') {
       error(
@@ -323,7 +332,7 @@ module.exports = class Service {
       pkgConfig = null
     }
 
-    if (fileConfig) {
+    if (fileConfig) { // 既有 vue.config.js 而且在 package.json 里面又包含了 vue 的配置，将会取 vue.config.js 的配置
       if (pkgConfig) {
         warn(
           `"vue" field in package.json ignored ` +
