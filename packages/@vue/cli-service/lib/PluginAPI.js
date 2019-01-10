@@ -52,6 +52,8 @@ class PluginAPI {
   /**
    * Register a command that will become available as `vue-cli-service [name]`.
    *
+   * 注册命令
+   *
    * @param {string} name
    * @param {object} [opts]
    *   {
