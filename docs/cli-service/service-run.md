@@ -212,3 +212,146 @@ loadUserOptions () {
 这段代码写的很清楚了，首先会加载项目中 `vue.config.js`，然后会加载 `package.json` 中的 vue 字段中的配置信息。如果既有 `vue.config.js` 而且在 
 `package.json` 里面又包含了 `vue` 的配置，将会取 `vue.config.js` 的配置，如果两者都没有配置信息的话会取 `this.inlineOptions || {}`，
 在获取到配置以后还会进行一些处理和验证，最后返回配置 `resolved` 。
+
+
+## apply plugins
+
+在加载了环境变量文件和项目配置信息后，接下来就开始加载插件了，核心代码如下：
+
+```js
+this.plugins.forEach(({ id, apply }) => {
+  // service 插件接受两个参数，一个 PluginAPI 实例，一个包含 vue.config.js 内指定的项目本地选项的对象，或者在 package.json 内的 vue 字段。
+  apply(new PluginAPI(id, this), this.projectOptions)
+})
+```
+其实就是执行 `service` 函数的导出函数，它接受两个参数，
+* 一个 `PluginAPI` 实例
+* 一个包含 `vue.config.js` 内指定的项目本地选项的对象，或者在 package.json 内的 vue 字段
+
+我们主要看下 `PluginAPI` 类，`PluginAPI` 核心代码如下：
+
+```js
+class PluginAPI {
+  /**
+   * Current working directory.
+   */
+  getCwd () {
+    return this.service.context
+  }
+  resolve (_path) {
+    return path.resolve(this.service.context, _path)
+  }
+  hasPlugin (id) {
+    if (id === 'router') id = 'vue-router'
+    if (['vue-router', 'vuex'].includes(id)) {
+      const pkg = this.service.pkg
+      return ((pkg.dependencies && pkg.dependencies[id]) || (pkg.devDependencies && pkg.devDependencies[id]))
+    }
+    return this.service.plugins.some(p => matchesPluginId(id, p.id))
+  }
+  registerCommand (name, opts, fn) {
+    if (typeof opts === 'function') {
+      fn = opts
+      opts = null
+    }
+    this.service.commands[name] = { fn, opts: opts || {}}
+  }
+  chainWebpack (fn) {
+    this.service.webpackChainFns.push(fn)
+  }
+  configureWebpack (fn) {
+    this.service.webpackRawConfigFns.push(fn)
+  }
+  configureDevServer (fn) {
+    this.service.devServerConfigFns.push(fn)
+  }
+  resolveWebpackConfig (chainableConfig) {
+    return this.service.resolveWebpackConfig(chainableConfig)
+  }
+  resolveChainableWebpackConfig () {
+    return this.service.resolveChainableWebpackConfig()
+  }
+  genCacheConfig (id, partialIdentifier, configFiles) {
+    const fs = require('fs')
+    const cacheDirectory = this.resolve(`node_modules/.cache/${id}`)
+
+    const variables = {
+      partialIdentifier,
+      'cli-service': require('../package.json').version,
+      'cache-loader': require('cache-loader/package.json').version,
+      env: process.env.NODE_ENV,
+      test: !!process.env.VUE_CLI_TEST,
+      config: [
+        this.service.projectOptions.chainWebpack,
+        this.service.projectOptions.configureWebpack
+      ]
+    }
+  }
+}
+```
+简单介绍一些 `PluginAPI` 的方法：
+
+* **registerCommand**: 注册 cli 命令服务
+* **chainWebpack**: 通过 webpack-chain 修改 webpack 配置
+* **configureWebpack**: 通过 webpack-merge 对 webpack 配置进行合并
+* **resolveWebpackConfig**: 调用之前通过 chainWebpack 和 configureWebpack 上完成的对于 webpack 配置的改造，并返回最终的 webpack 配置
+* **genCacheConfig**: 返回 `cacheDirectory, cacheIdentifier`
+* ...
+
+以 `@vue/cli-service/lib/commands/serve.js` 为例
+
+```js
+module.exports = (api, options) => {
+  api.registerCommand('serve', {
+    description: 'start development server',
+    usage: 'vue-cli-service serve [options] [entry]',
+    options: {
+      '--open': `open browser on server start`,
+      '--copy': `copy url to clipboard on server start`,
+      '--mode': `specify env mode (default: development)`,
+      '--host': `specify host (default: ${defaults.host})`,
+      '--port': `specify port (default: ${defaults.port})`,
+      '--https': `use https (default: ${defaults.https})`,
+      '--public': `specify the public network URL for the HMR client`
+    }
+  }, async function serve (args) {
+   // resolveWebpackConfig
+   // create server
+   // ....
+  })
+}
+```
+利用 `api.registerCommand` 注册了 `serve` 命名，并将 `serve` 命令的处理函数挂载到 `Service` 实例的 `serve` 命令中，当然你还可以通过
+`module.exports.defaultModes 以 { [commandName]: mode }` 的形式来指定命令的运行模式。
+
+分析到这里你应该逐渐熟悉 `vue-cli 3.0` 的插件机制了，`vue-cli 3.0` 将所有的工作都交给插件去执行，开发模式执行内置 `serve` 插件，打包执行内置
+ `build` 插件，检查代码规范由 `@vue/cli-plugin-eslint` 插件完成。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
