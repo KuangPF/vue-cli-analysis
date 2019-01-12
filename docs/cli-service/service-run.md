@@ -327,25 +327,48 @@ module.exports = (api, options) => {
 分析到这里你应该逐渐熟悉 `vue-cli 3.0` 的插件机制了，`vue-cli 3.0` 将所有的工作都交给插件去执行，开发模式执行内置 `serve` 插件，打包执行内置
  `build` 插件，检查代码规范由 `@vue/cli-plugin-eslint` 插件完成。
 
+在加载完所有的插件以后，实例的 `init` 方法在最后会读取项目配置中的 `webpack` 配置信息，即 `chainWebpack` 和 `configureWebpack`，代码如下：
+
+```js
+// apply webpack configs from project config file
+if (this.projectOptions.chainWebpack) {
+  this.webpackChainFns.push(this.projectOptions.chainWebpack)
+}
+if (this.projectOptions.configureWebpack) {
+  this.webpackRawConfigFns.push(this.projectOptions.configureWebpack)
+}
+```
+
+在实例的 run 函数中执行了实例 init 函数对 Service 实例的属性进行初始化，然后就会解析 CLI 命令，看代码：
+
+```js
+...
+args._ = args._ || []
+let command = this.commands[name] // 加载插件时注册了 command，api.registerCommand
+if (!command && name) { // 非法命令
+  error(`command "${name}" does not exist.`)
+  process.exit(1)
+}
+if (!command || args.help) { // vue-cli-service || vue-cli-service -h
+  command = this.commands.help
+} else {
+  args._.shift() // remove command itself
+  rawArgv.shift()
+}
+const { fn } = command
+return fn(args, rawArgv)
+```
+会先对 CLI 命令进行一个判断，主要有一下三种情况：
+
+* 输入了命令 `name` ，但是并没有通过 `api.registerCommand` 注册，即非法命令，`process.exit(1)`
+* 直接输入了 `vue-cli-service` 或者 `vue-cli-service --help`，加载内置 `help` 插件
+* 正常输入，eg: `vue-cli-service test:unit`，这种情况会加载对应地单元测试插件 `@vue/cli-plugin-unit-jest` ||` @vue/cli-plugin-unit-mocha`
 
 
+## 总结
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+执行 `Service` 实例的 `run` 方法主要执行了环境变量文件加载，获取项目配置信息，合并项目配置，加载插件，加载项目配置中的 webpack 信息，最后
+执行 CLI 服务，整个思路还是很清晰，接下来会对 `vue-cli-service serve` 等命令进行简单地分析介绍。
 
 
 
