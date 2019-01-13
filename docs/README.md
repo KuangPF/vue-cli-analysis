@@ -55,4 +55,4 @@
 
 ## 进度
 
-![progress](http://progressed.io/bar/40?title=progress)
+![progress](http://progressed.io/bar/50?title=progress)
