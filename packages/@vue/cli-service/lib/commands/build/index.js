@@ -42,22 +42,22 @@ module.exports = (api, options) => {
         args[key] = defaults[key]
       }
     }
-    args.entry = args.entry || args._[0]
+    args.entry = args.entry || args._[0] // 构建一个库的入口文件，默认为 src/App.vue
     if (args.target !== 'app') {
       args.entry = args.entry || 'src/App.vue'
     }
 
     process.env.VUE_CLI_BUILD_TARGET = args.target
-    if (args.modern && args.target === 'app') {
+    if (args.modern && args.target === 'app') { // 现代模式
       process.env.VUE_CLI_MODERN_MODE = true
       delete process.env.VUE_CLI_MODERN_BUILD
-      await build(Object.assign({}, args, {
+      await build(Object.assign({}, args, { // 支持就浏览器
         modernBuild: false,
         keepAlive: true
       }), api, options)
 
       process.env.VUE_CLI_MODERN_BUILD = true
-      await build(Object.assign({}, args, {
+      await build(Object.assign({}, args, { // 支持现代浏览器
         modernBuild: true,
         clean: false
       }), api, options)
@@ -95,17 +95,18 @@ async function build (args, api, options) {
   } = require('@vue/cli-shared-utils')
 
   log()
-  const mode = api.service.mode
-  if (args.target === 'app') {
-    const bundleTag = args.modern
+  const mode = api.service.mode // 模式
+  if (args.target === 'app') { // 构建目标 app
+    const bundleTag = args.modern // 现代版本还是旧浏览器版本
       ? args.modernBuild
         ? `modern bundle `
         : `legacy bundle `
       : ``
     logWithSpinner(`Building ${bundleTag}for ${mode}...`)
-  } else {
+  } else { // 获取构建目标 lib || wc || wc-async
     const buildMode = buildModes[args.target]
     if (buildMode) {
+      // 不同的构建版本 myLib.common.js，myLib.umd.js，myLib.umd.min.js
       const additionalParams = buildMode === 'library' ? ` (${args.formats})` : ``
       logWithSpinner(`Building for ${mode} as ${buildMode}${additionalParams}...`)
     } else {
@@ -113,19 +114,20 @@ async function build (args, api, options) {
     }
   }
 
-  const targetDir = api.resolve(args.dest || options.outputDir)
-  const isLegacyBuild = args.target === 'app' && args.modern && !args.modernBuild
+  const targetDir = api.resolve(args.dest || options.outputDir) // 默认 dist 目录
+
+  const isLegacyBuild = args.target === 'app' && args.modern && !args.modernBuild // 是否是支持就浏览器进行 build
 
   // resolve raw webpack config
   let webpackConfig
-  if (args.target === 'lib') {
+  if (args.target === 'lib') { // 加载构建目标为 lib 的 webpack 配置
     webpackConfig = require('./resolveLibConfig')(api, args, options)
-  } else if (
+  } else if ( // 加载构建目标为 wc || wc-async 的 webpack 配置
     args.target === 'wc' ||
     args.target === 'wc-async'
   ) {
     webpackConfig = require('./resolveWcConfig')(api, args, options)
-  } else {
+  } else { // 默认的应用构建目标
     webpackConfig = require('./resolveAppConfig')(api, args, options)
   }
 
@@ -134,12 +136,12 @@ async function build (args, api, options) {
 
   // apply inline dest path after user configureWebpack hooks
   // so it takes higher priority
-  if (args.dest) {
+  if (args.dest) { // 指定输出目录 (默认值：dist)，args.dest 有更高的优先级
     modifyConfig(webpackConfig, config => {
       config.output.path = targetDir
     })
   }
-
+  // 监听文件变化
   if (args.watch) {
     modifyConfig(webpackConfig, config => {
       config.watch = true
@@ -158,12 +160,13 @@ async function build (args, api, options) {
     })
   }
 
-  if (args.report || args['report-json']) {
+  if (args.report || args['report-json']) { // 分析包内容
     const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
     modifyConfig(webpackConfig, config => {
       const bundleName = args.target !== 'app'
         ? config.output.filename.replace(/\.js$/, '-')
         : isLegacyBuild ? 'legacy-' : ''
+
       config.plugins.push(new BundleAnalyzerPlugin({
         logLevel: 'warn',
         openAnalyzer: false,
@@ -175,7 +178,7 @@ async function build (args, api, options) {
     })
   }
 
-  if (args.clean) {
+  if (args.clean) { // 在构建项目之前清除目标目录
     await fs.remove(targetDir)
   }
 
