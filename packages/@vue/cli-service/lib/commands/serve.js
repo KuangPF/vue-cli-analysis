@@ -128,6 +128,9 @@ module.exports = (api, options) => {
         devClients.push(`webpack/hot/poll?500`)
       }
       // inject dev/hot client
+      // webpack-dev-server inline 模式，以 Node.js Api方式配置，则需要将 webpack-dev-server 客户端配置到 webpack 打包的入口文件中
+      // 热替换(HMR)，也是以 Node.js Api方式 配置，也需要将 webpack/hot/dev-server 配置到所有webpack入口文件中
+      // 相当于执行 webpack-dev-server --inline --hot --config webpack.config.dev.js
       addDevClientToEntry(webpackConfig, devClients)
     }
 

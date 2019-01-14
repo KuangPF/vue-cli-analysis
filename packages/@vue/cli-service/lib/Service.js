@@ -90,7 +90,6 @@ module.exports = class Service {
     debug('vue:project-config')(this.projectOptions)
 
     // apply plugins.
-
     this.plugins.forEach(({ id, apply }) => {
       // service 插件接受两个参数，一个 PluginAPI 实例，一个包含 vue.config.js 内指定的项目本地选项的对象，或者在 package.json 内的 vue 字段。
       apply(new PluginAPI(id, this), this.projectOptions)
@@ -206,6 +205,7 @@ module.exports = class Service {
     }
 
     // Local plugins
+    // 项目本地的插件，针对于只需要在项目里直接访问插件 API 而不需要创建一个完整的插件
     if (this.pkg.vuePlugins && this.pkg.vuePlugins.service) {
       const files = this.pkg.vuePlugins.service
       if (!Array.isArray(files)) {
@@ -226,9 +226,8 @@ module.exports = class Service {
     // prioritize inline --mode
     // fallback to resolved default modes from plugins or development if --watch is defined
     const mode = args.mode || (name === 'build' && args.watch ? 'development' : this.modes[name])
-
     // load env variables, load user config, apply plugins
-    // 记载本地环境变量，vue.config.js || package.vue， 执行所有被加载的插件
+    // 加载本地环境变量，vue.config.js || package.vue， 执行所有被加载的插件
     this.init(mode)
     args._ = args._ || []
     let command = this.commands[name] // 加载插件时注册了 command，api.registerCommand
@@ -253,14 +252,21 @@ module.exports = class Service {
     return chainableConfig
   }
 
+  // 解析 webpack 配置
   resolveWebpackConfig (chainableConfig = this.resolveChainableWebpackConfig()) {
     if (!this.initialized) {
       throw new Error('Service must call init() before calling resolveWebpackConfig().')
     }
     // get raw config
-    let config = chainableConfig.toConfig()
+    // './config/base', './config/css', './config/dev', './config/prod', './config/app' 这 5 个内置插件的主要作用
+    // 就是完成 webpack 本地编译构建时的各种相关的配置，注意下这几个插件的顺序，因为他们都是利用 api.chainWebpack 进行 webpack 配置的，
+    // 而配置又是可以覆盖的，因此如果拥有相同的配置，后面加载的插件的配置会覆盖前面的，但优先级最高的还是项目配置中的 webpack 配置，即
+    // vue.config.js 或者 package.vue 中的 webpack 配置是最后解析的。
+    let config = chainableConfig.toConfig() // 导出 webpack 配置对象
+
     const original = config
     // apply raw config fns
+    // raw 式配置，传入 webpackChain 的配置
     this.webpackRawConfigFns.forEach(fn => {
       if (typeof fn === 'function') {
         // function with optional return value
