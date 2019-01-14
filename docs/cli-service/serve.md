@@ -127,7 +127,7 @@ async function serve (args) {
 * **获取 webpack 配置：api.resolveWebpackConfig()**
 * **获取 devServer 配置**
 * **注入 webpack-dev-server 和 hot-reload（HRM）中间件入口**
-* **运行 webpack-dev-server**
+* **创建 webpack-dev-server 实例**
 
 下面逐个简单说下： 
 
@@ -165,7 +165,8 @@ resolveWebpackConfig (chainableConfig = this.resolveChainableWebpackConfig()) {
 }
 ```
 
-`resolveWebpackConfig` 函数传入了一个 `chainableConfig` 参数，这个参数是获取利用 `webpack-chain` 进行的配置，看下如何获取 webpack-chain 配置：
+`resolveWebpackConfig` 函数传入了一个 `chainableConfig` 参数，这个参数是以 `webpack-chain` 形式注入的 webpack 配置，看下如何获取 `webpack-chain`
+ 形式的 webpack 配置：
 
 ::: tip webpack 配置方式
 `Vue CLI` 内部的 `webpack` 配置是通过 `webpack-chain` 维护的，有两种方式可以进行 `webpack` 的配置，一种就是代码里面的 raw 式的配置，一种就是  `webpack-chain`
@@ -197,7 +198,7 @@ resolveChainableWebpackConfig () {
 ## 获取 devServer 配置
 
 获取 devServer 配置指的是获取 [webpack-dev-server 配置](https://webpack.js.org/configuration/dev-server/)，主要有两个地方可以配置，
-第一中就是直接在 webpack 中配置，另外一种就是在 `vue.config.js` 或者 `package.vue` 中配置，后者配置方式拥有更高地优先级。在获取用户配置的 `devServer` 
+第一种就是直接在 webpack 中配置，另外一种就是在 `vue.config.js` 或者 `package.vue` 中配置，后者配置方式拥有更高地优先级。在获取用户配置的 `devServer` 
 以后，还会对这些配置进行解析，比如用户没有配置，会使用默认的 `devServer` 配置，另外 CLI 参数或者 `process.env` 中 `devServer` 拥有更高的优先级，以
 `devServer.port` 为例， `vue.config.js` 如下：
 
@@ -236,5 +237,95 @@ portfinder.basePort = args.port || process.env.PORT || projectDevServerOptions.p
 const port = await portfinder.getPortPromise()
 ```
 
-
 ## 注入 webpack-dev-server 和 hot-reload（HRM）中间件入口
+
+先说下为什么要注入 `webpack-dev-server` 和 `hot-reload（HRM）`中间件入口。在开发中我们利用 `webpack-dev-server` 提供一个小型 Express 服务器
+，从而可以为 webpack 打包生成的资源文件提供 web 服务，并用 webpack 自带的 HRM 模块实现热更新。在 vue-cli 2.X 中 我们通过以下命令来启动 `webpack-dev-server` 
+
+```bash
+webpack-dev-server --inline --progress --config build/webpack.dev.conf.js
+```
+但在 vue-cli 3.0 中则没有通过 CLI 的方式来启动 `webpack-dev-server`，而是使用 `Node.js Api`方式，即使用 `vue-cli-service serve`
+命令创建一个服务器实例：
+
+```js
+const compiler = webpack(webpackConfig)
+new WebpackDevServer(compiler, {})
+```
+这种方式就需要将 `webpack-dev-server` 客户端配置到 webpack 打包的入口文件中，如果还要实现热替换（HMR），则还需要将 `webpack/hot/dev-server` 
+文件加入到 webpack 入口文件中，因此在源码中就有了以下代码：
+
+```js
+// inject dev & hot-reload middleware entries
+if (!isProduction) {
+  const sockjsUrl = publicUrl
+    // explicitly configured via devServer.public
+    ? `?${publicUrl}/sockjs-node`
+    : isInContainer
+      // can't infer public netowrk url if inside a container...
+      // use client-side inference (note this would break with non-root baseUrl)
+      ? ``
+      // otherwise infer the url
+      : `?` + url.format({
+        protocol,
+        port,
+        hostname: urls.lanUrlForConfig || 'localhost',
+        pathname: '/sockjs-node'
+      })
+  const devClients = [
+    // dev server client
+    require.resolve(`webpack-dev-server/client`) + sockjsUrl,
+    // hmr client
+    require.resolve(projectDevServerOptions.hotOnly
+      ? 'webpack/hot/only-dev-server'
+      : 'webpack/hot/dev-server')
+    // TODO custom overlay client
+    // `@vue/cli-overlay/dist/client`
+  ]
+  if (process.env.APPVEYOR) {
+    devClients.push(`webpack/hot/poll?500`)
+  }
+  // inject dev/hot client
+  addDevClientToEntry(webpackConfig, devClients)
+}
+```
+以`Node.js API`方式启动 `webpack-dev-server` 除了添加入口文件外，还需要添加插件 `HotModuleReplacementPlugin`，因此在 `lib/config/dev.js` 
+中添加了该插件：
+
+```js
+
+api.chainWebpack(webpackConfig => {
+  // some code ...
+  webpackConfig
+    .plugin('hmr')
+      .use(require('webpack/lib/HotModuleReplacementPlugin'))
+  // some code ...
+})
+```
+
+## 创建 webpack-dev-server 实例
+
+完成上述这些操作后，接下来就是创建 `webpack-dev-server` 实例，整个项目就运行起来了。
+
+```js
+const compiler = webpack(webpackConfig)
+new WebpackDevServer(compiler, {})
+return new Promise((resolve, reject) => {
+  // log instructions & open browser on first compilation complete
+  let isFirstCompile = true
+  compiler.hooks.done.tap('vue-cli-service serve', stats => {
+    console.log()
+    console.log(`  App running at:`)
+    console.log(`  - Local:   ${chalk.cyan(urls.localUrlForTerminal)} ${copied}`)
+    // some code ...
+  })
+
+  server.listen(port, host, err => {
+    if (err) {
+      reject(err)
+    }
+  })
+})
+```
+这里使用了 webpack Compiler 模块暴露的生命周期钩子函数 done，在编译(compilation)完成时进行一些信息的输出，更多关于 compiler 钩子的文档请查看
+webpack 官方文档 [compiler 钩子](https://webpack.js.org/api/compiler-hooks/)。
