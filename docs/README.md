@@ -10,7 +10,7 @@
 
 ## 目录
 
-#### @vue/cli
+### @vue/cli
 
 * [前言](https://kuangpf.com/vue-cli-analysis/foreword/)
 * **开始**
@@ -52,7 +52,10 @@
   * [入口](https://kuangpf.com/vue-cli-analysis/cli-service/entrance.html)
   * [new Service()](https://kuangpf.com/vue-cli-analysis/cli-service/new-service.html)
   * [service.run()](https://kuangpf.com/vue-cli-analysis/cli-service/service-run.html)
-
+* **内置插件**
+  * [serve](https://kuangpf.com/vue-cli-analysis/cli-service/serve.html)
+  
+  
 ## 进度
 
 ![progress](http://progressed.io/bar/50?title=progress)
