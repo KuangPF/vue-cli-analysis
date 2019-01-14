@@ -53,7 +53,7 @@
   * [new Service()](https://kuangpf.com/vue-cli-analysis/cli-service/new-service.html)
   * [service.run()](https://kuangpf.com/vue-cli-analysis/cli-service/service-run.html)
 * **内置插件**
-  *[serve](https://kuangpf.com/vue-cli-analysis/cli-service/serve.html)
+  * [serve](https://kuangpf.com/vue-cli-analysis/cli-service/serve.html)
 ## 进度
 
 ![progress](http://progressed.io/bar/50?title=progress)
