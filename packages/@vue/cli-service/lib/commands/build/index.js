@@ -51,7 +51,7 @@ module.exports = (api, options) => {
     if (args.modern && args.target === 'app') { // 现代模式
       process.env.VUE_CLI_MODERN_MODE = true
       delete process.env.VUE_CLI_MODERN_BUILD
-      await build(Object.assign({}, args, { // 支持就浏览器
+      await build(Object.assign({}, args, { // 支持旧浏览器
         modernBuild: false,
         keepAlive: true
       }), api, options)
