@@ -19,11 +19,10 @@
 --watch             监听文件变化
 ```
 其中[构建目标](https://cli.vuejs.org/zh/guide/build-targets.html)和[现代模式](https://cli.vuejs.org/zh/guide/browser-compatibility.html#%E7%8E%B0%E4%BB%A3%E6%A8%A1%E5%BC%8F)
-很有意思，官方文档对这两个参数做了详细的介绍，这里就先不重复描述了。`build` 命令的运行流程和 `serve` 命令类似，都会先获取 webpack 的配置，然后进行打包，
-下面就简单看下源码。
+很有意思，官方文档对这两个参数做了详细的介绍，这里就先不重复描述了。`build` 命令的运行流程和 `serve` 命令类似，都会先获取 webpack 的配置，然后进行 webpack 构建，下面就简单看下源码。
 
 
-执行 build 命令最后会执行 build 对应的服务，源码如下：
+执行 build 命令最终执行的是 build 对应的服务，源码如下：
 
 ```js
 async (args) => {
@@ -142,7 +141,7 @@ return new Promise((resolve, reject) => {
 解析 webpack 配置是 build 命令比较核心的部分了，相比 serve 命令来说，build 除了调用实例 `resolveWebpackConfig` 获取 webpack 配置外，还会
 根据构建目标 target 的不同修改 webpack 配置，其中内置的 `config/prod.js` 和 `config/app.js` 根据不同的环境变量进行 webpack 配置的注入，前者
 通过 `process.env.NODE_ENV === 'production'` 判断，后者通过 `process.env.VUE_CLI_BUILD_TARGET` 判断。
-下面以构建目标为 lib 为例，简单分析下是如何解析 webpack 配置的，解析 webpack 的代码如下：
+下面以构建目标为 lib 为例，简单分析下是如何解析 webpack 配置的，解析 webpack 配置的代码如下：
 
 ```js
 if (args.target === 'lib') { // 加载构建目标为 lib 的 webpack 配置
@@ -188,7 +187,6 @@ module.exports = (api, { entry, name, formats }, options) => {
   
   const formatArray = (formats + '').split(',')
   const configs = formatArray.map(format => configMap[format])
-  console.log(configs)
   if (configs.indexOf(undefined) !== -1) {
     const unknownFormats = formatArray.filter(f => configMap[f] === undefined).join(', ')
     abort(
@@ -199,16 +197,150 @@ module.exports = (api, { entry, name, formats }, options) => {
   return configs
 }
 ```
-从代码中可以看出，会先获取入口文件地址，并判断是否存在，然后获取 lib 的名称，然后接下来就是调用核心方法 genConfig 返回 webpack 配置。
+从代码中可以看出，会先获取入口文件地址，并判断是否存在，然后获取 lib 的名称，然后接下来就是调用核心方法 `genConfig` 返回 webpack 配置。
+
+```js
+function genConfig (format, postfix = format, genHTML) {
+  const config = api.resolveChainableWebpackConfig()
+
+  // adjust css output name so they write to the same file
+  if (config.plugins.has('extract-css')) {
+    config
+      .plugin('extract-css')
+        .tap(args => {
+          args[0].filename = `${libName}.css`
+          return args
+        })
+  }
+
+  // only minify min entry
+  if (!/\.min/.test(postfix)) {
+    config.optimization.minimize(false)
+  }
+
+  // externalize Vue in case user imports it
+  config
+    .externals({
+      ...config.get('externals'),
+      vue: {
+        commonjs: 'vue',
+        commonjs2: 'vue',
+        root: 'Vue'
+      }
+    })
+
+  // inject demo page for umd
+  if (genHTML) {
+    const template = isVueEntry ? 'demo-lib.html' : 'demo-lib-js.html'
+    config
+      .plugin('demo-html')
+        .use(require('html-webpack-plugin'), [{
+          template: path.resolve(__dirname, template),
+          inject: false,
+          filename: 'demo.html',
+          libName
+        }])
+  }
+
+  // resolve entry/output
+  const entryName = `${libName}.${postfix}`
+  config.resolve
+    .alias
+      .set('~entry', fullEntryPath)
+
+  // set output target before user configureWebpack hooks are applied
+  config.output.libraryTarget(format)
+
+  // set entry/output after user configureWebpack hooks are applied
+  const rawConfig = api.resolveWebpackConfig(config)
+
+  let realEntry = require.resolve('./entry-lib.js')
+
+  // avoid importing default if user entry file does not have default export
+  if (!isVueEntry) {
+    const entryContent = fs.readFileSync(fullEntryPath, 'utf-8')
+    if (!/\b(export\s+default|export\s{[^}]+as\s+default)\b/.test(entryContent)) {
+      realEntry = require.resolve('./entry-lib-no-default.js')
+    }
+  }
+
+  rawConfig.entry = {
+    [entryName]: realEntry
+  }
+
+  rawConfig.output = Object.assign(
+    // some code ...
+  )
+
+  return rawConfig
+}
+```
+`genConfig` 函数先是通过 `api.resolveChainableWebpackConfig` 获取了 `webpack-chain` 形式的 webpack 配置，然后进行以下修改：
+
+* 修改输出 css 的名称
+* 针对于 umd-min 形式进行压缩
+* 对 Vue 进行外部扩展，[webpack 外部扩展](https://webpack.docschina.org/configuration/externals/)
+
+在此之后就调用 `api.resolveWebpackConfig` 将 `webpack-chain` 形式的配置与 `raw` 式的配置进行合并，并对 output 选项进行一些修改，返回最终的 
+webpack 配置。
+
+有点需要注意的就是这里返回的 configs 为一个数组，因为当构建目标为 lib 时默认会输出 common.js，umd.js，umd.min.js 三种形式的包，因此
+传入一个数组的 webpack 配置就会分别执行三次不同的构建，当然也可以通过 `--formats` 参数来指定输出哪些格式的包，比如执行下面命令：
+
+```bash
+vue-cli-service build --target lib --formats commonjs,umd
+```
+此时就只会输出 common.js 和 umd.js 。
 
 
+## 打包参数处理
 
+打包参数处理比较容易，根据 args 来进行对应的配置，比如根据参数 `dest` 来配置输出目录，参数 `watch` 判断是否需要监听文件变化，参数 `report` 
+判断是否需要生成包的分析内容等等。
 
+## webpack 打包
 
+这部分就是传入 webpack 配置进行构建，并输出一些打包信息。
 
+```js
+return new Promise((resolve, reject) => {
+  webpack(webpackConfig, (err, stats) => {
+    stopSpinner(false)
+    if (err) {
+      return reject(err)
+    }
 
+    if (stats.hasErrors()) {
+      return reject(`Build failed with errors.`)
+    }
 
+    if (!args.silent) {
+      const targetDirShort = path.relative(
+        api.service.context,
+        targetDir
+      )
+      log(formatStats(stats, targetDirShort, api))
+      if (args.target === 'app' && !isLegacyBuild) {
+        if (!args.watch) {
+          done(`Build complete. The ${chalk.cyan(targetDirShort)} directory is ready to be deployed.`)
+          info(`Check out deployment instructions at ${chalk.cyan(`https://cli.vuejs.org/guide/deployment.html`)}\n`)
+        } else {
+          done(`Build complete. Watching for changes...`)
+        }
+      }
+    }
 
+    // test-only signal
+    if (process.env.VUE_CLI_TEST) {
+      console.log('Build complete.')
+    }
 
+    resolve()
+  })
+})
+```
+
+`vue-cli-service build` 命令的分析就到这里了，通过对 `serve` 和 `build` 命令简单分析，应该整体上对 `vue-cli-service` 有了一定的感受，与
+ `vue-cli 2.x` 相比，`vue-cli 3.0` 的 webpack 配置都由` @vue/cli-service` 收敛到了内部完成。
 
 
