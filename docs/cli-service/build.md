@@ -121,7 +121,7 @@ return new Promise((resolve, reject) => {
   })
 }
 ```
-归纳以下，大致可以分为以下4个部分来分析：
+归纳一下，大致可以分为以下4个部分来分析：
 
 * build 信息处理
 * 解析 webpack 配置
@@ -139,16 +139,67 @@ return new Promise((resolve, reject) => {
 
 ## 解析 webpack 配置
 
+解析 webpack 配置是 build 命令比较核心的部分了，相比 serve 命令来说，build 除了调用实例 `resolveWebpackConfig` 获取 webpack 配置外，还会
+根据构建目标 target 的不同修改 webpack 配置，其中内置的 `config/prod.js` 和 `config/app.js` 根据不同的环境变量进行 webpack 配置的注入，前者
+通过 `process.env.NODE_ENV === 'production'` 判断，后者通过 `process.env.VUE_CLI_BUILD_TARGET` 判断。
+下面以构建目标为 lib 为例，简单分析下是如何解析 webpack 配置的，解析 webpack 的代码如下：
 
+```js
+if (args.target === 'lib') { // 加载构建目标为 lib 的 webpack 配置
+  webpackConfig = require('./resolveLibConfig')(api, args, options)
+} 
+```
+然后继续看下 `resolveLibConfig` 文件:
 
-
-
-
-
-
-
-
-
+```js
+module.exports = (api, { entry, name, formats }, options) => {
+  const { log, error } = require('@vue/cli-shared-utils')
+  const abort = msg => {
+    log()
+    error(msg)
+    process.exit(1)
+  }
+  
+  const fullEntryPath = api.resolve(entry)
+  
+  if (!fs.existsSync(fullEntryPath)) {
+    abort(
+      `Failed to resolve lib entry: ${entry}${entry === `src/App.vue` ? ' (default)' : ''}. ` +
+      `Make sure to specify the correct entry file.`
+    )
+  }
+  
+  const isVueEntry = /\.vue$/.test(entry)
+  const libName = (
+    name ||
+    api.service.pkg.name ||
+    path.basename(entry).replace(/\.(jsx?|vue)$/, '')
+  )
+  
+  function genConfig (format, postfix = format, genHTML) {
+    // some code ...
+  }
+  
+  const configMap = {
+    commonjs: genConfig('commonjs2', 'common'),
+    umd: genConfig('umd', undefined, true),
+    'umd-min': genConfig('umd', 'umd.min')
+  }
+  
+  const formatArray = (formats + '').split(',')
+  const configs = formatArray.map(format => configMap[format])
+  console.log(configs)
+  if (configs.indexOf(undefined) !== -1) {
+    const unknownFormats = formatArray.filter(f => configMap[f] === undefined).join(', ')
+    abort(
+      `Unknown library build formats: ${unknownFormats}`
+    )
+  }
+  
+  return configs
+}
+```
+从代码中可以看出，会先获取入口文件地址，并判断是否存在，然后获取 lib 的名称，然后接下来就是调用核心方法 genConfig 返回 webpack 配置。
 
 
 
