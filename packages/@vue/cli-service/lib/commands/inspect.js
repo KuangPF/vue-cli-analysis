@@ -35,7 +35,7 @@ module.exports = (api, options) => {
     } else {
       res = config
     }
-
+    // 根据参数 verbose 判断是否需要显示函数定义的内容，如果为 true，则用 function () { /* omitted long function */ } 代替函数的内容
     const output = toString(res, { verbose })
     console.log(output)
   })
