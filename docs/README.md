@@ -56,6 +56,7 @@
   * [serve](https://kuangpf.com/vue-cli-analysis/cli-service/serve.html)
   * [build](https://kuangpf.com/vue-cli-analysis/cli-service/build.html)
   * [inspect](https://kuangpf.com/vue-cli-analysis/cli-service/inspect.html)
+  * [help](https://kuangpf.com/vue-cli-analysis/cli-service/help.html)
 ## 进度
 
 ![progress](http://progressed.io/bar/60?title=progress)
