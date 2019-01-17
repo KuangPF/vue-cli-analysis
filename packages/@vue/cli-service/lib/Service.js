@@ -94,7 +94,6 @@ module.exports = class Service {
       // service 插件接受两个参数，一个 PluginAPI 实例，一个包含 vue.config.js 内指定的项目本地选项的对象，或者在 package.json 内的 vue 字段。
       apply(new PluginAPI(id, this), this.projectOptions)
     })
-
     // apply webpack configs from project config file
     if (this.projectOptions.chainWebpack) {
       this.webpackChainFns.push(this.projectOptions.chainWebpack)
@@ -235,7 +234,7 @@ module.exports = class Service {
       error(`command "${name}" does not exist.`)
       process.exit(1)
     }
-    if (!command || args.help) { // vue-cli-service || vue-cli-service -h
+    if (!command || args.help) { // vue-cli-service || vue-cli-service --help
       command = this.commands.help
     } else {
       args._.shift() // remove command itself

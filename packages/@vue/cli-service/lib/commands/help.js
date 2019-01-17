@@ -18,20 +18,20 @@ module.exports = (api, options) => {
       `\n  Commands:\n`
     )
     const commands = api.service.commands
-    const padLength = getPadLength(commands)
+    const padLength = getPadLength(commands) // 获取填充字符串的最大长度
     for (const name in commands) {
       if (name !== 'help') {
         const opts = commands[name].opts || {}
         console.log(`    ${
           chalk.blue(padEnd(name, padLength))
-        }${
-          opts.description || ''
-        }`)
+          }${
+        opts.description || ''
+          }`)
       }
     }
     console.log(`\n  run ${
       chalk.green(`vue-cli-service help [command]`)
-    } for usage of a specific command.\n`)
+      } for usage of a specific command.\n`)
   }
 
   function logHelpForCommand (name, command) {
@@ -40,17 +40,17 @@ module.exports = (api, options) => {
     } else {
       const opts = command.opts || {}
       if (opts.usage) {
-        console.log(`\n  Usage: ${opts.usage}`)
+        console.log(`\n  Usage: ${opts.usage}`) // usage
       }
       if (opts.options) {
         console.log(`\n  Options:\n`)
-        const padLength = getPadLength(opts.options)
+        const padLength = getPadLength(opts.options) // eg for build: --mode,--dest,--no-unsafe-inline etc.
         for (const name in opts.options) {
           console.log(`    ${
             chalk.blue(padEnd(name, padLength))
-          }${
+            }${
             opts.options[name]
-          }`)
+            }`)
         }
       }
       if (opts.details) {
