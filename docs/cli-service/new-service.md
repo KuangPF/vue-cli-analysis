@@ -120,7 +120,7 @@ resolvePlugins (inlinePlugins, useBuiltIn) {
 开发者即可通过 npm script 的形式去启动对应的 CLI 命令服务，`base ,css, dev, prod, app` 这一类插件主要是完成 `webpack` 本地编译构建时的各种相关的配置。
 `@vue/cli-service` 将 `webpack` 的开发构建功能收敛到内部来完成。
 
-**inlinePlugins** 指的是直接在实例化 `Service` 时传入，具体使用的作用还不是很清楚，有大佬知道的话不如来个 PR。
+**inlinePlugins** 指的是直接在实例化 `Service` 时传入，执行 `vue serve` 和 `vue build` 命令时会创建一个` Service` 实例，并传入 `inlinePlugins`。
 
 **package.json 插件** 指的是 `devDependencies` 和 `dependencies` 中的 vue 插件，比如 `@vue/cli-plugin-eslint`。
 
