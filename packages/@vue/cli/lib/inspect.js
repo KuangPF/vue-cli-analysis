@@ -7,7 +7,7 @@ module.exports = function inspect (paths, args) {
   const cwd = process.cwd()
   let servicePath
   try {
-    servicePath = resolve.sync('@vue/cli-service', { basedir: cwd })
+    servicePath = resolve.sync('@vue/cli-service', { basedir: cwd })  // cwd/node_modules/@vue/cli-service/lib/Service.js
   } catch (e) {
     const { error } = require('@vue/cli-shared-utils')
     error(
@@ -17,7 +17,7 @@ module.exports = function inspect (paths, args) {
     )
     process.exit(1)
   }
-  const binPath = path.resolve(servicePath, '../../bin/vue-cli-service.js')
+  const binPath = path.resolve(servicePath, '../../bin/vue-cli-service.js') // cwd/node_modules/@vue/cli-service/bin/vue-cli-service.js
   if (fs.existsSync(binPath)) {
     execa('node', [
       binPath,
