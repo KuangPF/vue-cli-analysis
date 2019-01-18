@@ -19,11 +19,13 @@ module.exports = {
       {
         text: 'cli-service',
         items: [
-          {text: '整体介绍', items: [
-              {text: '入口', link: '/cli-service/entrance' },
-              {text: 'new Service()', link: '/cli-service/new-service' },
-              {text: 'service.run()', link: '/cli-service/service-run' }
-            ]},
+          {
+            text: '整体介绍', items: [
+              {text: '入口', link: '/cli-service/entrance'},
+              {text: 'new Service()', link: '/cli-service/new-service'},
+              {text: 'service.run()', link: '/cli-service/service-run'}
+            ]
+          },
           {
             text: '内置插件', items: [
               {text: 'serve', link: '/cli-service/serve'},
@@ -75,6 +77,26 @@ module.exports = {
       collapsable: false,
       children: [
         ['invoke/', 'invoke 命令']
+      ]
+    },
+    {
+      title: 'vue inspect',
+      collapsable: false,
+      children: [
+        ['inspect/', 'inspect 命令']
+      ]
+    }, {
+      title: 'vue serve',
+      collapsable: false,
+      children: [
+        ['serve/', 'serve 命令']
+      ]
+    },
+    {
+      title: 'vue build',
+      collapsable: false,
+      children: [
+        ['build/', 'build 命令']
       ]
     }, {
       title: 'vue init',
