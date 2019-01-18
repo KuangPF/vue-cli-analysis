@@ -108,6 +108,13 @@ module.exports = {
         ['init/generate.md', 'generate 函数分析'],
         ['init/summary.md', '总结']
       ]
+    },
+    {
+      title: 'vue config',
+      collapsable: false,
+      children: [
+        ['config/', 'config 命令']
+      ]
     }]
   }
 };
