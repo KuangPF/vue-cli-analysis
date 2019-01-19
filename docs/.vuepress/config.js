@@ -115,6 +115,13 @@ module.exports = {
       children: [
         ['config/', 'config 命令']
       ]
+    },
+    {
+      title: 'vue upgrade',
+      collapsable: false,
+      children: [
+        ['upgrade/', 'upgrade 命令']
+      ]
     }]
   }
 };
