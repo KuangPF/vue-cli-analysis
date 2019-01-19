@@ -32,9 +32,12 @@
   * [总结](https://kuangpf.com/vue-cli-analysis/add/summary.html)
 * **vue invoke**
   * [invoke 命令](https://kuangpf.com/vue-cli-analysis/invoke/)
-* vue inspect
-* vue serve
-* vue build
+* **vue inspect**
+  * [inspect 命令](https://kuangpf.com/vue-cli-analysis/inspect/)
+* **vue serve**
+  * [serve 命令](https://kuangpf.com/vue-cli-analysis/serve/)
+* **vue build**
+  * [build 命令](https://kuangpf.com/vue-cli-analysis/build/)
 * vue ui
 * **vue init**
   * [init 入口](https://kuangpf.com/vue-cli-analysis/init/)
@@ -42,8 +45,10 @@
   * [vue-cli 2.x init 分析](https://kuangpf.com/vue-cli-analysis/init/vue-cli-init-2.x.html)
   * [generate 函数分析](https://kuangpf.com/vue-cli-analysis/init/generate.html)
   * [总结](https://kuangpf.com/vue-cli-analysis/init/summary.html)
-* vue config
-* vue upgrade
+* **vue config**
+  * [config 命令](https://kuangpf.com/vue-cli-analysis/config/)
+* **vue upgrade**
+  * [upgrade 命令](https://kuangpf.com/vue-cli-analysis/upgrade/)
 
 
 ### @vue/cli-service
@@ -59,4 +64,4 @@
   * [help](https://kuangpf.com/vue-cli-analysis/cli-service/help.html)
 ## 进度
 
-![progress](http://progressed.io/bar/60?title=progress)
+![progress](http://progressed.io/bar/70?title=progress)
