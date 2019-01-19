@@ -122,6 +122,13 @@ module.exports = {
       children: [
         ['upgrade/', 'upgrade 命令']
       ]
+    },
+    {
+      title: 'vue info',
+      collapsable: false,
+      children: [
+        ['info/', 'info 命令']
+      ]
     }]
   }
 };
