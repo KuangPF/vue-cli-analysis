@@ -49,7 +49,8 @@
   * [config 命令](https://kuangpf.com/vue-cli-analysis/config/)
 * **vue upgrade**
   * [upgrade 命令](https://kuangpf.com/vue-cli-analysis/upgrade/)
-
+* **vue info**
+  * [info 命令](https://kuangpf.com/vue-cli-analysis/info/)
 
 ### @vue/cli-service
 
