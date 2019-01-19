@@ -18,17 +18,17 @@ module.exports = function getUpgradableVersion (
   semverLevel
 ) {
   let newRange
-  if (semverLevel === 'patch') {
+  if (semverLevel === 'patch') { // 安装最近的小版本依赖包， 补丁号
     const currMaxVersion = getMaxSatisfying(packageName, currRange)
     newRange = `~${currMaxVersion}`
     const newMaxVersion = getMaxSatisfying(packageName, newRange)
     newRange = `~${newMaxVersion}`
-  } else if (semverLevel === 'minor') {
+  } else if (semverLevel === 'minor') { // 安装最近大版本依赖包，次版本号
     const currMaxVersion = getMaxSatisfying(packageName, currRange)
     newRange = `^${currMaxVersion}`
     const newMaxVersion = getMaxSatisfying(packageName, newRange)
     newRange = `^${newMaxVersion}`
-  } else if (semverLevel === 'major') {
+  } else if (semverLevel === 'major') { // 主版本号
     newRange = `^${getMaxSatisfying(packageName, 'latest')}`
   } else {
     throw new Error('Release type must be one of patch | minor | major!')
