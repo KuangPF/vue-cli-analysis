@@ -98,6 +98,13 @@ module.exports = {
       children: [
         ['build/', 'build 命令']
       ]
+    },
+    {
+      title: 'vue ui',
+      collapsable: false,
+      children: [
+        ['ui/', 'ui 命令']
+      ]
     }, {
       title: 'vue init',
       collapsable: false,
