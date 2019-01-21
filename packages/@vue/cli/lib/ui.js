@@ -29,6 +29,7 @@ async function ui (options = {}, context = process.cwd()) {
 
   if (!options.quiet) log(`🚀  Starting GUI...`)
 
+  // 定义 opts
   const opts = {
     host,
     port,
