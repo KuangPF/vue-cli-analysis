@@ -1,0 +1,43 @@
+module.exports = [
+  {
+    type: 'confirm',
+    name: 'addExamples',
+    message: 'Add example code',
+    description: 'This will generate a component, graphql files and an example schema (if server is added).',
+    default: false,
+  },
+  {
+    type: 'confirm',
+    name: 'addServer',
+    message: 'Add a GraphQL API Server?',
+    description: 'Generate GraphQL server files in a `apollo-server` folder.',
+    group: 'GraphQL Server',
+    default: false,
+  },
+  {
+    type: 'confirm',
+    name: 'addMocking',
+    message: 'Enable automatic mocking?',
+    description: 'Missing resolvers will be automatically mocked.',
+    group: 'GraphQL Server',
+    default: false,
+    when: answers => answers.addServer,
+  },
+  {
+    type: 'confirm',
+    name: 'addApolloEngine',
+    message: 'Add Apollo Engine?',
+    link: 'http://engine.apollographql.com/',
+    group: 'GraphQL Server',
+    default: false,
+    when: answers => answers.addServer,
+  },
+  {
+    type: 'input',
+    name: 'apolloEngineKey',
+    message: 'API Key (create one at https://engine.apollographql.com):',
+    group: 'GraphQL Server',
+    validate: input => !!input,
+    when: answers => answers.addApolloEngine,
+  },
+]

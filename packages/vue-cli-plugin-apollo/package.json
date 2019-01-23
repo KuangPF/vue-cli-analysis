@@ -1,0 +1,100 @@
+{
+  "_args": [
+    [
+      "vue-cli-plugin-apollo@0.18.1",
+      "/Users/foreverw/Documents/KuangPF_Github/vue-cli-command"
+    ]
+  ],
+  "_from": "vue-cli-plugin-apollo@0.18.1",
+  "_id": "vue-cli-plugin-apollo@0.18.1",
+  "_inBundle": false,
+  "_integrity": "sha512-RfkBFGZKq9r8+DYwcT1Y5As7uzy3OjsIInSrhdCHKO4EeZ9pseb31rqtDmkT9/uNpd9BmRKPWti+hp3S64IUxg==",
+  "_location": "/vue-cli-plugin-apollo",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "vue-cli-plugin-apollo@0.18.1",
+    "name": "vue-cli-plugin-apollo",
+    "escapedName": "vue-cli-plugin-apollo",
+    "rawSpec": "0.18.1",
+    "saveSpec": null,
+    "fetchSpec": "0.18.1"
+  },
+  "_requiredBy": [
+    "/@vue/cli-ui"
+  ],
+  "_resolved": "https://registry.npmjs.org/vue-cli-plugin-apollo/-/vue-cli-plugin-apollo-0.18.1.tgz",
+  "_spec": "0.18.1",
+  "_where": "/Users/foreverw/Documents/KuangPF_Github/vue-cli-command",
+  "author": {
+    "name": "Guillaume Chau",
+    "email": "guillaume.b.chau@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/Akryum/vue-cli-plugin-apollo/issues"
+  },
+  "dependencies": {
+    "apollo-cache-inmemory": "^1.3.9",
+    "apollo-client": "^2.4.5",
+    "apollo-link": "^1.2.3",
+    "apollo-link-context": "^1.0.9",
+    "apollo-link-persisted-queries": "^0.2.1",
+    "apollo-link-state": "^0.4.2",
+    "apollo-link-ws": "^1.0.9",
+    "apollo-server-express": "^2.2.0",
+    "apollo-upload-client": "^9.1.0",
+    "apollo-utilities": "^1.0.25",
+    "chalk": "^2.4.1",
+    "deepmerge": "^2.2.1",
+    "esm": "^3.0.84",
+    "execa": "^1.0.0",
+    "express": "^4.16.4",
+    "graphql": "^14.0.2",
+    "graphql-subscriptions": "^1.0.0",
+    "nodemon": "^1.18.7",
+    "subscriptions-transport-ws": "^0.9.15",
+    "ts-node": "^7.0.1"
+  },
+  "description": "vue-cli 3 plugin to add Apollo and GraphQL",
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.47",
+    "@babel/core": "^7.0.0-beta.47",
+    "@babel/preset-env": "^7.0.0-beta.47",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.8.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-vue": "^4.2.2"
+  },
+  "homepage": "https://github.com/Akryum/vue-cli-plugin-apollo#readme",
+  "keywords": [
+    "vue",
+    "vue-cli",
+    "apollo",
+    "graphql"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "vue-cli-plugin-apollo",
+  "peerDependencies": {
+    "@vue/cli-shared-utils": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Akryum/vue-cli-plugin-apollo.git"
+  },
+  "scripts": {
+    "build": "yarn build:graphql-client && yarn build:client-addon",
+    "build:client-addon": "cd ./client-addon && yarn build && cd ../",
+    "build:graphql-client": "babel graphql-client/src --out-dir graphql-client/dist",
+    "dev": "nodemon --exec 'npm run build' --watch graphql-client/src",
+    "prepublishOnly": "npm run test && npm run build",
+    "test": "npm run test:eslint && cd ./client-addon npm run lint",
+    "test:eslint": "eslint --ext .js ."
+  },
+  "version": "0.18.1"
+}
