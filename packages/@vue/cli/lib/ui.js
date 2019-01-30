@@ -34,7 +34,7 @@ async function ui (options = {}, context = process.cwd()) {
     host,
     port,
     graphqlPath: '/graphql',
-    subscriptionsPath: '/graphql',
+    subscriptionsPath: '/graphql', // 订阅
     enableMocks: false,
     enableEngine: false,
     cors: '*',
