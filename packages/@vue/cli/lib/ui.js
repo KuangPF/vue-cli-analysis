@@ -1,5 +1,6 @@
 const { log, error, openBrowser } = require('@vue/cli-shared-utils')
-const { portfinder, server } = require('@vue/cli-ui/server')
+/*const { portfinder, server } = require('@vue/cli-ui/server')*/
+const { portfinder, server } = require('../cli-ui/server')
 const shortid = require('shortid')
 
 async function ui (options = {}, context = process.cwd()) {
@@ -7,7 +8,7 @@ async function ui (options = {}, context = process.cwd()) {
 
   let port = options.port
   if (!port) {
-    port = await portfinder.getPortPromise()
+    port = await portfinder.getPortPromise() // port
   }
 
   // Config
@@ -29,7 +30,6 @@ async function ui (options = {}, context = process.cwd()) {
 
   if (!options.quiet) log(`🚀  Starting GUI...`)
 
-  // 定义 opts
   const opts = {
     host,
     port,
@@ -41,14 +41,15 @@ async function ui (options = {}, context = process.cwd()) {
     timeout: 1000000,
     quiet: true,
     paths: {
-      typeDefs: require.resolve('@vue/cli-ui/apollo-server/type-defs.js'),
-      resolvers: require.resolve('@vue/cli-ui/apollo-server/resolvers.js'),
-      context: require.resolve('@vue/cli-ui/apollo-server/context.js'),
-      pubsub: require.resolve('@vue/cli-ui/apollo-server/pubsub.js'),
+      typeDefs: require.resolve('@vue/cli-ui/apollo-server/type-defs.js'), // schema
+      resolvers: require.resolve('@vue/cli-ui/apollo-server/resolvers.js'), // resolvers
+      context: require.resolve('@vue/cli-ui/apollo-server/context.js'), // 可以向 resolvers 注入上下文对象
+      pubsub: require.resolve('@vue/cli-ui/apollo-server/pubsub.js'), // 订阅
       server: require.resolve('@vue/cli-ui/apollo-server/server.js'),
-      directives: require.resolve('@vue/cli-ui/apollo-server/directives.js')
+      directives: require.resolve('@vue/cli-ui/apollo-server/directives.js') // schema 指令
     }
   }
+
 
   server(opts, () => {
     // Reset for yarn/npm to work correctly

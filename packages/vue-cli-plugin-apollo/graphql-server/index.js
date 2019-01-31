@@ -13,6 +13,7 @@ require = require('esm')(module)
 // 创建基于 express 的 GraphQL server
 // apollo-server-express 是由 Apollo 提供在 express 环境下实现 GraphQL 的库
 module.exports = (options, cb = null) => {
+
   // Default options
   options = merge({
     integratedEngine: false,
@@ -26,7 +27,7 @@ module.exports = (options, cb = null) => {
   // Customize those files
   let typeDefs = load(options.paths.typeDefs) // GraphQL schema
   const resolvers = load(options.paths.resolvers) // GraphQL resolvers
-  const context = load(options.paths.context) // 上下文，可以向所有的 resolvers 注入 context
+  const context = load(options.paths.context) // 向每个 resolvers 可以注入的 context
   const schemaDirectives = load(options.paths.directives) // schema 指令
   let pubsub
   try {
@@ -45,7 +46,7 @@ module.exports = (options, cb = null) => {
   // GraphQL API Server
 
   // Realtime subscriptions
-  if (!pubsub) pubsub = new PubSub()
+  if (!pubsub) pubsub = new PubSub() // 订阅
 
   // Customize server
   try {
@@ -55,6 +56,8 @@ module.exports = (options, cb = null) => {
     // No file found
   }
 
+
+  return
   // Apollo server options
 
   typeDefs = processSchema(typeDefs)

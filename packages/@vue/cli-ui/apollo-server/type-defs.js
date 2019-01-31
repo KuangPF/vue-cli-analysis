@@ -2,6 +2,7 @@ const gql = require('graphql-tag')
 const path = require('path')
 const globby = require('globby')
 
+// JSON 类型
 const typeDefs = [gql`
 scalar JSON
 

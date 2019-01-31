@@ -23,6 +23,7 @@ function detectLanguage () {
 
 async function autoInstallLocale (lang) {
   try {
+    // eg:https://unpkg.com/vue-cli-locales@3.3.0/locales/zh.json
     let response = await fetch(`https://unpkg.com/vue-cli-locales/locales/${lang}.json`)
     if (response.ok) {
       const data = await response.json()
@@ -60,7 +61,7 @@ async function autoDetect () {
   }
 }
 
-async function tryAutoLang (lang) {
+async function tryAutoLang (lang) { // 加载语言文件
   console.log(`[UI] Trying to load ${lang} locale...`)
   const result = await autoInstallLocale(lang)
   if (result) {
