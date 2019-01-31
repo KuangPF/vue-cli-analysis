@@ -45,7 +45,7 @@ async function ui (options = {}, context = process.cwd()) {
       resolvers: require.resolve('@vue/cli-ui/apollo-server/resolvers.js'), // resolvers
       context: require.resolve('@vue/cli-ui/apollo-server/context.js'), // 可以向 resolvers 注入上下文对象
       pubsub: require.resolve('@vue/cli-ui/apollo-server/pubsub.js'), // 订阅
-      server: require.resolve('@vue/cli-ui/apollo-server/server.js'),
+      server: require.resolve('@vue/cli-ui/apollo-server/server.js'), // express 服务 e.g. express.static
       directives: require.resolve('@vue/cli-ui/apollo-server/directives.js') // schema 指令
     }
   }
