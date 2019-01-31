@@ -26,8 +26,8 @@ module.exports = (options, cb = null) => {
   // Customize those files
   let typeDefs = load(options.paths.typeDefs) // GraphQL schema
   const resolvers = load(options.paths.resolvers) // GraphQL resolvers
-  const context = load(options.paths.context)
-  const schemaDirectives = load(options.paths.directives)
+  const context = load(options.paths.context) // 上下文，可以向所有的 resolvers 注入 context
+  const schemaDirectives = load(options.paths.directives) // schema 指令
   let pubsub
   try {
     pubsub = load(options.paths.pubsub)
