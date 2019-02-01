@@ -1,6 +1,6 @@
 const { log, error, openBrowser } = require('@vue/cli-shared-utils')
-/*const { portfinder, server } = require('@vue/cli-ui/server')*/
-const { portfinder, server } = require('../cli-ui/server')
+const { portfinder, server } = require('@vue/cli-ui/server')
+/* const { portfinder, server } = require('../cli-ui/server') // 调试*/
 const shortid = require('shortid')
 
 async function ui (options = {}, context = process.cwd()) {
