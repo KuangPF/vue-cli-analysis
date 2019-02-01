@@ -1,3 +1,5 @@
+<!-- Vue 项目管理器  项目 tabpanel 存在的项目列表信息 item-->
+
 <template>
   <div class="project-select-list-item list-item">
     <div class="content">
@@ -104,8 +106,8 @@ export default {
   h-box()
   align-items center
 
-  >>> > *
-    space-between-x($padding-item)
+>>> > *
+      space-between-x($padding-item)
 
 .name
   h-box()

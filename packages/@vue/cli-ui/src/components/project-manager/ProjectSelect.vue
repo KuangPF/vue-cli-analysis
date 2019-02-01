@@ -15,6 +15,7 @@
         <ProjectSelectList/>
       </VueTab>
 
+      <!-- Vue 项目管理器 创建 -->
       <VueTab
         id="create"
         :label="$t('org.vue.views.project-select.tabs.create')"
@@ -35,6 +36,7 @@
         </div>
       </VueTab>
 
+      <!-- Vue 项目管理器 导入 -->
       <VueTab
         id="import"
         :label="$t('org.vue.views.project-select.tabs.import')"

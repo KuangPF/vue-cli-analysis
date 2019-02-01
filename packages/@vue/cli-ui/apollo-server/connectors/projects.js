@@ -380,6 +380,7 @@ async function open (id, context) {
   // Reset locales
   locales.reset(context)
   // Load plugins
+  // 加载插件
   await plugins.list(project.path, context)
 
   // Date

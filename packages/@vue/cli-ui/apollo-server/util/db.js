@@ -1,4 +1,4 @@
-const Lowdb = require('lowdb')
+const Lowdb = require('lowdb') // vue-cli-ui 相关的数据利用 lowdb 存储，～/.vue-cli-ui/db.json
 const FileSync = require('lowdb/adapters/FileSync')
 const fs = require('fs-extra')
 const path = require('path')
