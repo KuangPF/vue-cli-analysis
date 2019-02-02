@@ -103,7 +103,8 @@ module.exports = {
       title: 'vue ui',
       collapsable: false,
       children: [
-        ['ui/', 'ui 命令']
+        ['ui/', 'ui 入口'],
+        ['ui/overall-analysis', '整体分析']
       ]
     }, {
       title: 'vue init',
