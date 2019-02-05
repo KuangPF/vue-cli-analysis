@@ -104,7 +104,8 @@ module.exports = {
       collapsable: false,
       children: [
         ['ui/', 'ui 入口'],
-        ['ui/overall-analysis', '整体分析']
+        ['ui/overall-analysis', '整体分析'],
+        ['ui/server', 'server 端']
       ]
     }, {
       title: 'vue init',
