@@ -57,7 +57,6 @@ module.exports = (options, cb = null) => {
   }
 
 
-  return
   // Apollo server options
 
   typeDefs = processSchema(typeDefs)
