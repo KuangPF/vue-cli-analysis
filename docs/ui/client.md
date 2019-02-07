@@ -57,3 +57,42 @@ async importProject (force = false) {
 }
 ```
 代码写的比较明了，当执行 `importProject` 时候会利用 vue-apollo 提供的 `this.$apollo.mutate()` 来发送一个 GraphQL 变更，从而改变服务端的数据，接下来就看服务端的 Mutation： `projectImport`。
+
+## Mutation
+
+处理 `projectImport` 变更的代码目录在 `@vue/cli-ui/apollo-server/schema/project.js` 中，代码如下：
+
+``` js
+exports.resolvers = {
+  Project: { // ... 
+  },
+  Query: { // ... 
+  },
+  Mutation: {
+    // ...
+    projectImport: (root, { input }, context) => projects.import(input, context),
+    // ...
+  }
+}
+```
+接着看 `projects.import`,代码目录在 `@vue/cli-ui/apollo-server/connectors/projects.js` 中，代码如下：
+
+``` js
+async function importProject (input, context) { // 导入项目，执行 projectImport mutate
+  if (!input.force && !fs.existsSync(path.join(input.path, 'node_modules'))) { // 强制导入没有 node_modules 的情形
+    throw new Error('NO_MODULES')
+  }
+
+  const project = {
+    id: shortId.generate(), // shortId
+    path: input.path, // 导入项目的路径
+    favorite: 0,
+    type: folders.isVueProject(input.path) ? 'vue' : 'unknown' // 是否为 vue 项目
+  }
+  const packageData = folders.readPackage(project.path, context)
+  project.name = packageData.name
+  context.db.get('projects').push(project).write() // 将 project 信息存在本地的 db 中 （ lowdb 实现 ）
+  return open(project.id, context)
+}
+```
+`importProject` 方法的作用就是获取导入项目的信息，并利用 [lowdb](https://github.com/typicode/lowdb) 将数据存储在本地（~/.vue-cli-ui/db.json），接着执行 open 方法加载插件。
