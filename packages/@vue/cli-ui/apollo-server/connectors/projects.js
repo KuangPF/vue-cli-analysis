@@ -344,20 +344,20 @@ async function create (input, context) {
   })
 }
 
-async function importProject (input, context) {
+async function importProject (input, context) { // 导入项目，执行 projectImport mutate
   if (!input.force && !fs.existsSync(path.join(input.path, 'node_modules'))) {
     throw new Error('NO_MODULES')
   }
 
   const project = {
-    id: shortId.generate(),
-    path: input.path,
+    id: shortId.generate(), // shortId
+    path: input.path, // 导入项目的路径
     favorite: 0,
-    type: folders.isVueProject(input.path) ? 'vue' : 'unknown'
+    type: folders.isVueProject(input.path) ? 'vue' : 'unknown' // 是否为 vue 项目
   }
   const packageData = folders.readPackage(project.path, context)
   project.name = packageData.name
-  context.db.get('projects').push(project).write()
+  context.db.get('projects').push(project).write() // 将 project 信息存在本地的 db 中 （ lowdb 实现 ）
   return open(project.id, context)
 }
 
@@ -376,7 +376,8 @@ async function open (id, context) {
 
   lastProject = currentProject
   currentProject = project
-  cwd.set(project.path, context)
+  cwd.set(project.path, context) // process.env.VUE_CLI_CONTEXT
+
   // Reset locales
   locales.reset(context)
   // Load plugins

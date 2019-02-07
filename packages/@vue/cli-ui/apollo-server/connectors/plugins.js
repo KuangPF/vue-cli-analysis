@@ -57,17 +57,19 @@ let pluginsStore = new Map()
 let pluginApiInstances = new Map()
 let pkgStore = new Map()
 
+// 加载插件
 async function list (file, context, { resetApi = true, lightApi = false, autoLoadApi = true } = {}) {
   let pkg = folders.readPackage(file, context)
   let pkgContext = cwd.get()
   // Custom package.json location
-  if (pkg.vuePlugins && pkg.vuePlugins.resolveFrom) {
+  if (pkg.vuePlugins && pkg.vuePlugins.resolveFrom) { // 加载其他文件夹里的 package.json
     pkgContext = path.resolve(cwd.get(), pkg.vuePlugins.resolveFrom)
     pkg = folders.readPackage(pkgContext, context)
   }
   pkgStore.set(file, { pkgContext, pkg })
 
   let plugins = []
+  // package.json 中 devDependencies，dependencies 插件
   plugins = plugins.concat(findPlugins(pkg.devDependencies || {}, file))
   plugins = plugins.concat(findPlugins(pkg.dependencies || {}, file))
 
@@ -172,9 +174,13 @@ function resetPluginApi ({ file, lightApi }, context) {
       pluginApiInstances.set(file, pluginApi)
 
       // Run Plugin API
+      // 默认的插件 suggest,task,config,widgets
       runPluginApi(path.resolve(__dirname, '../../'), pluginApi, context, 'ui-defaults')
+
+      // devDependencies dependencies 插件
       plugins.forEach(plugin => runPluginApi(plugin.id, pluginApi, context))
       // Local plugins
+      // package.json 中 vuePlugins.ui 插件
       const { pkg, pkgContext } = pkgStore.get(file)
       if (pkg.vuePlugins && pkg.vuePlugins.ui) {
         const files = pkg.vuePlugins.ui
