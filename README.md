@@ -41,10 +41,10 @@
   * [build 命令](https://kuangpf.com/vue-cli-analysis/build/)
 * **vue ui**
   * [ui 入口](https://kuangpf.com/vue-cli-analysis/ui/)
-  * [整体分析](https://kuangpf.com/vue-cli-analysis/ui/overall-analysis)
-  * [server 端](https://kuangpf.com/vue-cli-analysis/ui/server)
-  * [client 端](https://kuangpf.com/vue-cli-analysis/ui/client)
-  * [总结](https://kuangpf.com/vue-cli-analysis/ui/summary)
+  * [整体分析](https://kuangpf.com/vue-cli-analysis/ui/overall-analysis.html)
+  * [server 端](https://kuangpf.com/vue-cli-analysis/ui/server.html)
+  * [client 端](https://kuangpf.com/vue-cli-analysis/ui/client.html)
+  * [总结](https://kuangpf.com/vue-cli-analysis/ui/summary.html)
 * **vue init**
   * [init 入口](https://kuangpf.com/vue-cli-analysis/init/)
   * [@vue/cli-init 分析](https://kuangpf.com/vue-cli-analysis/init/vue-cli-init-module.html)
