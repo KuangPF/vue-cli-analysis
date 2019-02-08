@@ -1,7 +1,8 @@
 # 环境
 
 ### 版本
-  * vue-cli： 3.1.3
+  * @vue/cli： 3.1.3
+  * @vue/cli-service： 3.1.4
   * node：8.11.4
   * platform： macOS
 
@@ -9,7 +10,6 @@
 ### 工具
   * vscode： 代码编辑器
   * Typora： Markdown 编辑器
-  * carbon： 将代码转为图片 [link](https://carbon.now.sh/?bg=rgba(104%2C135%2C167%2C1)&t=3024-night&wt=none&l=vue&ds=true&dsyoff=20px&dsblur=68px&wc=true&wa=true&pv=48px&ph=32px&ln=false&fm=Hack&fs=14px&lh=133%25&si=false&es=2x&wm=false&ts=false)
 
 
 
