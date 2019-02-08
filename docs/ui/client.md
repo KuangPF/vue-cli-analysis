@@ -210,3 +210,115 @@ function resetPluginApi ({ file, lightApi }, context) {
 * **内置 UI 插件**：包括了配置插件，建议插件（vue-router，vuex），任务插件以及看板部分的 widget 插件
 * **package.json UI 插件**：项目中依赖的 UI 插件，可以通过 vuePlugins.resolveFrom 指定 package.json 位置
 * **vuePlugins.ui**： package.json 中 vuePlugins 字段中的 UI 插件，这样可以直接访问插件 API
+
+还是按照流程继续看下 `runPluginApi` 的核心代码：
+
+``` js
+function runPluginApi (id, pluginApi, context, filename = 'ui') {
+  // ...
+  try {
+    module = loadModule(`${id}/${filename}`, pluginApi.cwd, true)
+  } catch (e) {}
+  if (module) {
+    if (typeof module !== 'function') { } else {
+      pluginApi.pluginId = id
+      try {
+        module(pluginApi)
+        log('Plugin API loaded for', name, chalk.grey(pluginApi.cwd))
+      } catch (e) {}
+      pluginApi.pluginId = null
+    }
+  }
+}
+```
+首先尝试加载 UI 插件的 ui.js (也可以ui/index.js)，对于内置的 UI 插件，则加载 id/ui-defaults/index.js，加载完成以后则执行其 PluginAPI，[PluginAPI](https://cli.vuejs.org/zh/dev-guide/ui-api.html#ui-%E6%96%87%E4%BB%B6) 提供了很多的方法来增强项目的配置和任务以及分享数据和在进程间进行通信，具体查看官方文档，PluginAPI 在整个插件机制中是十分重要的一部分。在加载完所有 UI 插件后，则加载 PluginAPI 实例中 `addons`， `views` 和 `widgetDefs` 注册的 vue 组件。以 `client addons` 为例简单看下：
+
+``` js
+function add (options, context) {
+  if (findOne(options.id)) remove(options.id, context)
+
+  addons.push(options)
+  context.pubsub.publish(channels.CLIENT_ADDON_ADDED, {
+    clientAddonAdded: options
+  })
+}
+```
+当执行 `clientAddons.add(options, context)` 会发布一个订阅，而 client 端在 `cli-ui/src/components/client-addon/ClientAddonLoader.vue` 中启用了 `client_addon_added` 订阅：
+
+``` js
+apollo: {
+  clientAddons: {
+    query: CLIENT_ADDONS,
+    fetchPolicy: 'no-cache',
+    manual: true,
+    result ({ data: { clientAddons }, stale }) {
+      if (!stale) {
+        clientAddons.forEach(this.loadAddon)
+        this.$_lastRead = Date.now()
+      }
+    }
+  },
+
+  $subscribe: {
+    clientAddonAdded: {
+      query: CLIENT_ADDON_ADDED,
+      result ({ data }) {
+        if (this.$_lastRead && Date.now() - this.$_lastRead > 1000) {
+          this.loadAddon(data.clientAddonAdded)
+        }
+      }
+    }
+  }
+},
+
+```
+当在 server 端发布了一个订阅后，client 端会就是执行 `loadAddon` 从而加载客户端 addon 包，`loadAddon` 代码如下：
+
+``` js
+loadAddon (addon) {
+  // eslint-disable-next-line no-console
+  console.log(`[UI] Loading client addon ${addon.id} (${addon.url})...`)
+  const script = document.createElement('script')
+  script.setAttribute('src', addon.url)
+  document.body.appendChild(script)
+}
+```
+`loadAddon` 方法通过 `<script>` 标签的方式将客户端 addon 包引入，view，widgets 这就不一一分析了，可执行查看下。
+在 UI 插件加载完毕后，会执行对应的钩子回调 callHook。
+``` js
+if (projectId !== project.id) {
+  callHook({
+    id: 'projectOpen',
+    args: [project, projects.getLast(context)],
+    file
+  }, context)
+} else {
+  callHook({
+    id: 'pluginReload',
+    args: [project],
+    file
+  }, context)
+
+  // View open hook
+  const currentView = views.getCurrent()
+  if (currentView) views.open(currentView.id)
+}
+```
+最后再加载当前项目的 widgets，到这里加载插件，即下面这段代码执行完毕：
+
+``` js
+await plugins.list(project.path, context)
+```
+接着看 `open` 函数剩下的部分:
+
+``` js
+// Date
+context.db.get('projects').find({ id }).assign({
+  openDate: Date.now()
+}).write()
+// Save for next time
+context.db.set('config.lastOpenProject', id).write()
+log('Project open', id, project.path)
+return project
+```
+这段代码的作用就是将当前项目的信息存储在本地 db 中作为下次默认打开，执行到这里打开项目 `importProject` 的整个过程就分析完了。
