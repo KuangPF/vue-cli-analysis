@@ -161,5 +161,5 @@ module.exports = (options, cb = null) => {
 ::: tip vue-cli-plugin-apollo
 启动 server 使用了 [vue-cli-plugin-apollo](https://github.com/Akryum/vue-cli-plugin-apollo)插件，
 它是 [vue-apollo](https://vue-apollo.netlify.com/zh-cn/)
-的 cli 插件，但与 vue-apollo 相比，它又有更多的新特性，比如集成了 apollo-server 以及包含一些 vue apollo 例子等等，
+的 cli 插件，但与 vue-apollo 相比，它又有更多的新特性，比如集成了 apollo-server 以及包含一些 vue apollo 例子等等。
 :::
