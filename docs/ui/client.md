@@ -96,3 +96,117 @@ async function importProject (input, context) { // 导入项目，执行 project
 }
 ```
 `importProject` 方法的作用就是获取导入项目的信息，并利用 [lowdb](https://github.com/typicode/lowdb) 将数据存储在本地（~/.vue-cli-ui/db.json），接着执行 open 方法加载插件。
+
+## open
+
+``` js
+async function open (id, context) {
+  const project = findOne(id, context)
+  // ...
+  cwd.set(project.path, context) // process.env.VUE_CLI_CONTEXT
+  // Reset locales
+  locales.reset(context)
+  // Load plugins
+  // 加载插件
+  await plugins.list(project.path, context)
+  // ...
+  return project
+}
+```
+以上为 open 方法的部分代码，比较核心的就是  `await plugins.list(project.path, context)`,接着看
+
+``` js
+async function list (file, context, { resetApi = true, lightApi = false, autoLoadApi = true } = {}) {
+  let pkg = folders.readPackage(file, context)
+  let pkgContext = cwd.get()
+  // Custom package.json location
+  if (pkg.vuePlugins && pkg.vuePlugins.resolveFrom) { // 加载其他文件夹里的 package.json
+    pkgContext = path.resolve(cwd.get(), pkg.vuePlugins.resolveFrom)
+    pkg = folders.readPackage(pkgContext, context)
+  }
+  pkgStore.set(file, { pkgContext, pkg })
+
+  let plugins = []
+  // package.json 中 devDependencies，dependencies 插件
+  plugins = plugins.concat(findPlugins(pkg.devDependencies || {}, file))
+  plugins = plugins.concat(findPlugins(pkg.dependencies || {}, file))
+
+  // Put cli service at the top
+  const index = plugins.findIndex(p => p.id === CLI_SERVICE)
+  if (index !== -1) {
+    const service = plugins[index]
+    plugins.splice(index, 1)
+    plugins.unshift(service)
+  }
+
+  pluginsStore.set(file, plugins)
+
+  log('Plugins found:', plugins.length, chalk.grey(file))
+
+  if (resetApi || (autoLoadApi && !pluginApiInstances.has(file))) {
+    await resetPluginApi({ file, lightApi }, context)
+  }
+  return plugins
+}
+
+```
+`list` 方法首先会获取 package.json 里 `devDependencies` 和 `dependencies` 字段中的 UI 插件，接着执行 `resetPluginApi` 函数调用 UI 插件的 API，`resetPluginApi` 方法部分代码如下：
+
+``` js
+function resetPluginApi ({ file, lightApi }, context) {
+  return new Promise((resolve, reject) => {
+    // ...
+    // Cyclic dependency with projects connector
+    setTimeout(async () => {
+      // ...
+      pluginApi = new PluginApi({
+        plugins,
+        file,
+        project,
+        lightMode: lightApi
+      }, context)
+      pluginApiInstances.set(file, pluginApi)
+
+      // Run Plugin API
+      // 默认的插件 suggest,task,config,widgets
+      runPluginApi(path.resolve(__dirname, '../../'), pluginApi, context, 'ui-defaults')
+
+      // devDependencies dependencies 插件
+      plugins.forEach(plugin => runPluginApi(plugin.id, pluginApi, context))
+      // Local plugins
+      // package.json 中 vuePlugins.ui 插件
+      const { pkg, pkgContext } = pkgStore.get(file)
+      if (pkg.vuePlugins && pkg.vuePlugins.ui) {
+        const files = pkg.vuePlugins.ui
+        if (Array.isArray(files)) {
+          for (const file of files) {
+            runPluginApi(pkgContext, pluginApi, context, file)
+          }
+        }
+      }
+      // Add client addons
+      pluginApi.clientAddons.forEach(options => {
+        clientAddons.add(options, context)
+      })
+      // Add views
+      for (const view of pluginApi.views) {
+        await views.add({ view, project }, context)
+      }
+      // Register widgets
+      for (const definition of pluginApi.widgetDefs) {
+        await widgets.registerDefinition({ definition, project }, context)
+      }
+      // callHook ...
+      // Load widgets for current project
+      widgets.load(context)
+      resolve(true)
+    })
+  })
+}
+```
+
+`resetPluginApi` 方法主要利用函数 `runPluginApi` 执行所有 UI 插件的 PluginAPI，这里的 UI 插件来源主要有三部分组成：
+
+* **内置 UI 插件**：包括了配置插件，建议插件（vue-router，vuex），任务插件以及看板部分的 widget 插件
+* **package.json UI 插件**：项目中依赖的 UI 插件，可以通过 vuePlugins.resolveFrom 指定 package.json 位置
+* **vuePlugins.ui**： package.json 中 vuePlugins 字段中的 UI 插件，这样可以直接访问插件 API
