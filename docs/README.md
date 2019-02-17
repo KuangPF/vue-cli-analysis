@@ -10,7 +10,7 @@
 
 ## 相关说明
 
-[vue-cli](https://github.com/vuejs/vue-cli/tree/dev/packages) 仓库 dev 分支下面 package 目录包含了 `cli`，`cli-service`，`Service 插件`，`UI 插件`，`cli 工具函数`代码等等。本项目中的 package 文件夹里面对其中的代码有一定的注释，主要集中在 `cli`，`cli-service` 上，有兴趣的同学可以 fork 后查看。
+[vue-cli](https://github.com/vuejs/vue-cli/tree/dev/packages) 仓库 dev 分支下面 package 目录包含了 `cli`，`cli-service`，`CLI 插件`，`UI 插件`，`cli 工具函数`代码等等。本项目中的 package 文件夹里面对其中的代码有一定的注释，主要集中在 `cli`，`cli-service` 上，有兴趣的同学可以 fork 后查看。
 
 ## 目录
 
