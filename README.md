@@ -8,6 +8,10 @@
 
 **慎重提醒：我对 `vue-cli` 的源码以及其中的一些知识点并不熟悉，如果我对其中的知识点非常了解的话我就不会来分析了，分析源码只是想更加了解 `vue-cli` 整个工具的实现过程以及 `vue-cli3` 的一些新特性。如果文中有描述有误，还请各位大大 issues or PR**。
 
+## 相关说明
+
+[vue-cli](https://github.com/vuejs/vue-cli/tree/dev/packages) 仓库 dev 分支下面 package 目录包含了 `cli`，`cli-service`，`CLI 插件`，`UI 插件`，`cli 工具函数`代码等等。本项目中的 package 文件夹里面对其中的代码有一定的注释，主要集中在 `cli`，`cli-service` 上，有兴趣的同学可以 fork 后查看。
+
 ## 目录
 
 ### @vue/cli
