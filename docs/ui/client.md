@@ -13,7 +13,7 @@ app.use(express.static(distPath, { maxAge: 0 }))
 ```
 :::
 
-## portProject
+## importProject
 
 导入项目的组件为 `@vue/cli-ui/src/components/project-manager/ProjectSelect.vue`，部分代码如下
 
