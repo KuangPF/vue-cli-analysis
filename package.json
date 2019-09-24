@@ -23,11 +23,7 @@
     "url": "https://github.com/KuangPF/vue-cli-analysis/issues"
   },
   "homepage": "https://github.com/KuangPF/vue-cli-analysis#readme",
-  "dependencies": {
-    "async": "^2.6.1",
-    "consolidate": "^0.15.1",
-    "handlebars": "^4.0.12",
-    "inquirer": "^6.2.0",
-    "metalsmith": "^2.3.0"
+  "devDependencies": {
+    "vuepress": "^1.1.0"
   }
 }
