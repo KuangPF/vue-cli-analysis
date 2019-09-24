@@ -23,7 +23,7 @@
 
 **Github 仓库** : [vue-cli](https://github.com/vuejs/vue-cli)
 
-仓库默认分支为 `dev`， 这个分支下放着`vue-cli3.0` 以及与之配套的一些插件代码，`master` 分支为 `vue-cli 2.X.X` 的代码。其中 `vue-cli` 的源码在 `/packages/@vue/cli` 中，看这目录的格式，应该是尤大将工具以及`vue-cli` 的一些插件都归在了 `npm` `@vue` 的组织下面，[nmp @vue](https://www.npmjs.com/org/vue)。
+仓库默认分支为 `dev`， 这个分支下放着`vue-cli3.0` 以及与之配套的一些插件代码，`master` 分支为 `vue-cli 2.X.X` 的代码。其中 `vue-cli` 的源码在 `/packages/@vue/cli` 中，看这目录的格式，应该是尤大将工具以及`vue-cli` 的一些插件都归在了 `npm` `@vue` 的组织下面，[npm @vue](https://www.npmjs.com/org/vue)。
 
 <img :src="$withBase('/assets/foreword-img03.png')">
 
