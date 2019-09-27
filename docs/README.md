@@ -1,6 +1,6 @@
 # vue-cli 源码分析
 
-![@vue/cli](https://img.shields.io/badge/@vue/cli-v3.1.3-42b983.svg) ![@vue/cli-init](https://img.shields.io/badge/@vue/cli--init-v3.1.1-42b983.svg) ![@vue/cli-service](https://img.shields.io/badge/@vue/cli--service-v3.1.4-42b983.svg) ![node-version](https://img.shields.io/badge/node-v8.11.4-brightgreen.svg) ![platform](https://img.shields.io/badge/platform-macOS%20%EF%A3%BF-000000.svg) ![progress](http://progressed.io/bar/100?title=progress) ![License](https://img.shields.io/github/license/KuangPF/vue-cli-analysis.svg) 
+![@vue/cli](https://img.shields.io/badge/@vue/cli-v3.1.3-42b983.svg) ![@vue/cli-service](https://img.shields.io/badge/@vue/cli--service-v3.1.4-42b983.svg) ![node-version](https://img.shields.io/badge/node-v8.11.4-brightgreen.svg) ![platform](https://img.shields.io/badge/platform-macOS%20%EF%A3%BF-000000.svg) ![Github action](https://github.com/KuangPF/vue-cli-analysis/workflows/Deploy%20to%20GitHub%20Pages/badge.svg) ![License](https://img.shields.io/github/license/KuangPF/vue-cli-analysis.svg) 
 
 ## 写在前面
 
