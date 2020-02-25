@@ -74,6 +74,13 @@
   * [inspect](https://kuangpf.com/vue-cli-analysis/cli-service/inspect.html)
   * [help](https://kuangpf.com/vue-cli-analysis/cli-service/help.html)
 
+
+## 请作者喝杯咖啡☕️
+
+如果觉得文章对你有所帮助，不如请作者喝杯咖啡 ☕️
+
+<img width=200 src='https://user-images.githubusercontent.com/20694238/75290073-9a76cf80-585a-11ea-8c14-730274b9987d.jpg' /> <img width=205 src='https://user-images.githubusercontent.com/20694238/75290080-9d71c000-585a-11ea-8976-bed1ea2c8550.jpg' />
+
 ## 总结
 
 vue-cli-analysis 整个项目可大致分为两个部分，一部分是 vue 命令分析，包含 create，add，invoke， ui 等等，另一部分就是 vue-cli-service 的分析。通过分析发现与 2.X 相比，3.0 变化太大了，通过引入插件系统，可以让开发者利用其暴露的 API 对项目进行扩展。在分析之前对插件机制不是很了解，不知道如何实现的，分析之后逐渐了解了其实现机制，而且对于 vue 项目的配置也更加熟悉了。除此之外，在分析过程过程中还了解了很多有意思的 npm 包，比如 execa， debug， lowdb，lodash，inquirer 等等，最后，如果你想学习 node 命令或者想写一些比较有意思的命令行工具的话，阅读 vue-cli 源码是一个不错的选择。
