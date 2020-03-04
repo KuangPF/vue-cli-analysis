@@ -1,6 +1,6 @@
 # serve 命令
 
-**源码目录：**  packages/@vue/cli-service-globa 。
+**源码目录：**  packages/@vue/cli-service-global 。
 
 **作用：**  在开发环境模式下零配置为 .js 或 .vue 文件启动一个服务器 。
 
