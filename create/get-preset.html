@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>获取预设选项 | vue-cli-analysis</title>
+    <meta name="generator" content="VuePress 1.5.4">
+    <link rel="icon" href="/vue-cli-analysis/logo.png">
+    <meta name="description" content="vue-cli 源码分析">
+    <link rel="preload" href="/vue-cli-analysis/assets/css/0.styles.341146b8.css" as="style"><link rel="preload" href="/vue-cli-analysis/assets/js/app.464e05ac.js" as="script"><link rel="preload" href="/vue-cli-analysis/assets/js/2.a21b74f4.js" as="script"><link rel="preload" href="/vue-cli-analysis/assets/js/23.2d85db17.js" as="script"><link rel="prefetch" href="/vue-cli-analysis/assets/js/10.aafb3dad.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/11.c16f1a12.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/12.7f85b46e.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/13.1bb1953e.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/14.8731d00e.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/15.22171d60.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/16.b8c1e7f0.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/17.7177b462.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/18.57b90b67.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/19.f33fb997.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/20.2cb7ab74.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/21.dc6e0ddd.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/22.a8370716.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/24.4c894a4a.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/25.80e15e2f.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/26.c63e8d44.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/27.5ddfd4dd.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/28.8efec875.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/29.e8ad3547.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/3.d8a31682.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/30.09edd5d5.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/31.2a752f60.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/32.efc829aa.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/33.cdada052.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/34.c13ea882.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/35.ac5e55f9.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/36.5c06ebb1.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/37.9182cd88.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/38.5fdf1664.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/39.08dab7a9.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/4.5ed19beb.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/40.3390f199.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/41.8e6ff63d.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/42.f32cc631.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/43.670c0033.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/44.d4f64be5.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/5.e3bc28e7.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/6.e5f0927d.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/7.866f164f.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/8.7f04e2a6.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/9.3ff61129.js">
+    <link rel="stylesheet" href="/vue-cli-analysis/assets/css/0.styles.341146b8.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/vue-cli-analysis/" class="home-link router-link-active"><!----> <span class="site-name">vue-cli-analysis</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/vue-cli-analysis/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="cli-service" class="dropdown-title"><span class="title">cli-service</span> <span class="arrow down"></span></button> <button type="button" aria-label="cli-service" class="mobile-dropdown-title"><span class="title">cli-service</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          整体介绍
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/entrance.html" class="nav-link">
+  入口
+</a></li><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/new-service.html" class="nav-link">
+  new Service()
+</a></li><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/service-run.html" class="nav-link">
+  service.run()
+</a></li></ul></li><li class="dropdown-item"><h4>
+          内置插件
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/serve.html" class="nav-link">
+  serve
+</a></li><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/build.html" class="nav-link">
+  build
+</a></li><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/inspect.html" class="nav-link">
+  inspect
+</a></li><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/help.html" class="nav-link">
+  help
+</a></li></ul></li></ul></div></div> <a href="https://github.com/KuangPF/vue-cli-analysis" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/vue-cli-analysis/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="cli-service" class="dropdown-title"><span class="title">cli-service</span> <span class="arrow down"></span></button> <button type="button" aria-label="cli-service" class="mobile-dropdown-title"><span class="title">cli-service</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          整体介绍
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/entrance.html" class="nav-link">
+  入口
+</a></li><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/new-service.html" class="nav-link">
+  new Service()
+</a></li><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/service-run.html" class="nav-link">
+  service.run()
+</a></li></ul></li><li class="dropdown-item"><h4>
+          内置插件
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/serve.html" class="nav-link">
+  serve
+</a></li><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/build.html" class="nav-link">
+  build
+</a></li><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/inspect.html" class="nav-link">
+  inspect
+</a></li><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/help.html" class="nav-link">
+  help
+</a></li></ul></li></ul></div></div> <a href="https://github.com/KuangPF/vue-cli-analysis" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>前言</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/foreword/" class="sidebar-link">介绍</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>开始</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/start/env.html" class="sidebar-link">环境介绍</a></li><li><a href="/vue-cli-analysis/start/npm.html" class="sidebar-link">常见 npm 包</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>vue create</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/create/" aria-current="page" class="sidebar-link">create 入口</a></li><li><a href="/vue-cli-analysis/create/overall-analysis.html" class="sidebar-link">整体分析</a></li><li><a href="/vue-cli-analysis/create/basic-verification.html" class="sidebar-link">基础验证</a></li><li><a href="/vue-cli-analysis/create/get-preset.html" aria-current="page" class="active sidebar-link">获取预设选项（preset）</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/vue-cli-analysis/create/get-preset.html#getpromptmodules" class="sidebar-link">getPromptModules</a></li><li class="sidebar-sub-header"><a href="/vue-cli-analysis/create/get-preset.html#new-creator" class="sidebar-link">new Creator()</a></li><li class="sidebar-sub-header"><a href="/vue-cli-analysis/create/get-preset.html#getpreset" class="sidebar-link">getPreset</a></li></ul></li><li><a href="/vue-cli-analysis/create/install-deps.html" class="sidebar-link">依赖安装（installDeps）</a></li><li><a href="/vue-cli-analysis/create/generator.html" class="sidebar-link">Generator</a></li><li><a href="/vue-cli-analysis/create/end-part.html" class="sidebar-link">结尾分析</a></li><li><a href="/vue-cli-analysis/create/summary.html" class="sidebar-link">总结</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue add</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/add/" class="sidebar-link">add 入口</a></li><li><a href="/vue-cli-analysis/add/plugin-install.html" class="sidebar-link">安装插件</a></li><li><a href="/vue-cli-analysis/add/plugin-invoke.html" class="sidebar-link">调用插件</a></li><li><a href="/vue-cli-analysis/add/summary.html" class="sidebar-link">总结</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue invoke</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/invoke/" class="sidebar-link">invoke 命令</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue inspect</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/inspect/" class="sidebar-link">inspect 命令</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue serve</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/serve/" class="sidebar-link">serve 命令</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue build</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/build/" class="sidebar-link">build 命令</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue ui</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/ui/" class="sidebar-link">ui 入口</a></li><li><a href="/vue-cli-analysis/ui/overall-analysis.html" class="sidebar-link">整体分析</a></li><li><a href="/vue-cli-analysis/ui/server.html" class="sidebar-link">server 端</a></li><li><a href="/vue-cli-analysis/ui/client.html" class="sidebar-link">client 端</a></li><li><a href="/vue-cli-analysis/ui/summary.html" class="sidebar-link">总结</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue init</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/init/" class="sidebar-link">init 入口</a></li><li><a href="/vue-cli-analysis/init/vue-cli-init-module.html" class="sidebar-link">@vue/cli-init 分析</a></li><li><a href="/vue-cli-analysis/init/vue-cli-init-2.x.html" class="sidebar-link">vue-cli 2.x  init 分析</a></li><li><a href="/vue-cli-analysis/init/generate.html" class="sidebar-link">generate 函数分析</a></li><li><a href="/vue-cli-analysis/init/summary.html" class="sidebar-link">总结</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue config</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/config/" class="sidebar-link">config 命令</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue upgrade</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/upgrade/" class="sidebar-link">upgrade 命令</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue info</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/info/" class="sidebar-link">info 命令</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="获取预设选项"><a href="#获取预设选项" class="header-anchor">#</a> 获取预设选项</h1> <p>在开始分析之前简单描述下什么是 <code>vue-cli-preset</code>，
+<strong>一个 Vue CLI preset 是一个包含创建新项目所需预定义选项和插件的 JSON 对象，让用户无需在命令提示中选择它们:</strong></p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;useConfigFiles&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;router&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;vuex&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;cssPreprocessor&quot;</span><span class="token operator">:</span> <span class="token string">&quot;sass&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;plugins&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;@vue/cli-plugin-babel&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;@vue/cli-plugin-eslint&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;config&quot;</span><span class="token operator">:</span> <span class="token string">&quot;airbnb&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;lintOn&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&quot;save&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;commit&quot;</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>更多关于 <code>preset</code> 可以前往 <code>vue-cli</code> 官网 <a href="https://cli.vuejs.org/zh/guide/plugins-and-presets.html#%E6%8F%92%E4%BB%B6" target="_blank" rel="noopener noreferrer">插件和 Preset#<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>。</p> <p>在基础验证完成以后会创建一个 <code>Creator</code> 实例:</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> creator <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Creator</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span> targetDir<span class="token punctuation">,</span> <span class="token function">getPromptModules</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre></div><h2 id="getpromptmodules"><a href="#getpromptmodules" class="header-anchor">#</a> getPromptModules</h2> <p>在分析 <code>Creator</code> 之前先看下 <code>getPromptModules()</code> 获取到的是什么。<code>getPromptModules()</code> 获取了 babel，typescript，pwa，router，vuex，
+cssPreprocessors，linter，unit，e2e 的 <code>Prompt</code> 的配置信息，以 unit 为例：</p> <div class="language-js extra-class"><pre class="language-js"><code>module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token parameter">cli</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  cli<span class="token punctuation">.</span><span class="token function">injectFeature</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    name<span class="token operator">:</span> <span class="token string">'Unit Testing'</span><span class="token punctuation">,</span>
+    value<span class="token operator">:</span> <span class="token string">'unit'</span><span class="token punctuation">,</span>
+    short<span class="token operator">:</span> <span class="token string">'Unit'</span><span class="token punctuation">,</span>
+    description<span class="token operator">:</span> <span class="token string">'Add a Unit Testing solution like Jest or Mocha'</span><span class="token punctuation">,</span>
+    link<span class="token operator">:</span> <span class="token string">'https://cli.vuejs.org/config/#unit-testing'</span><span class="token punctuation">,</span>
+    plugins<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'unit-jest'</span><span class="token punctuation">,</span> <span class="token string">'unit-mocha'</span><span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  cli<span class="token punctuation">.</span><span class="token function">injectPrompt</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    name<span class="token operator">:</span> <span class="token string">'unit'</span><span class="token punctuation">,</span>
+    <span class="token function-variable function">when</span><span class="token operator">:</span> <span class="token parameter">answers</span> <span class="token operator">=&gt;</span> answers<span class="token punctuation">.</span>features<span class="token punctuation">.</span><span class="token function">includes</span><span class="token punctuation">(</span><span class="token string">'unit'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    type<span class="token operator">:</span> <span class="token string">'list'</span><span class="token punctuation">,</span>
+    message<span class="token operator">:</span> <span class="token string">'Pick a unit testing solution:'</span><span class="token punctuation">,</span>
+    choices<span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        name<span class="token operator">:</span> <span class="token string">'Mocha + Chai'</span><span class="token punctuation">,</span>
+        value<span class="token operator">:</span> <span class="token string">'mocha'</span><span class="token punctuation">,</span>
+        short<span class="token operator">:</span> <span class="token string">'Mocha'</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">{</span>
+        name<span class="token operator">:</span> <span class="token string">'Jest'</span><span class="token punctuation">,</span>
+        value<span class="token operator">:</span> <span class="token string">'jest'</span><span class="token punctuation">,</span>
+        short<span class="token operator">:</span> <span class="token string">'Jest'</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  cli<span class="token punctuation">.</span><span class="token function">onPromptComplete</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">answers<span class="token punctuation">,</span> options</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>answers<span class="token punctuation">.</span>unit <span class="token operator">===</span> <span class="token string">'mocha'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      options<span class="token punctuation">.</span>plugins<span class="token punctuation">[</span><span class="token string">'@vue/cli-plugin-unit-mocha'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>answers<span class="token punctuation">.</span>unit <span class="token operator">===</span> <span class="token string">'jest'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      options<span class="token punctuation">.</span>plugins<span class="token punctuation">[</span><span class="token string">'@vue/cli-plugin-unit-jest'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p><strong>cli.injectFeature</strong></p> <p><code>cli.injectFeature</code> 是注入 <code>featurePrompt</code>，即初始化项目时选择 babel，typescript，pwa 等等，如下图：</p> <img src="/vue-cli-analysis/assets/create-img01.png"> <p><strong>cli.injectPrompt</strong></p> <p><code>cli.injectPrompt</code> 是根据选择的 <code>featurePrompt</code> 然后注入对应的 <code>prompt</code>，当选择了 unit，接下来会有以下的 <code>prompt</code>，选择 <code>Mocha + Chai</code> 还是 <code>Jest</code>：</p> <img src="/vue-cli-analysis/assets/create-img02.png"> <p><strong>cli.onPromptComplete</strong></p> <p><code>cli.onPromptComplete</code> 就是一个回调，会根据选择来添加对应的插件， 当选择了 mocha ，那么就会添加 <code>@vue/cli-plugin-unit-mocha</code> 插件。</p> <h2 id="new-creator"><a href="#new-creator" class="header-anchor">#</a> new Creator()</h2> <p>搞清楚了 <code>getPromptModules</code> 之后，下面开始看一下初始化 <code>Creator</code> 实例发生了什么，直接看代码：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token function">constructor</span> <span class="token punctuation">(</span><span class="token parameter">name<span class="token punctuation">,</span> context<span class="token punctuation">,</span> promptModules</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name
+    <span class="token keyword">this</span><span class="token punctuation">.</span>context <span class="token operator">=</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">VUE_CLI_CONTEXT</span> <span class="token operator">=</span> context
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> presetPrompt<span class="token punctuation">,</span> featurePrompt <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">resolveIntroPrompts</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// 获取了 presetPrompt list，在初始化项目的时候提供选择</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>presetPrompt <span class="token operator">=</span> presetPrompt <span class="token comment">// presetPrompt list</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>featurePrompt <span class="token operator">=</span> featurePrompt <span class="token comment">// babal, pwa, e2e etc.</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>outroPrompts <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">resolveOutroPrompts</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">//  存放项目配置的文件（package.json || congfig.js） 以及是否将 presetPrompts 存放起来</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>injectedPrompts <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token comment">// 对应 feature 的 Prompts</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>promptCompleteCbs <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token comment">// injectedPrompts 的回调</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>createCompleteCbs <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">this</span><span class="token punctuation">.</span>run <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">const</span> promptAPI <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PromptModuleAPI</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span>
+
+    <span class="token comment">/**
+     * 1. 将 babel, e2e, pwa 等 push 到 featurePrompt.choices 中，在选择项目需要配置哪些时显示出来 （checkbox）；
+     * 2. 将 babel, e2e, pwa 等 push 到 injectedPrompts 中，当设置了 feature 会对应通过 Prompts 来进一步选择哪种模式，比如当选择了 E2E Testing ，然后会再次让你
+     *    选择哪种 E2E Testing，即， Cypress (Chrome only) ||  Nightwatch (Selenium-based)；
+     * 3. 将每中 feature 的 onPromptComplete push 到 promptCompleteCbs，在后面会根据选择的配置来安装对应的 plugin。
+     */</span>
+    promptModules<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">m</span> <span class="token operator">=&gt;</span> <span class="token function">m</span><span class="token punctuation">(</span>promptAPI<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+</code></pre></div><p>这段代码主要看下 <code>PromptModuleAPI</code>，源码如下：</p> <div class="language-js extra-class"><pre class="language-js"><code>module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token keyword">class</span> <span class="token class-name">PromptModuleAPI</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span> <span class="token punctuation">(</span><span class="token parameter">creator</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>creator <span class="token operator">=</span> creator
+  <span class="token punctuation">}</span>
+
+  <span class="token function">injectFeature</span> <span class="token punctuation">(</span><span class="token parameter">feature</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>creator<span class="token punctuation">.</span>featurePrompt<span class="token punctuation">.</span>choices<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>feature<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">injectPrompt</span> <span class="token punctuation">(</span><span class="token parameter">prompt</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>creator<span class="token punctuation">.</span>injectedPrompts<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>prompt<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">injectOptionForPrompt</span> <span class="token punctuation">(</span><span class="token parameter">name<span class="token punctuation">,</span> option</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>creator<span class="token punctuation">.</span>injectedPrompts<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token parameter">f</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> f<span class="token punctuation">.</span>name <span class="token operator">===</span> name
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span>choices<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>option<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">onPromptComplete</span> <span class="token punctuation">(</span><span class="token parameter">cb</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>creator<span class="token punctuation">.</span>promptCompleteCbs<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>cb<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p><code>PromptModuleAPI</code> 实例会调用它的实例方法，然后将 <code>injectFeature</code>， <code>injectPrompt</code>， <code>injectOptionForPrompt</code>， <code>onPromptComplete</code>保存到
+<code>Creator</code>实例对应的变量中。</p> <p>最后遍历 <code>getPromptModules</code> 获取的 <code>promptModules</code>，传入实例 <code>promptAPI</code>，初始化 <code>Creator</code> 实例中 <code>featurePrompt</code>, <code>injectedPrompts</code>,
+<code>promptCompleteCbs</code> 变量。</p> <h2 id="getpreset"><a href="#getpreset" class="header-anchor">#</a> getPreset</h2> <p>在创建一个 Creator 实例后，然后调用了 create 方法</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">await</span> creator<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span>
+</code></pre></div><p>create 开始是获取 preset ，源码如下：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> isTestOrDebug <span class="token operator">=</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">VUE_CLI_TEST</span> <span class="token operator">||</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">VUE_CLI_DEBUG</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'before creating......'</span><span class="token punctuation">)</span>
+<span class="token comment">// name: demo</span>
+<span class="token comment">// context: targetDir</span>
+<span class="token keyword">const</span> <span class="token punctuation">{</span> run<span class="token punctuation">,</span> name<span class="token punctuation">,</span> context<span class="token punctuation">,</span> createCompleteCbs <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">this</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>preset<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>cliOptions<span class="token punctuation">.</span>preset<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// vue create foo --preset bar</span>
+    preset <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">resolvePreset</span><span class="token punctuation">(</span>cliOptions<span class="token punctuation">.</span>preset<span class="token punctuation">,</span> cliOptions<span class="token punctuation">.</span>clone<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>cliOptions<span class="token punctuation">.</span>default<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// vue create foo --default</span>
+    preset <span class="token operator">=</span> defaults<span class="token punctuation">.</span>presets<span class="token punctuation">.</span>default <span class="token comment">// 使用默认预设选项</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>cliOptions<span class="token punctuation">.</span>inlinePreset<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// 使用内联的 JSON 字符串预设选项</span>
+    <span class="token comment">// vue create foo --inlinePreset {...}</span>
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+      preset <span class="token operator">=</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>cliOptions<span class="token punctuation">.</span>inlinePreset<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">CLI inline preset is not valid JSON: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>cliOptions<span class="token punctuation">.</span>inlinePreset<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+      <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token comment">// eg: vue create demo</span>
+    preset <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">promptAndResolvePreset</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// clone before mutating</span>
+preset <span class="token operator">=</span> <span class="token function">cloneDeep</span><span class="token punctuation">(</span>preset<span class="token punctuation">)</span>
+<span class="token comment">// inject core service</span>
+preset<span class="token punctuation">.</span>plugins<span class="token punctuation">[</span><span class="token string">'@vue/cli-service'</span><span class="token punctuation">]</span> <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token comment">// 注入核心 @vue/cli-service</span>
+  projectName<span class="token operator">:</span> name
+<span class="token punctuation">}</span><span class="token punctuation">,</span> preset<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  bare<span class="token operator">:</span> cliOptions<span class="token punctuation">.</span>bare
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p>先判断 <code>vue create</code> 命令是否带有 -p 选项，如果有的话会调用 <code>resolvePreset</code> 去解析 preset。<code>resolvePreset</code> 函数会先获取 ～/.vuerc 中保存的 preset，
+然后进行遍历，如果里面包含了 -p 中的 <code>&lt;presetName&gt;</code>，则返回～/.vuerc 中的 preset。如果没有则判断是否是采用内联的 JSON 字符串预设选项，如果是就会解析
+.json 文件，并返回 preset，还有一种情况就是从远程获取 preset（利用 <code>download-git-repo</code> 下载远程的 preset.json）并返回。</p> <p>上面的情况是当 <code>vue create</code> 命令带有 -p 选项的时候才会执行，如果没有就会调用 promptAndResolvePreset 函数利用 inquirer.prompt 以命令后交互的形式来获取
+preset，下面看下 promptAndResolvePreset 函数的源码：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">async</span> <span class="token function">promptAndResolvePreset</span> <span class="token punctuation">(</span><span class="token parameter">answers <span class="token operator">=</span> <span class="token keyword">null</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// prompt</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>answers<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">await</span> <span class="token function">clearConsole</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span>
+    answers <span class="token operator">=</span> <span class="token keyword">await</span> inquirer<span class="token punctuation">.</span><span class="token function">prompt</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">resolveFinalPrompts</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">debug</span><span class="token punctuation">(</span><span class="token string">'vue-cli:answers'</span><span class="token punctuation">)</span><span class="token punctuation">(</span>answers<span class="token punctuation">)</span>
+  
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>answers<span class="token punctuation">.</span>packageManager<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">saveOptions</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      packageManager<span class="token operator">:</span> answers<span class="token punctuation">.</span>packageManager
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token keyword">let</span> preset
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>answers<span class="token punctuation">.</span>preset <span class="token operator">&amp;&amp;</span> answers<span class="token punctuation">.</span>preset <span class="token operator">!==</span> <span class="token string">'__manual__'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment">// 如果是选择使用本地保存的 preset (~/.vuerc)</span>
+    preset <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">resolvePreset</span><span class="token punctuation">(</span>answers<span class="token punctuation">.</span>preset<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token comment">// manual</span>
+    preset <span class="token operator">=</span> <span class="token punctuation">{</span>
+      useConfigFiles<span class="token operator">:</span> answers<span class="token punctuation">.</span>useConfigFiles <span class="token operator">===</span> <span class="token string">'files'</span><span class="token punctuation">,</span>
+      plugins<span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    answers<span class="token punctuation">.</span>features <span class="token operator">=</span> answers<span class="token punctuation">.</span>features <span class="token operator">||</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token comment">// run cb registered by prompt modules to finalize the preset</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>promptCompleteCbs<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">cb</span> <span class="token operator">=&gt;</span> <span class="token function">cb</span><span class="token punctuation">(</span>answers<span class="token punctuation">,</span> preset<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token comment">// validate</span>
+  <span class="token function">validatePreset</span><span class="token punctuation">(</span>preset<span class="token punctuation">)</span>
+  
+  <span class="token comment">// save preset</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>answers<span class="token punctuation">.</span>save <span class="token operator">&amp;&amp;</span> answers<span class="token punctuation">.</span>saveName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">savePreset</span><span class="token punctuation">(</span>answers<span class="token punctuation">.</span>saveName<span class="token punctuation">,</span> preset<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token function">debug</span><span class="token punctuation">(</span><span class="token string">'vue-cli:preset'</span><span class="token punctuation">)</span><span class="token punctuation">(</span>preset<span class="token punctuation">)</span>
+  <span class="token keyword">return</span> preset
+<span class="token punctuation">}</span>
+</code></pre></div><p>在调用 <code>inquirer.prompt</code> 之前利用 <code>this.resolveFinalPrompts()</code> 获取了最后的 prompts，到这里有些同学可能就有点晕了，到底有多少个 prompt，别急，下面将
+简单介绍下，查看 <code>this.resolveFinalPrompts()</code> 源码：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token function">resolveFinalPrompts</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// patch generator-injected prompts to only show in manual mode</span>
+  <span class="token comment">// 将所有的 Prompt 合并，包含 preset，feature，injected，outro，只有当选择了手动模式的时候才会显示 injectedPrompts</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>injectedPrompts<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">prompt</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> originalWhen <span class="token operator">=</span> prompt<span class="token punctuation">.</span>when <span class="token operator">||</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+    prompt<span class="token punctuation">.</span><span class="token function-variable function">when</span> <span class="token operator">=</span> <span class="token parameter">answers</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token function">isManualMode</span><span class="token punctuation">(</span>answers<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">originalWhen</span><span class="token punctuation">(</span>answers<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token keyword">const</span> prompts <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>presetPrompt<span class="token punctuation">,</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>featurePrompt<span class="token punctuation">,</span>
+    <span class="token operator">...</span><span class="token keyword">this</span><span class="token punctuation">.</span>injectedPrompts<span class="token punctuation">,</span>
+    <span class="token operator">...</span><span class="token keyword">this</span><span class="token punctuation">.</span>outroPrompts
+  <span class="token punctuation">]</span>
+  <span class="token function">debug</span><span class="token punctuation">(</span><span class="token string">'vue-cli:prompts'</span><span class="token punctuation">)</span><span class="token punctuation">(</span>prompts<span class="token punctuation">)</span>
+  <span class="token keyword">return</span> prompts
+<span class="token punctuation">}</span>
+</code></pre></div><p>比较容易的就可以看出作用就是将 presetPrompt， featurePrompt， injectedPrompts， outroPrompts 合并成一个数组进行返回，这几个 Prompt 的含义如下：</p> <ul><li><strong>presetPrompt</strong>： 预设选项 prompt，当上次以 Manually 模式进行了预设选项，并且保存到了 ~/.vuerc 中，那么在初始化项目时就会列出已经保存的 preset，并提供选择。</li> <li><strong>featurePrompt</strong>：项目的一些 feature，就是选择 babel，typescript，pwa，router，vuex，cssPreprocessors，linter，unit，e2e。</li> <li><strong>injectedPrompts</strong>：当选择了 feature 后，就会为对应的 feature 注入 prompts，比如你选择了 unit，那么就会让你选择模式： <code>Mocha + Chai</code> 还是 <code>Jest</code></li> <li><strong>outroPrompts</strong>： 其他的 prompt，包含：
+<ul><li>将 Babel, PostCSS, ESLint 等等的配置文件存放在 package.json 中还是存放在 config 文件中；</li> <li>是否需要将这次设置的 preset 保存到本地，如果需要则会进一步让你输入名称进行保存；</li> <li>安装依赖是选择 npm 还是 yarn。</li></ul></li></ul> <p><code>inquirer.prompt</code> 执行完成后会返回 answers，如果选择了本地保存的 preset 或者 default，则调用 <code>resolvePreset</code> 进行解析 preset，否则遍历
+<code>promptCompleteCbs</code> 执行 injectFeature 和 injectPrompt 的回调，将对应的插件赋值到 <code>options.plugins</code> 中，以 unit 为例：</p> <div class="language-js extra-class"><pre class="language-js"><code>cli<span class="token punctuation">.</span><span class="token function">onPromptComplete</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">answers<span class="token punctuation">,</span> options</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>answers<span class="token punctuation">.</span>unit <span class="token operator">===</span> <span class="token string">'mocha'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    options<span class="token punctuation">.</span>plugins<span class="token punctuation">[</span><span class="token string">'@vue/cli-plugin-unit-mocha'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>answers<span class="token punctuation">.</span>unit <span class="token operator">===</span> <span class="token string">'jest'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    options<span class="token punctuation">.</span>plugins<span class="token punctuation">[</span><span class="token string">'@vue/cli-plugin-unit-jest'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p>如果 feature 选择了 unit，并且 unit 模式选择的是 Mocha + Chai，则添加 <code>@vue/cli-plugin-unit-mocha</code> 插件，如果选择的是 Jest 则添加
+<code>@vue/cli-plugin-unit-jest</code> 插件。</p> <p>在获取到 preset 之后，还会向 preset 的插件里面注入核心插件 <code>@vue/cli-service</code>， 它是调用 <code>vue-cli-service &lt;command&gt; [...args]</code> 时创建的类。
+负责管理内部的 webpack 配置、暴露服务和构建项目的命令等。</p> <p>到这里获取预设选项（preset）大致分析完了，在下节将会分析依赖的安装。</p></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/KuangPF/vue-cli-analysis/edit/master/docs/create/get-preset.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">8/7/2020, 11:47:02 PM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/vue-cli-analysis/create/basic-verification.html" class="prev">
+        基础验证
+      </a></span> <span class="next"><a href="/vue-cli-analysis/create/install-deps.html">
+        依赖安装（installDeps）
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/vue-cli-analysis/assets/js/app.464e05ac.js" defer></script><script src="/vue-cli-analysis/assets/js/2.a21b74f4.js" defer></script><script src="/vue-cli-analysis/assets/js/23.2d85db17.js" defer></script>
+  </body>
+</html>

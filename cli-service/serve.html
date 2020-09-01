@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>vue-cli-service serve | vue-cli-analysis</title>
+    <meta name="generator" content="VuePress 1.5.4">
+    <link rel="icon" href="/vue-cli-analysis/logo.png">
+    <meta name="description" content="vue-cli 源码分析">
+    <link rel="preload" href="/vue-cli-analysis/assets/css/0.styles.341146b8.css" as="style"><link rel="preload" href="/vue-cli-analysis/assets/js/app.464e05ac.js" as="script"><link rel="preload" href="/vue-cli-analysis/assets/js/2.a21b74f4.js" as="script"><link rel="preload" href="/vue-cli-analysis/assets/js/16.b8c1e7f0.js" as="script"><link rel="prefetch" href="/vue-cli-analysis/assets/js/10.aafb3dad.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/11.c16f1a12.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/12.7f85b46e.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/13.1bb1953e.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/14.8731d00e.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/15.22171d60.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/17.7177b462.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/18.57b90b67.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/19.f33fb997.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/20.2cb7ab74.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/21.dc6e0ddd.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/22.a8370716.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/23.2d85db17.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/24.4c894a4a.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/25.80e15e2f.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/26.c63e8d44.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/27.5ddfd4dd.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/28.8efec875.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/29.e8ad3547.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/3.d8a31682.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/30.09edd5d5.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/31.2a752f60.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/32.efc829aa.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/33.cdada052.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/34.c13ea882.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/35.ac5e55f9.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/36.5c06ebb1.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/37.9182cd88.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/38.5fdf1664.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/39.08dab7a9.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/4.5ed19beb.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/40.3390f199.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/41.8e6ff63d.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/42.f32cc631.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/43.670c0033.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/44.d4f64be5.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/5.e3bc28e7.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/6.e5f0927d.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/7.866f164f.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/8.7f04e2a6.js"><link rel="prefetch" href="/vue-cli-analysis/assets/js/9.3ff61129.js">
+    <link rel="stylesheet" href="/vue-cli-analysis/assets/css/0.styles.341146b8.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/vue-cli-analysis/" class="home-link router-link-active"><!----> <span class="site-name">vue-cli-analysis</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/vue-cli-analysis/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="cli-service" class="dropdown-title"><span class="title">cli-service</span> <span class="arrow down"></span></button> <button type="button" aria-label="cli-service" class="mobile-dropdown-title"><span class="title">cli-service</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          整体介绍
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/entrance.html" class="nav-link">
+  入口
+</a></li><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/new-service.html" class="nav-link">
+  new Service()
+</a></li><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/service-run.html" class="nav-link">
+  service.run()
+</a></li></ul></li><li class="dropdown-item"><h4>
+          内置插件
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/serve.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  serve
+</a></li><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/build.html" class="nav-link">
+  build
+</a></li><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/inspect.html" class="nav-link">
+  inspect
+</a></li><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/help.html" class="nav-link">
+  help
+</a></li></ul></li></ul></div></div> <a href="https://github.com/KuangPF/vue-cli-analysis" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/vue-cli-analysis/" class="nav-link">
+  首页
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="cli-service" class="dropdown-title"><span class="title">cli-service</span> <span class="arrow down"></span></button> <button type="button" aria-label="cli-service" class="mobile-dropdown-title"><span class="title">cli-service</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          整体介绍
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/entrance.html" class="nav-link">
+  入口
+</a></li><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/new-service.html" class="nav-link">
+  new Service()
+</a></li><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/service-run.html" class="nav-link">
+  service.run()
+</a></li></ul></li><li class="dropdown-item"><h4>
+          内置插件
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/serve.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  serve
+</a></li><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/build.html" class="nav-link">
+  build
+</a></li><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/inspect.html" class="nav-link">
+  inspect
+</a></li><li class="dropdown-subitem"><a href="/vue-cli-analysis/cli-service/help.html" class="nav-link">
+  help
+</a></li></ul></li></ul></div></div> <a href="https://github.com/KuangPF/vue-cli-analysis" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>前言</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/foreword/" class="sidebar-link">介绍</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>开始</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/start/env.html" class="sidebar-link">环境介绍</a></li><li><a href="/vue-cli-analysis/start/npm.html" class="sidebar-link">常见 npm 包</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue create</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/create/" class="sidebar-link">create 入口</a></li><li><a href="/vue-cli-analysis/create/overall-analysis.html" class="sidebar-link">整体分析</a></li><li><a href="/vue-cli-analysis/create/basic-verification.html" class="sidebar-link">基础验证</a></li><li><a href="/vue-cli-analysis/create/get-preset.html" class="sidebar-link">获取预设选项（preset）</a></li><li><a href="/vue-cli-analysis/create/install-deps.html" class="sidebar-link">依赖安装（installDeps）</a></li><li><a href="/vue-cli-analysis/create/generator.html" class="sidebar-link">Generator</a></li><li><a href="/vue-cli-analysis/create/end-part.html" class="sidebar-link">结尾分析</a></li><li><a href="/vue-cli-analysis/create/summary.html" class="sidebar-link">总结</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue add</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/add/" class="sidebar-link">add 入口</a></li><li><a href="/vue-cli-analysis/add/plugin-install.html" class="sidebar-link">安装插件</a></li><li><a href="/vue-cli-analysis/add/plugin-invoke.html" class="sidebar-link">调用插件</a></li><li><a href="/vue-cli-analysis/add/summary.html" class="sidebar-link">总结</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue invoke</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/invoke/" class="sidebar-link">invoke 命令</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue inspect</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/inspect/" class="sidebar-link">inspect 命令</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue serve</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/serve/" class="sidebar-link">serve 命令</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue build</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/build/" class="sidebar-link">build 命令</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue ui</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/ui/" class="sidebar-link">ui 入口</a></li><li><a href="/vue-cli-analysis/ui/overall-analysis.html" class="sidebar-link">整体分析</a></li><li><a href="/vue-cli-analysis/ui/server.html" class="sidebar-link">server 端</a></li><li><a href="/vue-cli-analysis/ui/client.html" class="sidebar-link">client 端</a></li><li><a href="/vue-cli-analysis/ui/summary.html" class="sidebar-link">总结</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue init</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/init/" class="sidebar-link">init 入口</a></li><li><a href="/vue-cli-analysis/init/vue-cli-init-module.html" class="sidebar-link">@vue/cli-init 分析</a></li><li><a href="/vue-cli-analysis/init/vue-cli-init-2.x.html" class="sidebar-link">vue-cli 2.x  init 分析</a></li><li><a href="/vue-cli-analysis/init/generate.html" class="sidebar-link">generate 函数分析</a></li><li><a href="/vue-cli-analysis/init/summary.html" class="sidebar-link">总结</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue config</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/config/" class="sidebar-link">config 命令</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue upgrade</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/upgrade/" class="sidebar-link">upgrade 命令</a></li></ul></section></li><li><section class="sidebar-group depth-0"><p class="sidebar-heading"><span>vue info</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/vue-cli-analysis/info/" class="sidebar-link">info 命令</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="vue-cli-service-serve"><a href="#vue-cli-service-serve" class="header-anchor">#</a> vue-cli-service serve</h1> <p><code>vue-cli-service serve</code> 命令主要用于在开发阶段构建项目，包括热加载这一套，下面开始简单分析下整个代码。通过前面对 <code>@vue/cli-service</code> 的整体分析，
+可以发现，<code>vue-cli-service</code> 所有的 CLI 命令服务都是动态注册的，包括环境变量文件加载，获取项目配置信息，合并项目配置，加载插件等等，最后执行对应 CLI
+命令服务，即 <code>Service</code> 实例 <code>run</code> 方法的最后行代码：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">async</span> <span class="token function">run</span> <span class="token punctuation">(</span><span class="token parameter">name<span class="token punctuation">,</span> args <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> rawArgv <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// some code ...</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> fn <span class="token punctuation">}</span> <span class="token operator">=</span> command
+  <span class="token keyword">return</span> <span class="token function">fn</span><span class="token punctuation">(</span>args<span class="token punctuation">,</span> rawArgv<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>处理 <code>serve</code> 命令的函数是在插件调用 <code>api.registerCommand (name, opts, fn)</code> 时注入的，主要代码如下：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">serve</span> <span class="token punctuation">(</span><span class="token parameter">args</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">info</span><span class="token punctuation">(</span><span class="token string">'Starting development server...'</span><span class="token punctuation">)</span>
+  <span class="token comment">// some code ...</span>
+  <span class="token comment">// resolve webpack config</span>
+  <span class="token keyword">const</span> webpackConfig <span class="token operator">=</span> api<span class="token punctuation">.</span><span class="token function">resolveWebpackConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token comment">// check for common config errors</span>
+  <span class="token function">validateWebpackConfig</span><span class="token punctuation">(</span>webpackConfig<span class="token punctuation">,</span> api<span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+  <span class="token comment">// load user devServer options with higher priority than devServer</span>
+  <span class="token comment">// in webpck config</span>
+  <span class="token keyword">const</span> projectDevServerOptions <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span>
+    webpackConfig<span class="token punctuation">.</span>devServer <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    options<span class="token punctuation">.</span>devServer
+  <span class="token punctuation">)</span>
+
+  <span class="token comment">// resolve server options</span>
+  <span class="token comment">// 解析 server 选项</span>
+  <span class="token keyword">const</span> useHttps <span class="token operator">=</span> args<span class="token punctuation">.</span>https <span class="token operator">||</span> projectDevServerOptions<span class="token punctuation">.</span>https <span class="token operator">||</span> defaults<span class="token punctuation">.</span>https
+  <span class="token keyword">const</span> protocol <span class="token operator">=</span> useHttps <span class="token operator">?</span> <span class="token string">'https'</span> <span class="token operator">:</span> <span class="token string">'http'</span>
+  <span class="token keyword">const</span> host <span class="token operator">=</span> args<span class="token punctuation">.</span>host <span class="token operator">||</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">HOST</span> <span class="token operator">||</span> projectDevServerOptions<span class="token punctuation">.</span>host <span class="token operator">||</span> defaults<span class="token punctuation">.</span>host
+  <span class="token comment">// some code ...</span>
+  
+  <span class="token comment">// inject dev &amp; hot-reload middleware entries</span>
+  <span class="token comment">// webpack-dev-server 以 Node.js Api 方式配置</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>isProduction<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> sockjsUrl <span class="token operator">=</span> publicUrl
+      <span class="token comment">// explicitly configured via devServer.public</span>
+      <span class="token operator">?</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">?</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>publicUrl<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/sockjs-node</span><span class="token template-punctuation string">`</span></span>
+      <span class="token operator">:</span> isInContainer
+        <span class="token comment">// can't infer public netowrk url if inside a container...</span>
+        <span class="token comment">// use client-side inference (note this would break with non-root baseUrl)</span>
+        <span class="token operator">?</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token template-punctuation string">`</span></span>
+        <span class="token comment">// otherwise infer the url</span>
+        <span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">?</span><span class="token template-punctuation string">`</span></span> <span class="token operator">+</span> url<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+          protocol<span class="token punctuation">,</span>
+          port<span class="token punctuation">,</span>
+          hostname<span class="token operator">:</span> urls<span class="token punctuation">.</span>lanUrlForConfig <span class="token operator">||</span> <span class="token string">'localhost'</span><span class="token punctuation">,</span>
+          pathname<span class="token operator">:</span> <span class="token string">'/sockjs-node'</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">const</span> devClients <span class="token operator">=</span> <span class="token punctuation">[</span>
+      <span class="token comment">// dev server client</span>
+      require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">webpack-dev-server/client</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span> <span class="token operator">+</span> sockjsUrl<span class="token punctuation">,</span>
+      <span class="token comment">// hmr client</span>
+      require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>projectDevServerOptions<span class="token punctuation">.</span>hotOnly
+        <span class="token operator">?</span> <span class="token string">'webpack/hot/only-dev-server'</span>
+        <span class="token operator">:</span> <span class="token string">'webpack/hot/dev-server'</span><span class="token punctuation">)</span>
+      <span class="token comment">// TODO custom overlay client</span>
+      <span class="token comment">// `@vue/cli-overlay/dist/client`</span>
+    <span class="token punctuation">]</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">APPVEYOR</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      devClients<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">webpack/hot/poll?500</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// inject dev/hot client</span>
+    <span class="token comment">// webpack-dev-server inline 模式，以 Node.js Api方式配置，则需要将 webpack-dev-server 客户端配置到 webpack 打包的入口文件中</span>
+    <span class="token comment">// 热替换(HMR)，也是以 Node.js Api方式 配置，也需要将 webpack/hot/dev-server 配置到所有webpack入口文件中</span>
+    <span class="token comment">// 相当于执行 webpack-dev-server --inline --hot --config webpack.config.dev.js</span>
+    <span class="token function">addDevClientToEntry</span><span class="token punctuation">(</span>webpackConfig<span class="token punctuation">,</span> devClients<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// create compiler</span>
+  <span class="token keyword">const</span> compiler <span class="token operator">=</span> <span class="token function">webpack</span><span class="token punctuation">(</span>webpackConfig<span class="token punctuation">)</span>
+
+  <span class="token comment">// create server</span>
+  <span class="token comment">// 以 nodeAPI 启动 webpack-dev-server</span>
+  <span class="token keyword">const</span> server <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">WebpackDevServer</span><span class="token punctuation">(</span>compiler<span class="token punctuation">,</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    clientLogLevel<span class="token operator">:</span> <span class="token string">'none'</span><span class="token punctuation">,</span>
+    historyApiFallback<span class="token operator">:</span> <span class="token punctuation">{</span>
+      disableDotRule<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      rewrites<span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span> <span class="token keyword">from</span><span class="token operator">:</span> <span class="token regex">/./</span><span class="token punctuation">,</span> to<span class="token operator">:</span> path<span class="token punctuation">.</span>posix<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>options<span class="token punctuation">.</span>baseUrl<span class="token punctuation">,</span> <span class="token string">'index.html'</span><span class="token punctuation">)</span> <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    contentBase<span class="token operator">:</span> api<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'public'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    watchContentBase<span class="token operator">:</span> <span class="token operator">!</span>isProduction<span class="token punctuation">,</span>
+    hot<span class="token operator">:</span> <span class="token operator">!</span>isProduction<span class="token punctuation">,</span>
+    quiet<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    compress<span class="token operator">:</span> isProduction<span class="token punctuation">,</span>
+    publicPath<span class="token operator">:</span> options<span class="token punctuation">.</span>baseUrl<span class="token punctuation">,</span>
+    overlay<span class="token operator">:</span> isProduction <span class="token comment">// TODO disable this</span>
+      <span class="token operator">?</span> <span class="token boolean">false</span>
+      <span class="token operator">:</span> <span class="token punctuation">{</span> warnings<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> errors<span class="token operator">:</span> <span class="token boolean">true</span> <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> projectDevServerOptions<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    https<span class="token operator">:</span> useHttps<span class="token punctuation">,</span>
+    proxy<span class="token operator">:</span> proxySettings<span class="token punctuation">,</span>
+    <span class="token function">before</span> <span class="token punctuation">(</span><span class="token parameter">app<span class="token punctuation">,</span> server</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// some code ...</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+  <span class="token comment">// some code ...</span>
+
+  <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">resolve<span class="token punctuation">,</span> reject</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token comment">// log instructions &amp; open browser on first compilation complete</span>
+    <span class="token keyword">let</span> isFirstCompile <span class="token operator">=</span> <span class="token boolean">true</span>
+    compiler<span class="token punctuation">.</span>hooks<span class="token punctuation">.</span>done<span class="token punctuation">.</span><span class="token function">tap</span><span class="token punctuation">(</span><span class="token string">'vue-cli-service serve'</span><span class="token punctuation">,</span> <span class="token parameter">stats</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">  App running at:</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">  - Local:   </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>chalk<span class="token punctuation">.</span><span class="token function">cyan</span><span class="token punctuation">(</span>urls<span class="token punctuation">.</span>localUrlForTerminal<span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>copied<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+      <span class="token comment">// some code ...</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    server<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> host<span class="token punctuation">,</span> <span class="token parameter">err</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">reject</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>执行 <code>serve</code> 命令的函数大致可以分为以下几个部分：</p> <ul><li><strong>获取 webpack 配置：api.resolveWebpackConfig()</strong></li> <li><strong>获取 devServer 配置</strong></li> <li><strong>注入 webpack-dev-server 和 hot-reload（HRM）中间件入口</strong></li> <li><strong>创建 webpack-dev-server 实例</strong></li></ul> <p>下面逐个简单说下：</p> <h2 id="获取-webpack-配置"><a href="#获取-webpack-配置" class="header-anchor">#</a> 获取 webpack 配置</h2> <p>获取 webpack 配置最终调用的是实例 <code>resolveWebpackConfig</code> 方法，看下代码：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token function">resolveWebpackConfig</span> <span class="token punctuation">(</span><span class="token parameter">chainableConfig <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">resolveChainableWebpackConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>initialized<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">'Service must call init() before calling resolveWebpackConfig().'</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// get raw config</span>
+  <span class="token comment">// './config/base', './config/css', './config/dev', './config/prod', './config/app' 这 5 个内置插件的主要作用</span>
+  <span class="token comment">// 就是完成 webpack 本地编译构建时的各种相关的配置，注意下这几个插件的顺序，因为他们都是利用 api.chainWebpack 进行 webpack 配置的，</span>
+  <span class="token comment">// 而配置又是可以覆盖的，因此如果拥有相同的配置，后面加载的插件的配置会覆盖前面的，但优先级最高的还是项目配置中的 webpack 配置，因为</span>
+  <span class="token comment">// vue.config.js 或者 package.vue 中的 webpack 配置是最后解析的。</span>
+  <span class="token keyword">let</span> config <span class="token operator">=</span> chainableConfig<span class="token punctuation">.</span><span class="token function">toConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// 导出 webpack 配置对象</span>
+
+  <span class="token keyword">const</span> original <span class="token operator">=</span> config
+  <span class="token comment">// apply raw config fns</span>
+  <span class="token comment">// raw 式配置，传入 webpackChain 的配置</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>webpackRawConfigFns<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">fn</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> fn <span class="token operator">===</span> <span class="token string">'function'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// function with optional return value</span>
+      <span class="token keyword">const</span> res <span class="token operator">=</span> <span class="token function">fn</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>res<span class="token punctuation">)</span> config <span class="token operator">=</span> <span class="token function">merge</span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> res<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>fn<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment">// merge literal values</span>
+      config <span class="token operator">=</span> <span class="token function">merge</span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> fn<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token comment">// some code ...</span>
+
+  <span class="token keyword">return</span> config
+<span class="token punctuation">}</span>
+</code></pre></div><p><code>resolveWebpackConfig</code> 函数传入了一个 <code>chainableConfig</code> 参数，这个参数是以 <code>webpack-chain</code> 形式注入的 webpack 配置，看下如何获取 <code>webpack-chain</code>
+形式的 webpack 配置：</p> <div class="custom-block tip"><p class="custom-block-title">webpack 配置方式</p> <p><code>Vue CLI</code> 内部的 <code>webpack</code> 配置是通过 <code>webpack-chain</code> 维护的，有两种方式可以进行 <code>webpack</code> 的配置，一种就是代码里面的 raw 式的配置，一种就是  <code>webpack-chain</code>
+的方式进行配置，具体的配置方式查看官网<a href="https://cli.vuejs.org/zh/guide/webpack.html#%E7%AE%80%E5%8D%95%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%B9%E5%BC%8F" target="_blank" rel="noopener noreferrer">webpack 相关 -- 简单的配置方式<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p></div> <div class="language-js extra-class"><pre class="language-js"><code><span class="token function">resolveChainableWebpackConfig</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> chainableConfig <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Config</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token comment">// apply chains</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>webpackChainFns<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">fn</span> <span class="token operator">=&gt;</span> <span class="token function">fn</span><span class="token punctuation">(</span>chainableConfig<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token keyword">return</span> chainableConfig
+<span class="token punctuation">}</span>
+</code></pre></div><p>这就是获取 <code>webpack-chain</code> 的配置，代码很简洁，遍历执行 <code>Service</code> 实例中的 <code>webpackChainFns</code> 方法，合并所有插件以及项目配置中的 <code>webpack-chain</code>
+配置，并最终生成项目的 <code>webpack-chain</code>配置。</p> <div class="custom-block warning"><p class="custom-block-title">插件 webpack-chain 配置加载顺序</p> <p>执行 <code>vue-cli-service CLI</code> 命令时，会先加载内置插件，包含内置命令插件和内置配置插件（serve，build，inspect，help，base，css，dev，prod，app），
+然后加载项目中依赖的 <code>vue-cli</code> 插件。由于所有插件都是通过 <code>api.chainWebpack</code> 进行 <code>webpack</code> 配置的，而配置又是可以覆盖的，因此如果拥有相同的配置，
+后面加载的插件配置会覆盖前面的，但优先级最高的还是项目配置中的 <code>webpack</code> 配置，因为 <code>vue.config.js</code> 或者 <code>package.vue</code> 中的 <code>webpack</code> 配置是最后解析的。</p></div> <p>获取了 <code>webpack-chain</code> 形式的配置后，接下来就获取 raw 式的 webpack 配置（普通的 webpack 配置形式，或者说原生的 webpack 配置）。获取方法就是
+遍历执行 <code>Service</code> 实例中的 <code>configureWebpack</code> 方法，并与 <code>webpack-chain</code> 形式的配置合并，生成项目最终的 webpack 配置。</p> <h2 id="获取-devserver-配置"><a href="#获取-devserver-配置" class="header-anchor">#</a> 获取 devServer 配置</h2> <p>获取 devServer 配置指的是获取 <a href="https://webpack.js.org/configuration/dev-server/" target="_blank" rel="noopener noreferrer">webpack-dev-server 配置<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>，主要有两个地方可以配置，
+第一种就是直接在 webpack 中配置，另外一种就是在 <code>vue.config.js</code> 或者 <code>package.vue</code> 中配置，后者配置方式拥有更高地优先级。在获取用户配置的 <code>devServer</code>
+以后，还会对这些配置进行解析，比如用户没有配置，会使用默认的 <code>devServer</code> 配置，另外 CLI 参数或者 <code>process.env</code> 中 <code>devServer</code> 拥有更高的优先级，以
+<code>devServer.port</code> 为例， <code>vue.config.js</code> 如下：</p> <div class="language-js extra-class"><pre class="language-js"><code>module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  devServer<span class="token operator">:</span> <span class="token punctuation">{</span>
+    port<span class="token operator">:</span> <span class="token number">8081</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  configureWebpack<span class="token operator">:</span> <span class="token punctuation">{</span>
+    devServer<span class="token operator">:</span> <span class="token punctuation">{</span>
+      port<span class="token operator">:</span> <span class="token number">8082</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>这种情况会优先采用 <code>devServer.port</code> 即 port 为 8081，因为它的优先级比较高，源码如下：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> projectDevServerOptions <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span>
+  webpackConfig<span class="token punctuation">.</span>devServer <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  options<span class="token punctuation">.</span>devServer
+<span class="token punctuation">)</span>
+</code></pre></div><p>如果直接输入以下命令，则 <code>devServer.port</code> 为 8083</p> <div class="language-bash extra-class"><pre class="language-bash"><code>vue-cli-service serve --port <span class="token number">8083</span>
+</code></pre></div><p>还有种情况，在项目中存在环境变量文件，比如存在 <code>.env.development</code> 文件，内容如下：</p> <div class="language- extra-class"><pre class="language-text"><code>PORT=8084
+</code></pre></div><p>执行 <code>vue-cli-service serve</code> 时，<code>devServer.port</code> 则为 8084。如果 <code>process.env</code> 和命令行参数中含有一样的配置，则参数中的配置有更高
+的优先级，源码实现如下：</p> <div class="language-js extra-class"><pre class="language-js"><code>portfinder<span class="token punctuation">.</span>basePort <span class="token operator">=</span> args<span class="token punctuation">.</span>port <span class="token operator">||</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">PORT</span> <span class="token operator">||</span> projectDevServerOptions<span class="token punctuation">.</span>port <span class="token operator">||</span> defaults<span class="token punctuation">.</span>port
+<span class="token keyword">const</span> port <span class="token operator">=</span> <span class="token keyword">await</span> portfinder<span class="token punctuation">.</span><span class="token function">getPortPromise</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre></div><h2 id="注入-webpack-dev-server-和-hot-reload-hrm-中间件入口"><a href="#注入-webpack-dev-server-和-hot-reload-hrm-中间件入口" class="header-anchor">#</a> 注入 webpack-dev-server 和 hot-reload（HRM）中间件入口</h2> <p>先说下为什么要注入 <code>webpack-dev-server</code> 和 <code>hot-reload（HRM）</code>中间件入口。在开发中我们利用 <code>webpack-dev-server</code> 提供一个小型 Express 服务器
+，从而可以为 webpack 打包生成的资源文件提供 web 服务，并用 webpack 自带的 HRM 模块实现热更新。在 vue-cli 2.X 中 我们通过以下命令来启动 <code>webpack-dev-server</code></p> <div class="language-bash extra-class"><pre class="language-bash"><code>webpack-dev-server --inline --progress --config build/webpack.dev.conf.js
+</code></pre></div><p>但在 vue-cli 3.0 中则没有通过 CLI 的方式来启动 <code>webpack-dev-server</code>，而是使用 <code>Node.js Api</code>方式，即使用 <code>vue-cli-service serve</code>
+命令创建一个服务器实例：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> compiler <span class="token operator">=</span> <span class="token function">webpack</span><span class="token punctuation">(</span>webpackConfig<span class="token punctuation">)</span>
+<span class="token keyword">new</span> <span class="token class-name">WebpackDevServer</span><span class="token punctuation">(</span>compiler<span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p>这种方式就需要将 <code>webpack-dev-server</code> 客户端配置到 webpack 打包的入口文件中，如果还要实现热替换（HMR），则还需要将 <code>webpack/hot/dev-server</code>
+文件加入到 webpack 入口文件中，因此在源码中就有了以下代码：</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">// inject dev &amp; hot-reload middleware entries</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>isProduction<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> sockjsUrl <span class="token operator">=</span> publicUrl
+    <span class="token comment">// explicitly configured via devServer.public</span>
+    <span class="token operator">?</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">?</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>publicUrl<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/sockjs-node</span><span class="token template-punctuation string">`</span></span>
+    <span class="token operator">:</span> isInContainer
+      <span class="token comment">// can't infer public netowrk url if inside a container...</span>
+      <span class="token comment">// use client-side inference (note this would break with non-root baseUrl)</span>
+      <span class="token operator">?</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token template-punctuation string">`</span></span>
+      <span class="token comment">// otherwise infer the url</span>
+      <span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">?</span><span class="token template-punctuation string">`</span></span> <span class="token operator">+</span> url<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+        protocol<span class="token punctuation">,</span>
+        port<span class="token punctuation">,</span>
+        hostname<span class="token operator">:</span> urls<span class="token punctuation">.</span>lanUrlForConfig <span class="token operator">||</span> <span class="token string">'localhost'</span><span class="token punctuation">,</span>
+        pathname<span class="token operator">:</span> <span class="token string">'/sockjs-node'</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token keyword">const</span> devClients <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token comment">// dev server client</span>
+    require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">webpack-dev-server/client</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span> <span class="token operator">+</span> sockjsUrl<span class="token punctuation">,</span>
+    <span class="token comment">// hmr client</span>
+    require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>projectDevServerOptions<span class="token punctuation">.</span>hotOnly
+      <span class="token operator">?</span> <span class="token string">'webpack/hot/only-dev-server'</span>
+      <span class="token operator">:</span> <span class="token string">'webpack/hot/dev-server'</span><span class="token punctuation">)</span>
+    <span class="token comment">// TODO custom overlay client</span>
+    <span class="token comment">// `@vue/cli-overlay/dist/client`</span>
+  <span class="token punctuation">]</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">APPVEYOR</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    devClients<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">webpack/hot/poll?500</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment">// inject dev/hot client</span>
+  <span class="token function">addDevClientToEntry</span><span class="token punctuation">(</span>webpackConfig<span class="token punctuation">,</span> devClients<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>以<code>Node.js API</code>方式启动 <code>webpack-dev-server</code> 除了添加入口文件外，还需要添加插件 <code>HotModuleReplacementPlugin</code>，因此在 <code>lib/config/dev.js</code>
+中添加了该插件：</p> <div class="language-js extra-class"><pre class="language-js"><code>
+api<span class="token punctuation">.</span><span class="token function">chainWebpack</span><span class="token punctuation">(</span><span class="token parameter">webpackConfig</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment">// some code ...</span>
+  webpackConfig
+    <span class="token punctuation">.</span><span class="token function">plugin</span><span class="token punctuation">(</span><span class="token string">'hmr'</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'webpack/lib/HotModuleReplacementPlugin'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token comment">// some code ...</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><h2 id="创建-webpack-dev-server-实例"><a href="#创建-webpack-dev-server-实例" class="header-anchor">#</a> 创建 webpack-dev-server 实例</h2> <p>完成上述这些操作后，接下来就是创建 <code>webpack-dev-server</code> 实例，整个项目就运行起来了。</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> compiler <span class="token operator">=</span> <span class="token function">webpack</span><span class="token punctuation">(</span>webpackConfig<span class="token punctuation">)</span>
+<span class="token keyword">new</span> <span class="token class-name">WebpackDevServer</span><span class="token punctuation">(</span>compiler<span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">resolve<span class="token punctuation">,</span> reject</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment">// log instructions &amp; open browser on first compilation complete</span>
+  <span class="token keyword">let</span> isFirstCompile <span class="token operator">=</span> <span class="token boolean">true</span>
+  compiler<span class="token punctuation">.</span>hooks<span class="token punctuation">.</span>done<span class="token punctuation">.</span><span class="token function">tap</span><span class="token punctuation">(</span><span class="token string">'vue-cli-service serve'</span><span class="token punctuation">,</span> <span class="token parameter">stats</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">  App running at:</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">  - Local:   </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>chalk<span class="token punctuation">.</span><span class="token function">cyan</span><span class="token punctuation">(</span>urls<span class="token punctuation">.</span>localUrlForTerminal<span class="token punctuation">)</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>copied<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+    <span class="token comment">// some code ...</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+  server<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> host<span class="token punctuation">,</span> <span class="token parameter">err</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">reject</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p>这里使用了 webpack Compiler 模块暴露的生命周期钩子函数 done，在编译(compilation)完成时进行一些信息的输出，更多关于 compiler 钩子的文档请查看
+webpack 官方文档 <a href="https://webpack.js.org/api/compiler-hooks/" target="_blank" rel="noopener noreferrer">compiler 钩子<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>。</p></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/KuangPF/vue-cli-analysis/edit/master/docs/cli-service/serve.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">上次更新:</span> <span class="time">8/7/2020, 11:47:02 PM</span></div></footer> <!----> </main></div><div class="global-ui"></div></div>
+    <script src="/vue-cli-analysis/assets/js/app.464e05ac.js" defer></script><script src="/vue-cli-analysis/assets/js/2.a21b74f4.js" defer></script><script src="/vue-cli-analysis/assets/js/16.b8c1e7f0.js" defer></script>
+  </body>
+</html>
