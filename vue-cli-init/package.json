@@ -29,7 +29,7 @@
     "e2e": "rimraf test/e2e/mock-template-build && mocha test/e2e/test.js --slow 1000"
   },
   "dependencies": {
-    "async": "^2.4.0",
+    "async": "^3.2.2",
     "chalk": "^2.1.0",
     "commander": "^2.9.0",
     "consolidate": "^0.14.0",
