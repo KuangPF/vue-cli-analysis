@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/KuangPF/vue-cli-analysis#readme",
   "devDependencies": {
-    "async": "^2.6.1",
+    "async": "^2.6.4",
     "consolidate": "^0.15.1",
     "handlebars": "^4.0.12",
     "inquirer": "^6.2.0",
