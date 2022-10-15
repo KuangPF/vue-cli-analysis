@@ -9,7 +9,7 @@ sidebarDepth: 0
 * [commander](https://github.com/tj/commander.js)：node.js command-line interfaces made easy。
 * [Inquirer](https://github.com/SBoudrias/Inquirer.js)：A collection of common interactive command line user interfaces。
 * [execa](https://github.com/sindresorhus/execa)：A better [child_process](https://nodejs.org/api/child_process.html)。
-* [handlebars](https://github.com/wycats/handlebars.js)：一个 javascript 语以模版库。
+* [handlebars](https://github.com/wycats/handlebars.js)：一个 javascript 语义模版库。
 * [metalsmith](https://github.com/segmentio/metalsmith)；An extremely simple, pluggable static site generator。
 * [chalk](https://github.com/chalk/chalk)：Terminal string styling done right。
 * [download-git-repo](https://github.com/flipxfx/download-git-repo)：Download and extract a git repository (GitHub, GitLab, Bitbucket) from node。
